@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             'name' => "admin",
             'email' => "admin@cork.com",
             'password' => bcrypt('password'),
+            'role' => 'admin',
         ]);
     }
 }
