@@ -13,6 +13,13 @@
 
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 @switch($page_name)
+    @case('barang')
+      {{-- Table Datatable HTML5 --}}
+      <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/datatables.css')}}">
+      <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/custom_dt_html5.css')}}">
+      <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/dt-global_style.css')}}">
+      @break
+
     @case('analytics')
       {{-- Dashboard --}}
 <link href="{{asset('plugins/apex/apexcharts.css')}}" rel="stylesheet" type="text/css">

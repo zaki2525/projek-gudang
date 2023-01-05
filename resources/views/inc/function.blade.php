@@ -14,6 +14,10 @@ if (!function_exists('setTitle')) :
         elseif ($page_name === 'sales') :
             echo 'Sales Admin ' . $admin_name;
 
+        //Barang
+        elseif ($page_name === 'barang') :
+            echo 'Barang ' . $admin_name;
+        
         // Apps
         elseif ($page_name === 'calendar') :
             echo 'Fullcalendar Drag and Drop Event ' . $admin_name;

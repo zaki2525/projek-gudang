@@ -48,6 +48,24 @@ Route::group(['middleware' => 'auth'] , function() {
         return view('dashboard2')->with($data);
     });
 
+    // Barang
+    Route::prefix('barang')->group(function () {
+        Route::get('/', function() {
+            // $category_name = '';
+            $data = [
+                'category_name' => 'barang',
+                'page_name' => 'barang',
+                'has_scrollspy' => 1,
+                'scrollspy_offset' => 100,
+                'alt_menu' => 0,
+
+            ];        
+            return view('barang.index')->with($data);
+        });
+
+    });
+
+
 
 
     // APPS
