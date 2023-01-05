@@ -47,55 +47,10 @@
                     <ul class="collapse submenu list-unstyled" id="components" data-parent="#topAccordion">
                         <li class="{{ ($page_name === 'barang') ? 'active' : '' }}">
                             <a href="/barang">Data Barang </a>
-                        </li>
-                        <li class="{{ ($page_name === 'tabs') ? 'active' : '' }}">
-                            <a href="/components/tabs"> Tabs </a>
-                        </li>
-                        <li class="{{ ($page_name === 'accordions') ? 'active' : '' }}">
-                            <a href="/components/accordions"> Accordions  </a>
-                        </li>
-                        <li class="{{ ($page_name === 'modals') ? 'active' : '' }}">
-                            <a href="/components/modals"> Modals </a>
-                        </li>                            
-                        <li class="{{ ($page_name === 'cards') ? 'active' : '' }}">
-                            <a href="/components/cards"> Cards </a>
-                        </li>
-                        <li class="{{ ($page_name === 'bootstrap_carousel') ? 'active' : '' }}">
-                            <a href="/components/carousel">Carousel</a>
-                        </li>
-                        <li class="{{ ($page_name === 'blockui') ? 'active' : '' }}">
-                            <a href="/components/blockui"> Block UI </a>
-                        </li>
-                        <li class="{{ ($page_name === 'countdown') ? 'active' : '' }}">
-                            <a href="/components/countdown"> Countdown </a>
-                        </li>
-                        <li class="{{ ($page_name === 'counter') ? 'active' : '' }}">
-                            <a href="/components/counter"> Counter </a>
-                        </li>
-                        <li class="{{ ($page_name === 'sweet_alerts') ? 'active' : '' }}">
-                            <a href="/components/sweet_alerts"> Sweet Alerts </a>
-                        </li>
-                        <li class="{{ ($page_name === 'timeline') ? 'active' : '' }}">
-                            <a href="/components/timeline"> Timeline </a>
-                        </li>
-                        <li class="{{ ($page_name === 'notifications') ? 'active' : '' }}">
-                            <a href="/components/notifications"> Notifications </a>
-                        </li>
-                        <li class="{{ ($page_name === 'session_timeout') ? 'active' : '' }}">
-                            <a href="/components/session_timeout"> Session Timeout </a>
-                        </li>
-                        <li class="{{ ($page_name === 'media_object') ? 'active' : '' }}">
-                            <a href="/components/media_object"> Media Object </a>
-                        </li>
-                        <li class="{{ ($page_name === 'list_group') ? 'active' : '' }}">
-                            <a href="/components/list_group"> List Group </a>
-                        </li>
-                        <li class="{{ ($page_name === 'pricing_table') ? 'active' : '' }}">
-                            <a href="/components/pricing_tables"> Pricing Tables </a>
-                        </li>
-                        <li class="{{ ($page_name === 'lightbox') ? 'active' : '' }}">
-                            <a href="/components/lightbox"> Lightbox </a>
-                        </li>
+                        </li>                        
+                        <li class="{{ ($page_name === 'barang-create') ? 'active' : '' }}">
+                            <a href="/barang/create">Tambah Data Barang </a>
+                        </li> 
                     </ul>
                 </li>
 
