@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Barang;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
@@ -26,6 +27,22 @@ class DatabaseSeeder extends Seeder
             'email' => "admin@cork.com",
             'password' => bcrypt('password'),
             'role' => 'admin',
+        ]);
+
+        Barang::create([
+            'material_name' => 'Baterai',
+            'unit' => 'pcs',
+            'stock' => '10',
+        ]);
+        Barang::create([
+            'material_name' => 'Baut',
+            'unit' => 'pcs',
+            'stock' => '110',
+        ]);
+        Barang::create([
+            'material_name' => 'Kabel Lan',
+            'unit' => 'meter',
+            'stock' => '200',
         ]);
     }
 }

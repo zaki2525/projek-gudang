@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BarangController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,19 +51,7 @@ Route::group(['middleware' => 'auth'] , function() {
 
     // Barang
     Route::prefix('barang')->group(function () {
-        Route::get('/', function() {
-            // $category_name = '';
-            $data = [
-                'category_name' => 'barang',
-                'page_name' => 'barang',
-                'has_scrollspy' => 1,
-                'scrollspy_offset' => 100,
-                'alt_menu' => 0,
-
-            ];        
-            return view('barang.index')->with($data);
-        });
-
+        Route::get('/', [BarangController::class, 'index']);
     });
 
 
