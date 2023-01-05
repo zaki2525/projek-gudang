@@ -11,7 +11,7 @@
                             <div class="table-responsive mb-4 mt-4">
                                 <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
                                     <thead>
-                                        <tr>
+                                        <tr align="center">
                                             <th>No</th>
                                             <th>Material Name</th>
                                             <th>Unit</th>
@@ -19,9 +19,9 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>                                        
-                                        <tr>
-                                            @foreach ($datas as $item)
+                                    <tbody>
+                                        @foreach ($datas as $item)                                     
+                                        <tr align="center">
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->material_name }}</td>
                                             <td>{{ $item->unit }}</td> 
