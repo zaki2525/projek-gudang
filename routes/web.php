@@ -51,16 +51,15 @@ Route::group(['middleware' => 'auth'] , function() {
     });
 
     // Barang
-    Route::prefix('barang')->group(function () {
-        Route::get('/', [BarangController::class, 'index']);
-    });
+    Route::resource('barang', BarangController::class);
+    // Route::prefix('barang')->group(function () {
+    //     Route::get('/', [BarangController::class, 'index']);
+    //     Route::post('/store', [BarangController::class, 'store'])->name('barang.store');
+    //     Route::post('/update/{barang}', [BarangController::class, 'update'])->name('barang.update');
+    // });
 
     // Transaksi
-    Route::resource('transaksi', TransaksiController::class)->middleware('auth');
-    // Route::prefix('transaksi')->group(function () {
-    //     Route::get('/', [TransaksiController::class, 'index']);
-    //     Route::post('/store', [TransaksiController::class, 'index'])->name('transaksi.store');
-    // });
+    Route::resource('transaksi', BarangController::class);
 
 
 
