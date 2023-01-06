@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaksi;
 use App\Models\Barang;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TransaksiController extends Controller
 {
@@ -57,9 +58,9 @@ class TransaksiController extends Controller
             'remark'   => 'required'
         ]);
         // return $validateData;
-        // Transaksi::create($validateData);
-        // ralert()->success('success','data transaksi berhasil di tambahkan');
-        // return redirect("/transaksi");
+        Transaksi::create($validateData);
+        
+        return redirect("/transaksi");
                       
     }
 

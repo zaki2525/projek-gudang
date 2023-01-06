@@ -59,7 +59,7 @@ Route::group(['middleware' => 'auth'] , function() {
     // });
 
     // Transaksi
-    Route::resource('transaksi', BarangController::class);
+    Route::resource('transaksi', TransaksiController::class);
 
 
 
