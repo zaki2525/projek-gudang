@@ -105,12 +105,96 @@
                                             <td>{{ $item->remark }}</td>
                                             <td>
                                                 <!-- EDIT DATA -->
-                                                <a href="#modalEditData{{ $item->id }}" class="edit" data-toggle="modal">
-                                                    <i class='bx bxs-edit-alt'></i>
-                                                </a>
-                                                <!-- END EDIT DATA -->
+                                                <button type="button" class="btn btn-dark btn-sm" data-toggle="modal"
+                                                    data-target="#modalEditData{{$item->id}}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="feather feather-edit">
+                                                        <path
+                                                            d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                                                        </path>
+                                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                                                        </path>
+                                                    </svg>
+                                                </button>
+                                                <!-- END EDIT DATA --> 
+                                                <!-- HAPUS DATA -->
+                                                <form action="/transaksi/{{ $item->id }}" method="POST" class="d-inline">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Sure?')">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                            class="feather feather-trash-2">
+                                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                                            <path
+                                                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                                            </path>
+                                                            <line x1="10" y1="11" x2="10"
+                                                                y2="17"></line>
+                                                            <line x1="14" y1="11" x2="14"
+                                                                y2="17"></line>
+                                                        </svg>
+                                                    </button>
+                                                </form>
+                                                <!-- END HAPUS DATA -->                                               
                                             </td>
                                         </tr>
+                                        <!-- MODAL TAMBAH DATA -->
+                                        <div class="modal fade" id="modalEditData{{ $item->id }}" tabindex="-1" aria-labelledby="modalEditData" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="title">Edit Transaksi</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form method="POST" action="/transaksi/{{ $item->id }}" id="addTransaksi">
+                                                                    @method('put')
+                                                                    @csrf
+                                                                    <div class="form-floating mb-3">
+                                                                        <label for="floatingInput2">Tanggal</label>
+                                                                        <input type="date" value="{{ old('tgl', $item->tgl) }}" name="tgl" id="tgl" required class="form-control">
+                                                                        
+                                                                    </div>
+                                                                    <div class="form-floating mb-3">
+                                                                        <label for="floatingInput6">Material Name</label>
+                                                                        <select name="id_barang" id="id_barang" class="form-control">
+                                                                        @foreach ($barngs as $bar)
+                                                                            <option value="{{ $bar->id }}" {{ $bar->id == $item->id_barang ? "selected" : "" }}>{{ $bar->material_name }}</option>
+                                                                        @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-floating mb-3">
+                                                                        <label for="floatingInput4">Stock In</label>
+                                                                        <input value="{{ old('masuk', $item->masuk) }}" required name="masuk" type="number" required class="form-control" id="masuk">
+                                                                    </div>
+                                                                    <div class="form-floating mb-3">
+                                                                        <label for="floatingInput5">Stock Out</label>
+                                                                        <input value="{{ old('keluar', $item->keluar) }}" required name="keluar" type="number" required class="form-control" id="keluar">
+                                                                    </div>
+                                                                    <div class="form-floating mb-3">
+                                                                        <label for="floatingInput5">Keterangan</label>
+                                                                        <input value="{{ old('keterangan', $item->keterangan) }}" required name="keterangan" type="text" required class="form-control" id="keterangan">
+                                                                    </div>
+                                                                    <div class="form-floating mb-3">
+                                                                        <label for="floatingInput5">Remarks</label>
+                                                                        <input value="{{ old('remark', $item->remark) }}" required name="remark" type="text" required class="form-control" id="remark">
+                                                                    </div>
+                                                                    
+                                                                    <div class="input-group">
+                                                                        <button class="btn btn-primary" >Update</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- END TAMBAH DATA -->
                                         @endforeach                                                                                   
                                     </tbody>
                                 </table>
