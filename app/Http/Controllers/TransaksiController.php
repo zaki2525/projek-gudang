@@ -14,7 +14,20 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        //
+        // $category_name = '';
+        $data = [
+            'category_name' => 'transaksis',
+            'page_name' => 'transaksi',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+            'alt_menu' => 0,
+        ];              
+
+        $trans = Transaksi::all();
+        
+        return view('transaksi.index', [
+            'trans' => Transaksi::all()
+        ])->with($data);
     }
 
     /**

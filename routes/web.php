@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +53,11 @@ Route::group(['middleware' => 'auth'] , function() {
     // Barang
     Route::prefix('barang')->group(function () {
         Route::get('/', [BarangController::class, 'index']);
+    });
+
+    // Transaksi
+    Route::prefix('transaksi')->group(function () {
+        Route::get('/', [TransaksiController::class, 'index']);
     });
 
 

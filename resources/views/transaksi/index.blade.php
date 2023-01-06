@@ -25,12 +25,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($datas as $item)                                     
+                                        @foreach ($trans as $item)                                     
                                         <tr align="center">
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->tgl }}</td>
                                             <td>{{ $item->material_name }}</td>
                                             <td>{{ $item->unit }}</td> 
-                                            <td>{{ $item->stock }}</td>                             
+                                            <td>{{ $item->masuk }}</td>
+                                            <td>{{ $item->keluar }}</td>
+                                            <td>{{ $item->stock }}</td>
+                                            <td>{{ $item->Keterangan }}</td>
+                                            <td>{{ $item->remark }}</td>
+                                            <td>
+                                                <!-- EDIT DATA -->
+                                                <a href="#modalEditData{{ $use->id }}" class="edit" data-toggle="modal">
+                                                    <i class='bx bxs-edit-alt'></i>
+                                                </a>
+                                                <!-- END EDIT DATA -->
+                                            </td>                             
                                             {{-- <td> 
                                                 <div class="d-flex">
                                                     <div class="usr-img-frame mr-2 rounded-circle">

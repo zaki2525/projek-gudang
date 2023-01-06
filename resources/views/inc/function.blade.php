@@ -18,6 +18,10 @@ if (!function_exists('setTitle')) :
         elseif ($page_name === 'barang') :
             echo 'Barang ' . $admin_name;
         
+        //Transaki
+        elseif ($page_name === 'transaksi') :
+            echo 'Transaksi ' . $admin_name;
+        
         // Apps
         elseif ($page_name === 'calendar') :
             echo 'Fullcalendar Drag and Drop Event ' . $admin_name;
