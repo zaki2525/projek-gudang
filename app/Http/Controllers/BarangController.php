@@ -109,6 +109,8 @@ class BarangController extends Controller
      */
     public function destroy(Barang $barang)
     {
-        //
+        if(Barang::destroy($barang->id)){
+            return redirect('barang');
+        }
     }
 }
