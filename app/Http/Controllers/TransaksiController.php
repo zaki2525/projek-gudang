@@ -95,7 +95,17 @@ class TransaksiController extends Controller
      */
     public function update(Request $request, Transaksi $transaksi)
     {
-        //
+        $validateData = $request->validate([
+            'tgl'    => 'required',
+            'id_barang'    => 'required',
+            'masuk'   => 'required',
+            'keluar'     => 'required',
+            'keterangan'        => 'required',
+            'remark'   => 'required'
+        ]);
+        if(Transaksi::where('id', $transaksi->id)->update($validateData)){
+            return redirect('transaksi');
+        }
     }
 
     /**
@@ -106,6 +116,7 @@ class TransaksiController extends Controller
      */
     public function destroy(Transaksi $transaksi)
     {
-        //
+        Transaksi::destroy($transaksi->id);
+        return redirect('/transaksi');
     }
 }
