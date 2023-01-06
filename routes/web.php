@@ -58,6 +58,7 @@ Route::group(['middleware' => 'auth'] , function() {
     // Transaksi
     Route::prefix('transaksi')->group(function () {
         Route::get('/', [TransaksiController::class, 'index']);
+        Route::post('/store', [TransaksiController::class, 'index'])->name('transaksi.store');
     });
 
 
