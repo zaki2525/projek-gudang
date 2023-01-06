@@ -7,12 +7,12 @@ if (!function_exists('setTitle')) :
 
         // echo $page_name;
 
-        $admin_name = '| CORK - Multipurpose Bootstrap Dashboard Template';
+        $admin_name = '| GUDANG - PT Mitra Ekatama ExperTech';
 
         if ($page_name === 'analytics') :
-            echo 'CORK Admin - Multipurpose Bootstrap Dashboard Template';
+            echo 'GUDANG - PT Mitra Ekatama ExperTech';
         elseif ($page_name === 'sales') :
-            echo 'Sales Admin ' . $admin_name;
+            echo 'GUDANG ' . $admin_name;
 
         //Barang
         elseif ($page_name === 'barang') :
