@@ -176,58 +176,58 @@
                     </a>
                     <ul class="collapse submenu list-unstyled" id="uiKit" data-parent="#topAccordion">
                         <li class="{{ ($page_name === 'alerts') ? 'active' : '' }}">
-                            <a href="/ui-kit/alerts"> Alerts </a>
+                            <a href="/elements/alerts"> Alerts </a>
                         </li>
                         <li class="{{ ($page_name === 'avatars') ? 'active' : '' }}">
-                            <a href="/ui-kit/avatars"> Avatar </a>
+                            <a href="/elements/avatars"> Avatar </a>
                         </li>
                         <li class="{{ ($page_name === 'badges') ? 'active' : '' }}">
-                            <a href="/ui-kit/badges"> Badges </a>
+                            <a href="/elements/badges"> Badges </a>
                         </li>
                         <li class="{{ ($page_name === 'breadcrumbs') ? 'active' : '' }}">
-                            <a href="/ui-kit/breadcrumbs"> Breadcrumbs </a>
+                            <a href="/elements/breadcrumbs"> Breadcrumbs </a>
                         </li>                            
                         <li class="{{ ($page_name === 'buttons') ? 'active' : '' }}">
-                            <a href="/ui-kit/buttons"> Buttons </a>
+                            <a href="/elements/buttons"> Buttons </a>
                         </li>
                         <li class="{{ ($page_name === 'button_group') ? 'active' : '' }}">
-                            <a href="/ui-kit/button_group"> Button Groups </a>
+                            <a href="/elements/button_group"> Button Groups </a>
                         </li>
                         <li class="{{ ($page_name === 'color_library') ? 'active' : '' }}">
-                            <a href="/ui-kit/color_library"> Color Library </a>
+                            <a href="/elements/color_library"> Color Library </a>
                         </li>
                         <li class="{{ ($page_name === 'dropdown') ? 'active' : '' }}">
-                            <a href="/ui-kit/dropdown"> Dropdown </a>
+                            <a href="/elements/dropdown"> Dropdown </a>
                         </li>
                         <li class="{{ ($page_name === 'infobox') ? 'active' : '' }}">
-                            <a href="/ui-kit/infobox"> Infobox </a>
+                            <a href="/elements/infobox"> Infobox </a>
                         </li>
                         <li class="{{ ($page_name === 'jumbotron') ? 'active' : '' }}">
-                            <a href="/ui-kit/jumbotron"> Jumbotron </a>
+                            <a href="/elements/jumbotron"> Jumbotron </a>
                         </li>
                         <li class="{{ ($page_name === 'loaders') ? 'active' : '' }}">
-                            <a href="/ui-kit/loaders"> Loader </a>
+                            <a href="/elements/loaders"> Loader </a>
                         </li>
                         <li class="{{ ($page_name === 'pagination') ? 'active' : '' }}">
-                            <a href="/ui-kit/pagination"> Pagination </a>
+                            <a href="/elements/pagination"> Pagination </a>
                         </li>
                         <li class="{{ ($page_name === 'popovers') ? 'active' : '' }}">
-                            <a href="/ui-kit/popovers"> Popovers </a>
+                            <a href="/elements/popovers"> Popovers </a>
                         </li>
                         <li class="{{ ($page_name === 'progress_bar') ? 'active' : '' }}">
-                            <a href="/ui-kit/progress_bar"> Progress Bar </a>
+                            <a href="/elements/progress_bar"> Progress Bar </a>
                         </li>
                         <li class="{{ ($page_name === 'search') ? 'active' : '' }}">
-                            <a href="/ui-kit/search"> Search </a>
+                            <a href="/elements/search"> Search </a>
                         </li>
                         <li class="{{ ($page_name === 'tooltips') ? 'active' : '' }}">
-                            <a href="/ui-kit/tooltips"> Tooltips </a>
+                            <a href="/elements/tooltips"> Tooltips </a>
                         </li>
                         <li class="{{ ($page_name === 'treeview') ? 'active' : '' }}">
-                            <a href="/ui-kit/treeview"> Treeview </a>
+                            <a href="/elements/treeview"> Treeview </a>
                         </li>
                         <li class="{{ ($page_name === 'typography') ? 'active' : '' }}">
-                            <a href="/ui-kit/typography"> Typography </a>
+                            <a href="/elements/typography"> Typography </a>
                         </li>
                     </ul>
                 </li>
