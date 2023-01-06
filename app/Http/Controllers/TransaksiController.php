@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaksi;
+use App\Models\Barang;
 use Illuminate\Http\Request;
 
 class TransaksiController extends Controller
@@ -22,11 +23,10 @@ class TransaksiController extends Controller
             'scrollspy_offset' => 100,
             'alt_menu' => 0,
         ];              
-
-        $trans = Transaksi::all();
         
         return view('transaksi.index', [
-            'trans' => Transaksi::all()
+            'trans' => Transaksi::all(),
+            'barngs' => Barang::all(),
         ])->with($data);
     }
 
@@ -48,7 +48,19 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'tgl'    => 'required',
+            'id_barang'    => 'required',
+            'masuk'   => 'required',
+            'keluar'     => 'required',
+            'keterangan'        => 'required',
+            'remark'   => 'required'
+        ]);
+        // return $validateData;
+        // Transaksi::create($validateData);
+        // ralert()->success('success','data transaksi berhasil di tambahkan');
+        // return redirect("/transaksi");
+                      
     }
 
     /**

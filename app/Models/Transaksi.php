@@ -9,4 +9,9 @@ class Transaksi extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+    public function barang()
+    {
+    	return $this->belongsTo(Barang::class, 'id');
+    }
 }
