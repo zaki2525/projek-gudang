@@ -48,7 +48,15 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'material_name' => 'required',
+            'unit' => 'required',
+            'stock' => 'required'   
+        ]);
+
+        if(Barang::create($data)){
+            return redirect('barang');
+        }
     }
 
     /**
@@ -82,7 +90,15 @@ class BarangController extends Controller
      */
     public function update(Request $request, Barang $barang)
     {
-        //
+        $data = $request->validate([
+            'material_name' => 'required',
+            'unit' => 'required',
+            'stock' => 'required'   
+        ]);
+
+        if(Barang::where('id', $barang->id)->update($data)){
+            return redirect('barang');
+        }
     }
 
     /**
