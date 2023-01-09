@@ -9,4 +9,9 @@ class Barang extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+    public function namaBarang()
+    {
+        return $this->belongsTo(NamaBarang::class, 'id_nama_barang');
+    }
 }

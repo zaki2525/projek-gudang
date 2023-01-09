@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Barang;
+use App\Models\NamaBarang;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
@@ -29,19 +30,31 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
         ]);
 
-        Barang::create([
-            'material_name' => 'Baterai',
+        NamaBarang::create([
+            'nama' => 'Baut' ,           
+            'unit' => 'pcs'
+        ]);
+
+        NamaBarang::create([
+            'nama' => 'Baterai',
             'unit' => 'pcs',
+        ]);
+
+        NamaBarang::create([
+            'nama' => 'Kabel Lan',
+            'unit' => 'meter',
+        ]);
+
+        Barang::create([
+            'id_nama_barang' => '1',
             'stock' => '10',
         ]);
         Barang::create([
-            'material_name' => 'Baut',
-            'unit' => 'pcs',
+            'id_nama_barang' => '2',            
             'stock' => '110',
         ]);
         Barang::create([
-            'material_name' => 'Kabel Lan',
-            'unit' => 'meter',
+            'id_nama_barang' => '3',            
             'stock' => '200',
         ]);
     }
