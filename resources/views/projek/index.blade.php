@@ -30,8 +30,8 @@
                                             @csrf
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput2">Projek Name</label>
-                                                <input value="{{ old('projek_name') }}" required name="projek_name"
-                                                    type="text" required class="form-control" id="projek_name">
+                                                <input value="{{ old('nama') }}" required name="nama"
+                                                    type="text" required class="form-control" id="nama">
                                             </div>
                                             <div class="input-group">
                                                 <button class="btn btn-primary" onClick="store()">Create</button>
@@ -49,13 +49,14 @@
                                 <tr align="center">
                                     <th>No</th>
                                     <th>Projek Name</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($datas as $item)
                                     <tr align="center">
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->projek_name }}</td>
+                                        <td>{{ $item->nama }}</td>
                                         <td>                                    
                                                 <button type="button" class="btn btn-dark btn-sm" data-toggle="modal"
                                                     data-target="#modalEditData{{$item->id}}">
@@ -100,7 +101,7 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="title">Edit Barang
+                                                <h5 class="modal-title" id="title">Edit Projek
                                                 </h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
@@ -113,10 +114,10 @@
                                                     @csrf
                                                     @method('put')
                                                     <div class="form-floating mb-3">
-                                                        <label for="floatingInput2">Material Name</label>
-                                                        <input value="{{ old('projek_name', $item->projek_name) }}" required
-                                                            name="projek_name" type="text" required
-                                                            class="form-control" id="projek_name">
+                                                        <label for="floatingInput2">Projek Name</label>
+                                                        <input value="{{ old('nama', $item->nama) }}" required
+                                                            name="nama" type="text" required
+                                                            class="form-control" id="nama">
                                                     </div>                                            
                                                     <div class="input-group">
                                                         <button class="btn btn-primary"

@@ -48,7 +48,13 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'nama' => 'required'  
+        ]);
+
+        if(Project::create($data)){
+            return redirect('projek');
+        }
     }
 
     /**
@@ -82,7 +88,13 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $projek)
     {
-        //
+        $data = $request->validate([
+            'nama' => 'required'   
+        ]);
+
+        if(Project::where('id', $projek->id)->update($data)){
+            return redirect('projek');
+        }
     }
 
     /**
@@ -93,6 +105,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $projek)
     {
-        //
+        if(Project::destroy($projek->id)){
+            return redirect('projek');
+        }
     }
 }
