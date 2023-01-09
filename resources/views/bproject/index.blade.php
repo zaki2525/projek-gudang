@@ -42,7 +42,7 @@
                                                 <label for="floatingInput5">Stock</label>
                                                 <input value="{{ old('stock') }}" required name="stock" type="number"
                                                     required class="form-control" id="stock">
-                                            </div>                           
+                                            </div>
                                             <div class="input-group">
                                                 <button class="btn btn-primary" onClick="store()">Create</button>
                                             </div>
@@ -57,7 +57,7 @@
                         <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
                             <thead>
                                 <tr align="center">
-                                    <th>No</th>                                    
+                                    <th>No</th>
                                     <th>Project</th>
                                     <th>Action</th>
                                 </tr>
@@ -65,9 +65,19 @@
                             <tbody>
                                 @foreach ($datas as $item)
                                     <tr align="center">
-                                        <td>{{ $loop->iteration }}</td>                                    
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->project->nama }}</td>
                                         <td>
+                                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                                data-target="#modalViewData{{ $item->id }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-eye">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                    <circle cx="12" cy="12" r="3"></circle>
+                                                </svg>
+                                            </button>
                                             <button type="button" class="btn btn-dark btn-sm" data-toggle="modal"
                                                 data-target="#modalEditData{{ $item->id }}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -94,9 +104,11 @@
                                                         <path
                                                             d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
                                                         </path>
-                                                        <line x1="10" y1="11" x2="10" y2="17">
+                                                        <line x1="10" y1="11" x2="10"
+                                                            y2="17">
                                                         </line>
-                                                        <line x1="14" y1="11" x2="14" y2="17">
+                                                        <line x1="14" y1="11" x2="14"
+                                                            y2="17">
                                                         </line>
                                                     </svg>
                                                 </button>
@@ -104,6 +116,54 @@
                                             <!-- END HAPUS DATA -->
                                         </td>
                                     </tr>
+
+                                    <!-- MODAL VIEW DATA -->
+                                    <div class="modal fade" id="modalViewData{{ $item->id }}" tabindex="-1"
+                                        aria-labelledby="modalEditBarang" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="title">Edit Barang
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="POST" action="barang/{{ $item->id }}"
+                                                        id="addUser">
+                                                        @csrf
+                                                        @method('put')
+                                                        <div class="form-floating mb-3">
+                                                            <label for="floatingInput2">Material Name</label>
+                                                            <input
+                                                                value="{{ old('material_name', $item->material_name) }}"
+                                                                required name="material_name" type="text" required
+                                                                class="form-control" id="material_name">
+                                                        </div>
+                                                        <div class="form-floating mb-3">
+                                                            <label for="floatingInput4">Unit</label>
+                                                            <input value="{{ old('unit', $item->unit) }}" required
+                                                                name="unit" type="text" required
+                                                                class="form-control" id="unit">
+                                                        </div>
+                                                        <div class="form-floating mb-3">
+                                                            <label for="floatingInput5">Stock</label>
+                                                            <input value="{{ old('stock', $item->stock) }}" required
+                                                                name="stock" type="number" required
+                                                                class="form-control" id="stock">
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <button class="btn btn-primary"
+                                                                onClick="store()">Create</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END VIEW DATA -->
 
                                     <!-- MODAL EDIT DATA -->
                                     <div class="modal fade" id="modalEditData{{ $item->id }}" tabindex="-1"
