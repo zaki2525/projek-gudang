@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bprojek;
+use App\Models\BarangProject;
 use Illuminate\Http\Request;
 
-class BprojekController extends Controller
+class BprojectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,10 +23,10 @@ class BprojekController extends Controller
             'alt_menu' => 0,
         ];              
 
-        $datas = Bprojek::all();
+        $datas = BarangProject::all();
         
-        return view('bprojek.index', [
-            'datas' => Bprojek::all()
+        return view('bproject.index', [
+            'datas' => BarangProject::all()
         ])->with($data);
     }
 
@@ -54,10 +54,10 @@ class BprojekController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Bprojek  $bprojek
+     * @param  \App\Models\BarangProject  $bprojek
      * @return \Illuminate\Http\Response
      */
-    public function show(Bprojek $bprojek)
+    public function show(BarangProject $bprojek)
     {
         //
     }
@@ -65,10 +65,10 @@ class BprojekController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Bprojek  $bprojek
+     * @param  \App\Models\BarangProject  $bprojek
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bprojek $bprojek)
+    public function edit(BarangProject $bprojek)
     {
         //
     }
@@ -77,10 +77,10 @@ class BprojekController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Bprojek  $bprojek
+     * @param  \App\Models\BarangProject  $bprojek
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bprojek $bprojek)
+    public function update(Request $request, BarangProject $bprojek)
     {
         //
     }
@@ -88,10 +88,10 @@ class BprojekController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Bprojek  $bprojek
+     * @param  \App\Models\BarangProject  $bprojek
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bprojek $bprojek)
+    public function destroy(BarangProject $bprojek)
     {
         //
     }

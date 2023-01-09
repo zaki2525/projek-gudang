@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('id_project');                      
             $table->integer('stock');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

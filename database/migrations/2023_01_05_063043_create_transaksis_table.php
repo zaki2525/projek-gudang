@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('keterangan');
             $table->string('remark');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
