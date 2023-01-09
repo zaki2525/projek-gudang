@@ -64,10 +64,10 @@ Route::group(['middleware' => 'auth'] , function() {
     Route::resource('transaksi', TransaksiController::class);
 
     // Projek
-    Route::resource('projek', ProjekController::class);
+    Route::resource('projek', ProjectController::class);
 
     // Projek
-    Route::resource('bprojek', BprojekController::class);
+    Route::resource('bprojek', BprojectController::class);
 
 
 
