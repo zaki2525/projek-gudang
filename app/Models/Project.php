@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Projek extends Model
 {
     use HasFactory;
+    
 }
