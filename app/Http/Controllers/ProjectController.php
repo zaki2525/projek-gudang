@@ -16,8 +16,8 @@ class ProjectController extends Controller
     {
         // $category_name = '';
         $data = [
-            'category_name' => 'projek',
-            'page_name' => 'projek',
+            'category_name' => 'project',
+            'page_name' => 'project',
             'has_scrollspy' => 1,
             'scrollspy_offset' => 100,
             'alt_menu' => 0,
