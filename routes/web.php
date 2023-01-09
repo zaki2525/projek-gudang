@@ -67,7 +67,7 @@ Route::group(['middleware' => 'auth'] , function() {
     Route::resource('projek', ProjectController::class);
 
     // Projek
-    Route::resource('bprojek', BprojectController::class);
+    Route::resource('bproject', BprojectController::class);
 
 
 
