@@ -62,6 +62,27 @@
                                                         </select>
                                                     </div>
 
+                                                    <div class="form-floating mb-3 menu" id="code_project" style='display:none'>
+                                                        <label for="floatingInput5">Code Projek</label>
+                                                        <input value="{{ old('code_project') }}" required name="code_project" type="text" required class="form-control" id="code_project">
+                                                    </div>
+                                                    
+                                                    <div class="code-container"> 
+                                                    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+                                                    <script>
+                                                        
+                                                        $('#id_project').on('change', function() {
+                                                            // const selected = $(this).find('option:selected');
+                                                            const selected = document.getElementById('id_project').value;
+                                                            if(selected != '-'){
+                                                                document.getElementById('code_project').style.display = "block"
+                                                            } else{
+                                                                document.getElementById('code_project').style.display = "none"                                                               
+                                                            }
+                                                            });
+                                                    </script>
+
+                                                    </div>
                                                     <div class="form-floating mb-3">
                                                         <label for="floatingInput5">Stock Out</label>
                                                         <input value="{{ old('keluar') }}" required name="keluar" type="number" required class="form-control" id="keluar">
