@@ -41,9 +41,9 @@
                                                     </div>
                                                     <div class="form-floating mb-3">
                                                         <label for="floatingInput6">Material Name</label>
-                                                        <select name="id_nama_barang" id="id_nama_barang" class="form-control">
-                                                        @foreach ($nams as $bar)
-                                                            <option value="{{ $bar->id }}">{{ $bar->nama }}</option>
+                                                        <select name="id_barang" id="id_barang" class="form-control">
+                                                        @foreach ($barngs as $bar)
+                                                            <option value="{{ $bar->id }}">{{ $bar->namaBarang->nama }}</option>
                                                         @endforeach
                                                         </select>
                                                     </div>
@@ -64,7 +64,7 @@
 
                                                     <div class="form-floating mb-3 menu" id="code_project" style='display:none'>
                                                         <label for="floatingInput5">Code Projek</label>
-                                                        <input value="{{ old('code_project') }}" required name="code_project" type="text" required class="form-control" id="code_project">
+                                                        <input value="{{ old('code_project') }}" name="code_project" type="text" required class="form-control" id="code_project">
                                                     </div>
                                                     
                                                     <div class="code-container"> 
@@ -128,11 +128,11 @@
                                         <tr align="center">
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->tgl }}</td>
-                                            <td>{{ $item->namaBarang->material_name }}</td>
-                                            <td>{{ $item->namaBarang->unit }}</td> 
+                                            <td>{{ $item->barang->namaBarang->nama }}</td>
+                                            <td>{{ $item->barang->namaBarang->unit }}</td> 
                                             <td>{{ $item->masuk }}</td>
                                             <td>{{ $item->keluar }}</td>
-                                            <td>{{ $item->barang->stock }}</td>
+                                            <td>{{ $item->stock }}</td>
                                             <td>{{ $item->keterangan }}</td>
                                             <td>{{ $item->remark }}</td>
                                             <td>
@@ -195,9 +195,9 @@
                                                                     </div>
                                                                     <div class="form-floating mb-3">
                                                                         <label for="floatingInput6">Material Name</label>
-                                                                        <select name="id_nama_barang" id="id_nama_barang" class="form-control">
-                                                                        @foreach ($nams as $bar)
-                                                                            <option value="{{ $bar->id }}" {{ $bar->id == $item->id_nama_barang ? "selected" : "" }}>{{ $bar->nama }}</option>
+                                                                        <select name="id_barang" id="id_barang" class="form-control">
+                                                                        @foreach ($barngs as $bar)
+                                                                            <option value="{{ $bar->id }}" {{ $bar->id == $item->id_barang ? "selected" : "" }}>{{ $bar->nama }}</option>
                                                                         @endforeach
                                                                         </select>
                                                                     </div>

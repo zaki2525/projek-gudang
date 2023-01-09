@@ -14,17 +14,12 @@ class Transaksi extends Model
     
     public function barang()
     {
-        return $this->belongsTo(Barang::class, 'id');
+        return $this->belongsTo(Barang::class, 'id_barang');
     }
 
-
-    public function namaBarang()
-    {
-        return $this->belongsTo(NamaBarang::class, 'id_nama_barang');
-    }
 
     public function project()
     {
-        return $this->belongsTo(Project::class, 'id');
+        return $this->belongsTo(Project::class, 'id_project');
     }
 }

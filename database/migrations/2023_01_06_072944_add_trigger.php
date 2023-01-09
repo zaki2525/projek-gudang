@@ -16,27 +16,27 @@ return new class extends Migration
     {
         DB::unprepared('CREATE TRIGGER masuk AFTER INSERT ON `transaksis` FOR EACH ROW
         BEGIN
-           UPDATE barangs SET barangs.stock = barangs.stock + NEW.masuk WHERE barangs.id = NEW.id_nama_barang;
+           UPDATE barangs SET barangs.stock = barangs.stock + NEW.masuk WHERE barangs.id = NEW.id_barang;
         END');
         DB::unprepared('CREATE TRIGGER keluar AFTER INSERT ON `transaksis` FOR EACH ROW
         BEGIN
-        UPDATE barangs SET barangs.stock = barangs.stock - NEW.keluar WHERE barangs.id = NEW.id_nama_barang;
+        UPDATE barangs SET barangs.stock = barangs.stock - NEW.keluar WHERE barangs.id = NEW.id_barang;
         END');
         DB::unprepared('CREATE TRIGGER masuk_update AFTER UPDATE ON `transaksis` FOR EACH ROW
         BEGIN
-           UPDATE barangs SET barangs.stock = barangs.stock - old.masuk + NEW.masuk WHERE barangs.id = NEW.id_nama_barang;
+           UPDATE barangs SET barangs.stock = barangs.stock - old.masuk + NEW.masuk WHERE barangs.id = NEW.id_barang;
         END');
         DB::unprepared('CREATE TRIGGER keluar_update AFTER UPDATE ON `transaksis` FOR EACH ROW
         BEGIN
-        UPDATE barangs SET barangs.stock = barangs.stock + old.keluar - NEW.keluar WHERE barangs.id = NEW.id_nama_barang;
+        UPDATE barangs SET barangs.stock = barangs.stock + old.keluar - NEW.keluar WHERE barangs.id = NEW.id_barang;
         END');
         DB::unprepared('CREATE TRIGGER masuk_delete AFTER DELETE ON `transaksis` FOR EACH ROW
         BEGIN
-        UPDATE barangs SET barangs.stock = barangs.stock - OLD.masuk WHERE barangs.id = OLD.id_nama_barang;
+        UPDATE barangs SET barangs.stock = barangs.stock - OLD.masuk WHERE barangs.id = OLD.id_barang;
         END');
         DB::unprepared('CREATE TRIGGER keluar_delete AFTER DELETE ON `transaksis` FOR EACH ROW
         BEGIN
-        UPDATE barangs SET barangs.stock = barangs.stock + OLD.keluar WHERE barangs.id = OLD.id_nama_barang;
+        UPDATE barangs SET barangs.stock = barangs.stock + OLD.keluar WHERE barangs.id = OLD.id_barang;
         END');
     }
 

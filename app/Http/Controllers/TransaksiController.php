@@ -6,6 +6,7 @@ use App\Models\Transaksi;
 use App\Models\Barang;
 use App\Models\NamaBarang;
 use App\Models\Project;
+use App\Models\Bproject;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -30,7 +31,6 @@ class TransaksiController extends Controller
         return view('transaksi.index', [
             'trans' => Transaksi::all(),
             'barngs' => Barang::all(),
-            'nams' => NamaBarang::all(),
             'pros' => Project::all(),
         ])->with($data);
     }
@@ -53,18 +53,48 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = $request->validate([
-            'tgl'    => 'required',
-            'id_nama_barang'    => 'required',
-            'masuk'   => 'required',
-            'keluar'     => 'required',
-            'keterangan'        => 'required',
-            'remark'   => 'required'
-        ]);
-        // return $validateData;
-        Transaksi::create($validateData);
+
+        // return $request->all(); 
+
+        if ($request->id_project != '-'){
+            $validateData = $request->validate([
+                'id_barang'    => 'required',
+                'id_project' => 'required',
+                'code_project' => 'required', 
+                'masuk'   => 'required',
+                'keluar'     => 'required',
+                'stock' => Barang::where('id', $request->id_barang)->first()->stock,
+                'keterangan'        => 'required',
+                'remark'   => 'required'
+            ]);
+            $data = $request->validate([
+                'code_project' => 'required', 
+                'id_project' => 'required',
+                'id_nama_barang' => Barang::where('id', $request->id_barang)->first()->id_nama_barang,
+                'stock'     => $validateData->stock,
+            ]);
+            // return $validateData;
+            Transaksi::create($validateData);
+            Bproject::create($data);
+            
+            return redirect("/transaksi");
+        } else {
+            $validateData = $request->validate([
+                'id_barang'    => 'required',
+                'id_project' => 'required',
+                'code_project' => 'required', 
+                'masuk'   => 'required',
+                'keluar'     => 'required',
+                'stock' => Barang::where('id', $request->id_barang)->first()->stock,
+                'keterangan'        => 'required',
+                'remark'   => 'required'
+            ]);
+            // return $validateData;
+            Transaksi::create($validateData);
+            
+            return redirect("/transaksi");  
+        }
         
-        return redirect("/transaksi");
                       
     }
 
