@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\ProjekController;
+use App\Http\Controllers\BprojekController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,6 +62,12 @@ Route::group(['middleware' => 'auth'] , function() {
 
     // Transaksi
     Route::resource('transaksi', TransaksiController::class);
+
+    // Projek
+    Route::resource('projek', ProjekController::class);
+
+    // Projek
+    Route::resource('bprojek', BprojekController::class);
 
 
 

@@ -14,7 +14,20 @@ class BprojekController extends Controller
      */
     public function index()
     {
-        //
+        // $category_name = '';
+        $data = [
+            'category_name' => 'bprojek',
+            'page_name' => 'bprojek',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+            'alt_menu' => 0,
+        ];              
+
+        $datas = Bprojek::all();
+        
+        return view('bprojek.index', [
+            'datas' => Bprojek::all()
+        ])->with($data);
     }
 
     /**
