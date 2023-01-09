@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();            
             $table->integer('id_nama_barang');
-            $table->integer('id_project');
+            $table->string('id_project');
+            $table->string('code_project');
             $table->integer('masuk');
             $table->integer('keluar');
             $table->integer('stock');

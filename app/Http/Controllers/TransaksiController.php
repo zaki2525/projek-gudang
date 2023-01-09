@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaksi;
 use App\Models\Barang;
+use App\Models\NamaBarang;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -28,6 +30,8 @@ class TransaksiController extends Controller
         return view('transaksi.index', [
             'trans' => Transaksi::all(),
             'barngs' => Barang::all(),
+            'nams' => NamaBarang::all(),
+            'pros' => Project::all(),
         ])->with($data);
     }
 
@@ -51,7 +55,7 @@ class TransaksiController extends Controller
     {
         $validateData = $request->validate([
             'tgl'    => 'required',
-            'id_barang'    => 'required',
+            'id_nama_barang'    => 'required',
             'masuk'   => 'required',
             'keluar'     => 'required',
             'keterangan'        => 'required',
