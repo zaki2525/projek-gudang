@@ -30,8 +30,8 @@
                                             @csrf
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput2">Material Name</label>
-                                                <input value="{{ old('material_name') }}" required name="material_name"
-                                                    type="text" required class="form-control" id="material_name">
+                                                <input value="{{ old('nama') }}" required name="nama"
+                                                    type="text" required class="form-control" id="nama">
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput4">Unit</label>

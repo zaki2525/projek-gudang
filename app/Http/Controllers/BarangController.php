@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\NamaBarang;
 use Illuminate\Http\Request;
 
 class BarangController extends Controller
@@ -48,15 +49,21 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'material_name' => 'required',
-            'unit' => 'required',
-            'stock' => 'required'   
+        $data_nama_barang = $request->validate([
+            'nama' => 'required',
+            'unit' => 'required',           
         ]);
 
-        if(Barang::create($data)){
-            return redirect('barang');
-        }
+        if($nama_barang = NamaBarang::create($data_nama_barang)){
+            $data_barang = [
+                'id_nama_barang' => $nama_barang->id,
+                // 'stock' => $request->validate(['stock'], ['required'])
+                'stock' => $request->stock
+            ];    
+                if(Barang::create($data_barang)){
+                    return redirect('barang');
+                }
+        }     
     }
 
     /**
