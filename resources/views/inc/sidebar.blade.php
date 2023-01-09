@@ -47,10 +47,7 @@
                     <ul class="collapse submenu list-unstyled" id="components" data-parent="#topAccordion">
                         <li class="{{ ($page_name === 'barang') ? 'active' : '' }}">
                             <a href="/barang">Data Barang </a>
-                        </li>                        
-                        <li class="{{ ($page_name === 'barang-create') ? 'active' : '' }}">
-                            <a href="/barang/create">Tambah Data Barang </a>
-                        </li> 
+                        </li>                                                
                     </ul>
                 </li>
 

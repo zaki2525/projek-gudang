@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Transaksi extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+    protected $guarded = ['id'];    
 
-    public function barang()
+    public function namaBarang()
     {
-    	return $this->belongsTo(Barang::class, 'id_barang');
+        return $this->belongsTo(NamaBarang::class, 'id_nama_barang');
     }
 }
