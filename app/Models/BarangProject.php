@@ -17,9 +17,9 @@ class BarangProject extends Model
         return $this->belongsTo(Project::class, 'id_project');
     }
 
-    public function namabarang()
+    public function barang()
     {
-        return $this->belongsTo(NamaBarang::class, 'id_nama_barang');
+        return $this->belongsTo(Barang::class, 'id_barang');
     }
 }
 
