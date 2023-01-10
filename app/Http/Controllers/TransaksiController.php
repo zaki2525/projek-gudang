@@ -58,7 +58,11 @@ class TransaksiController extends Controller
 
         $barang = Barang::all()->where('id', $request->id_barang)->first();
         // return $barang->stock;
-
+        if($request->masuk > 0){
+            $stok_transaksi = $barang->stock + $request->masuk;
+        } else {
+            $stok_transaksi = $barang->stock - $request->keluar;
+        }
         if ($request->id_project != '-'){
             $data_transaksi = [
                 'id_barang'    => $request->id_barang,
@@ -66,7 +70,7 @@ class TransaksiController extends Controller
                 'code_project' => $request->code_project, 
                 'masuk'   => $request->masuk,
                 'keluar'     => $request->keluar,
-                'stock' => $barang->stock,
+                'stock' => $stok_transaksi,               
                 'keterangan'        => $request->keterangan,
                 'remark'   => $request->remark
             ];
@@ -88,7 +92,7 @@ class TransaksiController extends Controller
                 'code_project' => $request->code_project, 
                 'masuk'   => $request->masuk,
                 'keluar'     => $request->keluar,
-                'stock' => $barang->stock,
+                'stock' => $stok_transaksi,
                 'keterangan'        => $request->keterangan,
                 'remark'   => $request->remark
             ];

@@ -64,7 +64,7 @@
 
                                                     <div class="form-floating mb-3 menu" id="code_project" style='display:none'>
                                                         <label for="floatingInput5">Code Projek</label>
-                                                        <input value="-" name="code_project" type="text" class="form-control" id="code_project">
+                                                        <input value="{{ old('code_project') }}" name="code_project" type="text" class="form-control" id="code_project">
                                                     </div>
                                                     
                                                     <div class="code-container"> 
@@ -86,10 +86,6 @@
                                                     <div class="form-floating mb-3">
                                                         <label for="floatingInput5">Stock Out</label>
                                                         <input value="{{ old('keluar') }}" required name="keluar" type="number" required class="form-control" id="keluar">
-                                                    </div>
-                                                    <div class="form-floating mb-3 menu" id="code_project" style='display:none'>
-                                                        <label for="floatingInput5">Code Projek</label>
-                                                        <input value="{{ old('stock') }}" name="stock" type="text" class="form-control" id="stock">
                                                     </div>
                                                     <div class="form-floating mb-3">
                                                         <label for="floatingInput5">Keterangan</label>
@@ -135,8 +131,8 @@
                                             <td>{{ $item->barang->namaBarang->nama }}</td>
                                             <td>{{ $item->barang->namaBarang->unit }}</td> 
                                             <td>{{ $item->masuk }}</td>
-                                            <td>{{ $item->keluar }}</td>
-                                            <td>{{ $item->stock }}</td>
+                                            <td>{{ $item->keluar }}</td>                                         
+                                            <td>{{ $item->stock}}</td>                                          
                                             <td>{{ $item->keterangan }}</td>
                                             <td>{{ $item->remark }}</td>
                                             <td>
