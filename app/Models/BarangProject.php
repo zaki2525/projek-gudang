@@ -16,6 +16,11 @@ class BarangProject extends Model
     {
         return $this->belongsTo(Project::class, 'id_project');
     }
+
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class, 'id_barang');
+    }
 }
 
 

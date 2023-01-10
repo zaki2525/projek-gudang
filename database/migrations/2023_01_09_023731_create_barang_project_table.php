@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('barang_projects', function (Blueprint $table) {
             $table->id();
             $table->string('code_project');
-            $table->integer('id_nama_barang');  
+            $table->integer('id_barang');  
             $table->integer('id_project');                      
             $table->integer('stock');
             $table->timestamps();
