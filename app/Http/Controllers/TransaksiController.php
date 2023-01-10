@@ -54,44 +54,46 @@ class TransaksiController extends Controller
     public function store(Request $request)
     {
 
-        // return $request->all(); 
-        // return Barang::all()->where('id', $request->id_barang)->first();
+        // return $request->all();     
+
+        $barang = Barang::all()->where('id', $request->id_barang)->first();
+        // return $barang->stock;
 
         if ($request->id_project != '-'){
-            $validateData = $request->validate([
-                'id_barang'    => 'required',
-                'id_project' => 'required',
-                'code_project' => 'required', 
-                'masuk'   => 'required',
-                'keluar'     => 'required',
-                'stock' => Barang::all()->where('id', $request->id_barang)->first()->stock,
-                'keterangan'        => 'required',
-                'remark'   => 'required'
-            ]);
-            $data = $request->validate([
-                'code_project' => 'required', 
-                'id_project' => 'required',
-                'id_nama_barang' => Barang::all()->where('id', $request->id_barang)->first()->id_nama_barang,
-                'stock'     => $request->stock,
-            ]);
-            // return $validateData;
-            Transaksi::create($validateData);
-            BarangProject::create($data);
+            $data_transaksi = [
+                'id_barang'    => $request->id_barang,
+                'id_project' => $request->id_project,
+                'code_project' => $request->code_project, 
+                'masuk'   => $request->masuk,
+                'keluar'     => $request->keluar,
+                'stock' => $barang->stock,
+                'keterangan'        => $request->keterangan,
+                'remark'   => $request->remark
+            ];
+            $data_barang_project = [
+                'code_project' => $request->code_project, 
+                'id_project' => $request->id_project,
+                'id_nama_barang' => $barang->id_nama_barang,
+                'stock'     => $request->keluar,
+            ];
+            // return $data_transaksi;
+            Transaksi::create($data_transaksi);
+            BarangProject::create($data_barang_project);
             
             return redirect("/transaksi");
         } else {
-            $validateData = $request->validate([
-                'id_barang'    => 'required',
-                'id_project' => 'required',
-                'code_project' => 'required', 
-                'masuk'   => 'required',
-                'keluar'     => 'required',
-                'stock' => Barang::all()->where('id', $request->id_barang)->first()->stock,
-                'keterangan'        => 'required',
-                'remark'   => 'required'
-            ]);
+            $data_transaksi = [
+                'id_barang'    => $request->id_barang,
+                'id_project' => $request->id_project,
+                'code_project' => $request->code_project, 
+                'masuk'   => $request->masuk,
+                'keluar'     => $request->keluar,
+                'stock' => $barang->stock,
+                'keterangan'        => $request->keterangan,
+                'remark'   => $request->remark
+            ];
             // return $validateData;
-            Transaksi::create($validateData);
+            Transaksi::create($data_transaksi);
             
             return redirect("/transaksi");  
         }
