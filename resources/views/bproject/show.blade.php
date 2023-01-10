@@ -6,6 +6,12 @@
         <div class="row layout-top-spacing">                                                      
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <div class="widget-content widget-content-area br-6">  
+                    <div>                
+                        <a href="/bproject"><button type="button" class="btn btn-primary mb-1">                        
+                                Kembali
+                            </button>
+                        </a>
+                    </div>
                     <h3 class="text-center">{{$bproject->nama}}</h3>   
                     <div class="table-responsive mb-4 mt-4">
                         <table id="html5-extension" class="table table-hover non-hover" style="width:100%">

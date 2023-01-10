@@ -75,7 +75,7 @@ class TransaksiController extends Controller
             'remark'   => $request->remark
         ];
 
-        if ($request->id_project != '-'){
+        if ($request->id_project != null){
             if(BarangProject::all()->where('id_project', $request->id_project)->where('id_barang', $request->id_barang)->first()){
                                             
                 Transaksi::create($data_transaksi);
