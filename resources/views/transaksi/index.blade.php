@@ -27,7 +27,7 @@
                                             <div class="modal-body">
                                                 <form method="POST" action="{{ route('transaksi.store') }}" id="addTransaksi">
                                                     @csrf
-                                                    <div class="form-floating mb-3">
+                                                    <!-- <div class="form-floating mb-3">
                                                         <label for="floatingInput2">Tanggal</label>
                                                         <input type="date" value="{{ old('tgl') }}" name="tgl" id="date-picker" required class="form-control">
                                                         <script>
@@ -38,7 +38,7 @@
                                                             var datePattern = year + '-' + month + '-' + todayDate;
                                                             document.getElementById("date-picker").value = datePattern;
                                                         </script>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="form-floating mb-3">
                                                         <label for="floatingInput6">Material Name</label>
                                                         <select name="id_barang" id="id_barang" class="form-control">
@@ -64,7 +64,7 @@
 
                                                     <div class="form-floating mb-3 menu" id="code_project" style='display:none'>
                                                         <label for="floatingInput5">Code Projek</label>
-                                                        <input value="{{ old('code_project') }}" name="code_project" type="text" required class="form-control" id="code_project">
+                                                        <input value="-" name="code_project" type="text" class="form-control" id="code_project">
                                                     </div>
                                                     
                                                     <div class="code-container"> 
@@ -86,6 +86,10 @@
                                                     <div class="form-floating mb-3">
                                                         <label for="floatingInput5">Stock Out</label>
                                                         <input value="{{ old('keluar') }}" required name="keluar" type="number" required class="form-control" id="keluar">
+                                                    </div>
+                                                    <div class="form-floating mb-3 menu" id="code_project" style='display:none'>
+                                                        <label for="floatingInput5">Code Projek</label>
+                                                        <input value="{{ old('stock') }}" name="stock" type="text" class="form-control" id="stock">
                                                     </div>
                                                     <div class="form-floating mb-3">
                                                         <label for="floatingInput5">Keterangan</label>
