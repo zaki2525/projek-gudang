@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Barang;
 use App\Models\NamaBarang;
+use App\Models\Project;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
@@ -47,7 +48,7 @@ class DatabaseSeeder extends Seeder
 
         Barang::create([
             'id_nama_barang' => '1',
-            'stock' => '10',
+            'stock' => '50',
         ]);
         Barang::create([
             'id_nama_barang' => '2',            
@@ -56,6 +57,14 @@ class DatabaseSeeder extends Seeder
         Barang::create([
             'id_nama_barang' => '3',            
             'stock' => '200',
+        ]);
+
+        Project::create([
+            'nama' => 'Lampung',            
+        ]);
+
+        Project::create([
+            'nama' => 'Bojonggede',            
         ]);
     }
 }
