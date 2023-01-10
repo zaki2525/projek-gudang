@@ -20,6 +20,6 @@ class Transaksi extends Model
 
     public function project()
     {
-        return $this->belongsTo(Project::class, 'id_project');
+        return $this->belongsTo(Project::class, 'id_project')->withDefault('nama', 'null');
     }
 }

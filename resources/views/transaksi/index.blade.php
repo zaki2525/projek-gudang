@@ -55,7 +55,7 @@
                                                     <div class="form-floating mb-3">
                                                         <label for="floatingInput6">Projek Name</label>
                                                         <select name="id_project" id="id_project" class="form-control">
-                                                            <option value="-">Default</option>
+                                                            <option value="">Default</option>
                                                         @foreach ($pros as $bar)
                                                             <option value="{{ $bar->id }}">{{ $bar->nama }}</option>
                                                         @endforeach
@@ -118,6 +118,7 @@
                                             <th>In</th>
                                             <th>Out</th>
                                             <th>Stock</th>
+                                            <th>Project</th>
                                             <th>Keterangan</th>
                                             <th>Remarks</th>                                                                                    
                                             <th>Action</th>
@@ -132,7 +133,8 @@
                                             <td>{{ $item->barang->namaBarang->unit }}</td> 
                                             <td>{{ $item->masuk }}</td>
                                             <td>{{ $item->keluar }}</td>                                         
-                                            <td>{{ $item->stock}}</td>                                          
+                                            <td>{{ $item->stock}}</td> 
+                                            <td>{{ $item->project->nama}}</td>                                          
                                             <td>{{ $item->keterangan }}</td>
                                             <td>{{ $item->remark }}</td>
                                             <td>
