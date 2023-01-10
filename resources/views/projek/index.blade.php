@@ -121,7 +121,7 @@
                                                     </div>                                            
                                                     <div class="input-group">
                                                         <button class="btn btn-primary"
-                                                            onClick="store()">Create</button>
+                                                            onClick="store()">Update</button>
                                                     </div>
                                                 </form>
                                             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BarangProject;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class BprojectController extends Controller
@@ -22,11 +23,9 @@ class BprojectController extends Controller
             'scrollspy_offset' => 100,
             'alt_menu' => 0,
         ];              
-
-        $datas = BarangProject::all();
         
         return view('bproject.index', [
-            'datas' => BarangProject::all()
+            'datas' => Project::all(),            
         ])->with($data);
     }
 
@@ -57,9 +56,20 @@ class BprojectController extends Controller
      * @param  \App\Models\BarangProject  $bprojek
      * @return \Illuminate\Http\Response
      */
-    public function show(BarangProject $bprojek)
+    public function show(Project $bproject)
     {
-        //
+        // return $bproject;
+        $data = [
+            'category_name' => 'bproject',
+            'page_name' => 'bproject',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+            'alt_menu' => 0,
+        ];
+        return view('bproject.show', [            
+            'bproject' => $bproject,
+            'items' => BarangProject::all()->where('id_project', $bproject->id)
+        ])->with($data);
     }
 
     /**
@@ -68,7 +78,7 @@ class BprojectController extends Controller
      * @param  \App\Models\BarangProject  $bprojek
      * @return \Illuminate\Http\Response
      */
-    public function edit(BarangProject $bprojek)
+    public function edit(BarangProject $bproject)
     {
         //
     }
@@ -80,7 +90,7 @@ class BprojectController extends Controller
      * @param  \App\Models\BarangProject  $bprojek
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BarangProject $bprojek)
+    public function update(Request $request, BarangProject $bproject)
     {
         //
     }
@@ -91,8 +101,10 @@ class BprojectController extends Controller
      * @param  \App\Models\BarangProject  $bprojek
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BarangProject $bprojek)
+    public function destroy(BarangProject $bproject)
     {
-        //
+        if(BarangProject::destroy($bproject->id)){
+            return redirect('/bproject');
+        }    
     }
 }
