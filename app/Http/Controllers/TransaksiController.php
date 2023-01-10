@@ -6,7 +6,7 @@ use App\Models\Transaksi;
 use App\Models\Barang;
 use App\Models\NamaBarang;
 use App\Models\Project;
-use App\Models\Bproject;
+use App\Models\BarangProject;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -55,6 +55,7 @@ class TransaksiController extends Controller
     {
 
         // return $request->all(); 
+        // return Barang::all()->where('id', $request->id_barang)->first();
 
         if ($request->id_project != '-'){
             $validateData = $request->validate([
@@ -63,19 +64,19 @@ class TransaksiController extends Controller
                 'code_project' => 'required', 
                 'masuk'   => 'required',
                 'keluar'     => 'required',
-                'stock' => Barang::where('id', $request->id_barang)->first()->stock,
+                'stock' => Barang::all()->where('id', $request->id_barang)->first()->stock,
                 'keterangan'        => 'required',
                 'remark'   => 'required'
             ]);
             $data = $request->validate([
                 'code_project' => 'required', 
                 'id_project' => 'required',
-                'id_nama_barang' => Barang::where('id', $request->id_barang)->first()->id_nama_barang,
-                'stock'     => $validateData->stock,
+                'id_nama_barang' => Barang::all()->where('id', $request->id_barang)->first()->id_nama_barang,
+                'stock'     => $request->stock,
             ]);
             // return $validateData;
             Transaksi::create($validateData);
-            Bproject::create($data);
+            BarangProject::create($data);
             
             return redirect("/transaksi");
         } else {
@@ -85,7 +86,7 @@ class TransaksiController extends Controller
                 'code_project' => 'required', 
                 'masuk'   => 'required',
                 'keluar'     => 'required',
-                'stock' => Barang::where('id', $request->id_barang)->first()->stock,
+                'stock' => Barang::all()->where('id', $request->id_barang)->first()->stock,
                 'keterangan'        => 'required',
                 'remark'   => 'required'
             ]);
