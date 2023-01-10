@@ -62,29 +62,38 @@ class TransaksiController extends Controller
             $stok_transaksi = $barang->stock + $request->masuk;
         } else {
             $stok_transaksi = $barang->stock - $request->keluar;
-        }
+        }   
+        
+        $data_transaksi = [
+            'id_barang'    => $request->id_barang,
+            'id_project' => $request->id_project,
+            'code_project' => $request->code_project, 
+            'masuk'   => $request->masuk,
+            'keluar'     => $request->keluar,
+            'stock' => $stok_transaksi,               
+            'keterangan'        => $request->keterangan,
+            'remark'   => $request->remark
+        ];
+
         if ($request->id_project != '-'){
-            $data_transaksi = [
-                'id_barang'    => $request->id_barang,
-                'id_project' => $request->id_project,
-                'code_project' => $request->code_project, 
-                'masuk'   => $request->masuk,
-                'keluar'     => $request->keluar,
-                'stock' => $stok_transaksi,               
-                'keterangan'        => $request->keterangan,
-                'remark'   => $request->remark
-            ];
-            $data_barang_project = [
-                'code_project' => $request->code_project, 
-                'id_project' => $request->id_project,
-                'id_nama_barang' => $barang->id_nama_barang,
-                'stock'     => $request->keluar,
-            ];
-            // return $data_transaksi;
-            Transaksi::create($data_transaksi);
-            BarangProject::create($data_barang_project);
-            
-            return redirect("/transaksi");
+            if(BarangProject::all()->where('id_project', $request->id_project)->where('id_barang', $request->id_barang)->first()){
+                                            
+                Transaksi::create($data_transaksi);
+                            
+                return redirect("/transaksi");
+            } else {
+                $data_barang_project = [
+                    'code_project' => $request->code_project, 
+                    'id_project' => $request->id_project,
+                    'id_barang' => $request->id_barang,
+                    'stock'     => 0,
+                ];
+                BarangProject::create($data_barang_project);                 
+                                
+                Transaksi::create($data_transaksi);
+                            
+                return redirect("/transaksi");
+            }       
         } else {
             $data_transaksi = [
                 'id_barang'    => $request->id_barang,
