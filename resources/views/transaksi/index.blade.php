@@ -128,7 +128,7 @@
                                         @foreach ($trans as $item)                                     
                                         <tr align="center">
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->tgl }}</td>
+                                            <td>{{ $item->created_at }}</td>
                                             <td>{{ $item->barang->namaBarang->nama }}</td>
                                             <td>{{ $item->barang->namaBarang->unit }}</td> 
                                             <td>{{ $item->masuk }}</td>
@@ -176,7 +176,7 @@
                                                 <!-- END HAPUS DATA -->                                               
                                             </td>
                                         </tr>
-                                        <!-- MODAL TAMBAH DATA -->
+                                        <!-- MODAL EDIT DATA -->
                                         <div class="modal fade" id="modalEditData{{ $item->id }}" tabindex="-1" aria-labelledby="modalEditData" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
@@ -189,17 +189,12 @@
                                                             <div class="modal-body">
                                                                 <form method="POST" action="/transaksi/{{ $item->id }}" id="addTransaksi">
                                                                     @method('put')
-                                                                    @csrf
-                                                                    <div class="form-floating mb-3">
-                                                                        <label for="floatingInput2">Tanggal</label>
-                                                                        <input type="date" value="{{ old('tgl', $item->tgl) }}" name="tgl" id="tgl" required class="form-control">
-                                                                        
-                                                                    </div>
+                                                                    @csrf                                                     
                                                                     <div class="form-floating mb-3">
                                                                         <label for="floatingInput6">Material Name</label>
                                                                         <select name="id_barang" id="id_barang" class="form-control">
                                                                         @foreach ($barngs as $bar)
-                                                                            <option value="{{ $bar->id }}" {{ $bar->id == $item->id_barang ? "selected" : "" }}>{{ $bar->nama }}</option>
+                                                                            <option value="{{ $bar->id }}" {{ $bar->id == $item->id_barang ? "selected" : "" }}>{{ $bar->namaBarang->nama }}</option>
                                                                         @endforeach
                                                                         </select>
                                                                     </div>

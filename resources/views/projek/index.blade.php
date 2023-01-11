@@ -26,7 +26,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="POST" action="{{ route('projek.store') }}" id="addUser">
+                                        <form method="POST" action="{{ route('project.store') }}" id="addUser">
                                             @csrf
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput2">Projek Name</label>
@@ -72,7 +72,7 @@
                                                     </svg>
                                                 </button>                                                
                                                 <!-- HAPUS DATA -->
-                                                <form action="/projek/{{ $item->id }}" method="POST" class="d-inline">
+                                                <form action="/project/{{ $item->id }}" method="POST" class="d-inline">
                                                     @method('delete')
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Sure?')">
@@ -109,7 +109,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form method="POST" action="/projek/{{ $item->id }}"
+                                                <form method="POST" action="/project/{{ $item->id }}"
                                                     id="addUser">
                                                     @csrf
                                                     @method('put')
