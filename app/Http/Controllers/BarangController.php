@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\BarangProject;
 use App\Models\NamaBarang;
 use Illuminate\Http\Request;
 
@@ -74,7 +75,20 @@ class BarangController extends Controller
      */
     public function show(Barang $barang)
     {
-        //
+        $data = [
+            'category_name' => 'barang',
+            'page_name' => 'barang',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+            'alt_menu' => 0,
+        ];              
+
+        $datas = Barang::all();
+        
+        return view('barang.show', [        
+            'datas' => BarangProject::where('id_barang', $barang->id)->get(),
+            'barang' => $barang,
+        ])->with($data);
     }
 
     /**
