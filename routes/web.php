@@ -1444,5 +1444,5 @@ Route::get('/password/reset', function() {
 });
 
 Route::get('/', function() {
-    return redirect('/sales');    
+    return redirect('/dashboard');    
 });
