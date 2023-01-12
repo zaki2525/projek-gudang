@@ -8,6 +8,8 @@
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                         <div class="widget-content widget-content-area br-6">
                             <div>
+
+                                @if($history == false)
                                 <!-- Tambah Data -->
                                 <button type="button" class="btn btn-primary mb-1" data-toggle="modal" data-target="#modalTambahData">
                                 <!-- <i class='bx bx-plus-medical'></i> -->
@@ -20,6 +22,14 @@
                                         Riwayat
                                     </button>
                                 </a>
+                                @else
+                                <a href="/transaksi">
+                                    <button type="button" class="btn btn-primary mb-1">
+                                        <!-- <i class='bx bx-plus-medical'></i> -->
+                                            Kembali
+                                        </button>
+                                    </a>
+                                @endif
                                 
                                 <!-- MODAL TAMBAH DATA -->
                                 <div class="modal fade" id="modalTambahData" tabindex="-1" aria-labelledby="modalTambahBarang" aria-hidden="true">
@@ -161,7 +171,7 @@
                                                 </button>
                                                 <!-- END EDIT DATA --> 
                                                 <!-- HAPUS DATA -->
-                                                <form action="/transaksi/{{ $item->id }}" method="POST" class="d-inline">
+                                                {{-- <form action="/transaksi/{{ $item->id }}" method="POST" class="d-inline">
                                                     @method('delete')
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Sure?')">
@@ -179,7 +189,7 @@
                                                                 y2="17"></line>
                                                         </svg>
                                                     </button>
-                                                </form>
+                                                </form> --}}
                                                 <!-- END HAPUS DATA -->                                               
                                             </td>
                                         </tr>

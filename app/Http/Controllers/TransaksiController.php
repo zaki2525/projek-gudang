@@ -22,6 +22,7 @@ class TransaksiController extends Controller
     {  
         // $category_name = '';
         $data = [
+            'history' => false,
             'category_name' => 'transaksis',
             'page_name' => 'transaksi',
             'has_scrollspy' => 1,
@@ -32,7 +33,7 @@ class TransaksiController extends Controller
         return view('transaksi.index', [
             'trans' => Transaksi::where('created_at', '>=', Carbon::today())->latest()->get(),
             // 'trans' => Transaksi::all(),
-            'barngs' => Barang::all(),
+        'barngs' => Barang::all(),
             'pros' => Project::all(),
         ])->with($data);
     }
@@ -40,6 +41,7 @@ class TransaksiController extends Controller
     public function history()
     {          
         $data = [
+            'history' => true,
             'category_name' => 'transaksis',
             'page_name' => 'transaksi',
             'has_scrollspy' => 1,
@@ -47,7 +49,7 @@ class TransaksiController extends Controller
             'alt_menu' => 0,
         ];              
         
-        return view('transaksi.history', [           
+        return view('transaksi.index', [           
             'trans' => Transaksi::latest()->get(),
             'barngs' => Barang::all(),
             'pros' => Project::all(),
