@@ -58,7 +58,7 @@ class BarangController extends Controller
             $data_barang = [
                 'id_nama_barang' => $nama_barang->id,
                 // 'stock' => $request->validate(['stock'], ['required'])
-                'stock' => $request->stock
+                'stock' => 0
             ];    
                 if(Barang::create($data_barang)){
                     return redirect('barang');
@@ -95,15 +95,14 @@ class BarangController extends Controller
      * @param  \App\Models\Barang  $barang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Barang $barang)
+    public function update(Request $request, NamaBarang $barang)
     {
-        $data = $request->validate([
-            'material_name' => 'required',
-            'unit' => 'required',
-            'stock' => 'required'   
+        $data_nama_barang = $request->validate([
+            'nama' => 'required',
+            'unit' => 'required',           
         ]);
 
-        if(Barang::where('id', $barang->id)->update($data)){
+        if(NamaBarang::where('id', $barang->id)->update($data_nama_barang)){
             return redirect('barang');
         }
     }

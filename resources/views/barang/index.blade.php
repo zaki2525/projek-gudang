@@ -38,11 +38,11 @@
                                                 <input value="{{ old('unit') }}" required name="unit" type="text"
                                                     required class="form-control" id="unit">
                                             </div>
-                                            <div class="form-floating mb-3">
+                                            {{-- <div class="form-floating mb-3">
                                                 <label for="floatingInput5">Stock</label>
                                                 <input value="{{ old('stock') }}" required name="stock" type="number"
                                                     required class="form-control" id="stock">
-                                            </div>
+                                            </div> --}}
                                             {{-- <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Role</label>
                                                 <select name="role" id="role" class="form-control">
@@ -139,25 +139,25 @@
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput2">Material Name</label>
                                                             <input
-                                                                value="{{ old('material_name', $item->material_name) }}"
-                                                                required name="material_name" type="text" required
-                                                                class="form-control" id="material_name">
+                                                                value="{{ old('nama', $item->namaBarang->nama) }}"
+                                                                required name="nama" type="text" required
+                                                                class="form-control" id="nama">
                                                         </div>
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput4">Unit</label>
-                                                            <input value="{{ old('unit', $item->unit) }}" required
+                                                            <input value="{{ old('unit', $item->namaBarang->unit) }}" required
                                                                 name="unit" type="text" required
                                                                 class="form-control" id="unit">
                                                         </div>
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput5">Stock</label>
-                                                            <input value="{{ old('stock', $item->stock) }}" required
+                                                            <input value="{{ old('stock', $item->stock) }}" disabled
                                                                 name="stock" type="number" required
                                                                 class="form-control" id="stock">
                                                         </div>
                                                         <div class="input-group">
                                                             <button class="btn btn-primary"
-                                                                onClick="store()">Create</button>
+                                                                onClick="store()">Update</button>
                                                         </div>
                                                     </form>
                                                 </div>

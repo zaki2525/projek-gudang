@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth'] , function() {
         return view('dashboard')->with($data);
     });
     
-    Route::get('/sales', function() {
+    Route::get('/dashboard', function() {
         // $category_name = '';
         $data = [
             'category_name' => 'dashboard',
@@ -64,7 +64,7 @@ Route::group(['middleware' => 'auth'] , function() {
     Route::resource('transaksi', TransaksiController::class);
 
     // Projek
-    Route::resource('projek', ProjectController::class);
+    Route::resource('project', ProjectController::class);
 
     // Projek
     Route::resource('bproject', BprojectController::class);

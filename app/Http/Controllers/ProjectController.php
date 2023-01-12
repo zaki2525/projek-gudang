@@ -53,7 +53,7 @@ class ProjectController extends Controller
         ]);
 
         if(Project::create($data)){
-            return redirect('projek');
+            return redirect('/project');
         }
     }
 
@@ -93,7 +93,7 @@ class ProjectController extends Controller
         ]);
 
         if(Project::where('id', $projek->id)->update($data)){
-            return redirect('projek');
+            return redirect('/project');
         }
     }
 
@@ -106,7 +106,7 @@ class ProjectController extends Controller
     public function destroy(Project $projek)
     {
         if(Project::destroy($projek->id)){
-            return redirect('projek');
+            return redirect('/project');
         }
     }
 }
