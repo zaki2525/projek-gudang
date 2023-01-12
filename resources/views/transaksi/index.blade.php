@@ -14,7 +14,7 @@
                                     Tambah Data
                                 </button>
                             
-                                <a href="{{ route('transaksi.create')}}">
+                                <a href="{{ route('transaksi.history')}}">
                                 <button type="button" class="btn btn-primary mb-1">
                                     <!-- <i class='bx bx-plus-medical'></i> -->
                                         Riwayat

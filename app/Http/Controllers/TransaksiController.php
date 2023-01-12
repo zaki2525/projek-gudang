@@ -38,18 +38,7 @@ class TransaksiController extends Controller
     }
 
     public function history()
-    {  
-        
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        // $category_name = '';
+    {          
         $data = [
             'category_name' => 'transaksis',
             'page_name' => 'transaksi',
@@ -62,7 +51,17 @@ class TransaksiController extends Controller
             'trans' => Transaksi::latest()->get(),
             'barngs' => Barang::all(),
             'pros' => Project::all(),
-        ])->with($data);
+        ])->with($data);   
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        
     }
 
     /**

@@ -26,5 +26,11 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Schema::defaultStringLength(191);
+
+        $registrar = new \App\MyCustom\Routing\ResourceRegistrar($this->app['router']);
+
+        $this->app->bind('Illuminate\Routing\ResourceRegistrar', function () use ($registrar) {
+            return $registrar;
+        });
     }
 }
