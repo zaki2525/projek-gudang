@@ -15,7 +15,7 @@
                                 </button> --}}
                             
                                 <a href="/transaksi">
-                                <button type="button" class="btn btn-primary mb-1" data-toggle="modal" data-target="#modalTambahData">
+                                <button type="button" class="btn btn-primary mb-1">
                                     <!-- <i class='bx bx-plus-medical'></i> -->
                                         Kembali
                                     </button>

@@ -49,7 +49,20 @@ class TransaksiController extends Controller
      */
     public function create()
     {
-        //
+        // $category_name = '';
+        $data = [
+            'category_name' => 'transaksis',
+            'page_name' => 'transaksi',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+            'alt_menu' => 0,
+        ];              
+        
+        return view('transaksi.history', [           
+            'trans' => Transaksi::latest()->get(),
+            'barngs' => Barang::all(),
+            'pros' => Project::all(),
+        ])->with($data);
     }
 
     /**
@@ -129,20 +142,7 @@ class TransaksiController extends Controller
      */
     public function show(Transaksi $transaksi)
     {
-        // $category_name = '';
-        $data = [
-            'category_name' => 'transaksis',
-            'page_name' => 'transaksi',
-            'has_scrollspy' => 1,
-            'scrollspy_offset' => 100,
-            'alt_menu' => 0,
-        ];              
         
-        return view('transaksi.history', [           
-            'trans' => Transaksi::latest()->get(),
-            'barngs' => Barang::all(),
-            'pros' => Project::all(),
-        ])->with($data);
     }
 
     /**

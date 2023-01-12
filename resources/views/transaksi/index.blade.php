@@ -14,8 +14,8 @@
                                     Tambah Data
                                 </button>
                             
-                                <a href="/transaksi/history">
-                                <button type="button" class="btn btn-primary mb-1" data-toggle="modal" data-target="#modalTambahData">
+                                <a href="{{ route('transaksi.create')}}">
+                                <button type="button" class="btn btn-primary mb-1">
                                     <!-- <i class='bx bx-plus-medical'></i> -->
                                         Riwayat
                                     </button>
