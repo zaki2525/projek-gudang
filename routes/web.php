@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth'] , function() {
     // });
 
     // Transaksi
+    Route::get('transaksi/history', 'TransaksiController@history');
     Route::resource('transaksi', TransaksiController::class);
 
     // Projek
