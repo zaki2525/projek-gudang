@@ -91,7 +91,7 @@
                                                         $('#id_project').on('change', function() {
                                                             // const selected = $(this).find('option:selected');
                                                             const selected = document.getElementById('id_project').value;
-                                                            if(selected != '-'){
+                                                            if(selected != ''){
                                                                 document.getElementById('code_project').style.display = "block"
                                                             } else{
                                                                 document.getElementById('code_project').style.display = "none"                                                               
@@ -215,6 +215,41 @@
                                                                         @endforeach
                                                                         </select>
                                                                     </div>
+                                                                    <div class="form-floating mb-3">
+                                                                        <label for="floatingInput6">Projek Name</label>
+                                                                        <select name="id_project" id="id_project" class="form-control">
+                                                                            <option value="">Default</option>
+                                                                        @foreach ($pros as $bar)
+                                                                            <option value="{{ $bar->id }}" {{ $bar->id == $item->id_project ? "selected" : "" }}>{{ $bar->nama }}</option>
+                                                                        @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    @if($item->code_project == '')
+                                                                    <div class="form-floating mb-3 menu" id="code_project" style='display:none'>
+                                                                        <label for="floatingInput5">Code Projek</label>
+                                                                        <input value="{{ old('code_project', $item->code_project) }}" name="code_project" type="text" class="form-control" id="code_project">
+                                                                    </div>
+                                                                    @else
+                                                                    <div class="form-floating mb-3 menu" id="code_project" style='display'>
+                                                                        <label for="floatingInput5">Code Projek</label>
+                                                                        <input value="{{ old('code_project', $item->code_project) }}" name="code_project" type="text" class="form-control" id="code_project">
+                                                                    </div>
+                                                                    @endif
+                                                                    
+                                                                    <div class="code-container"> 
+                                                                    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+                                                                    <script>
+                                                                        
+                                                                        $('#id_project').on('change', function() {
+                                                                            // const selected = $(this).find('option:selected');
+                                                                            const selected = document.getElementById('id_project').value;
+                                                                            if(selected != ''){
+                                                                                document.getElementById('code_project').style.display = "block"
+                                                                            } else{
+                                                                                document.getElementById('code_project').style.display = "none"                                                               
+                                                                            }
+                                                                            });
+                                                                    </script>
                                                                     <div class="form-floating mb-3">
                                                                         <label for="floatingInput4">Stock In</label>
                                                                         <input value="{{ old('masuk', $item->masuk) }}" required name="masuk" type="number" required class="form-control" id="masuk">
