@@ -4,6 +4,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\ProjekController;
 use App\Http\Controllers\BprojekController;
+use App\Http\Controllers\SuratJalanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,8 +68,12 @@ Route::group(['middleware' => 'auth'] , function() {
     // Projek
     Route::resource('project', ProjectController::class);
 
-    // Projek
+    // Barang projek
     Route::resource('bproject', BprojectController::class);
+
+    // Surat Jalan
+    Route::get('suratjalan/history', 'SuratJalanController@history');
+    Route::resource('suratjalan', SuratJalanController::class);
 
 
 

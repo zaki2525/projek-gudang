@@ -29,6 +29,10 @@ if (!function_exists('setTitle')) :
         //Barang Project
         elseif ($page_name === 'bproject') :
             echo 'Barang Project ' . $admin_name;
+
+        //Surat Jalan
+        elseif ($page_name === 'suratJalan') :
+            echo ' Surat Jalan ' . $admin_name;
         
         // Apps
         elseif ($page_name === 'calendar') :
