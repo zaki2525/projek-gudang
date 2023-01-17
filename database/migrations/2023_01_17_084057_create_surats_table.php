@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('no_sj');
             $table->string('no_mobil');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
