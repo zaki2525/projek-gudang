@@ -5,6 +5,7 @@ use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\ProjekController;
 use App\Http\Controllers\BprojekController;
 use App\Http\Controllers\SuratJalanController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +23,12 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+Route::get('suratjalan/surat', function () {
+    return view ("suratjalan.suratjalan");
+});
 
+
+Route::get('suratjalan/cetak', [SuratJalanController::class, 'cetak']);
 Route::group(['middleware' => 'auth'] , function() {
 
     // $this->middleware

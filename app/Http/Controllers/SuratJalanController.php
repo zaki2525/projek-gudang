@@ -9,6 +9,7 @@ use App\Models\Project;
 use App\Models\BarangProject;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use PDF;
 
 
 class SuratJalanController extends Controller
@@ -54,6 +55,14 @@ class SuratJalanController extends Controller
             'barngs' => Barang::all(),
             'pros' => Project::all(),
         ])->with($data);   
+    }
+
+    public function cetak()
+    {
+        // $pegawai = Pegawai::all();
+        $data =  SuratJalan::latest()->get();
+    	$pdf = PDF::loadview('suratjalan', ['data'=>$data] );
+    	return $pdf->download('laporan-pegawai-pdf');
     }
 
     /**

@@ -31,6 +31,13 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
         ]);
 
+        User::create([           
+            'name' => "user",
+            'email' => "user",
+            'password' => bcrypt('password'),
+            'role' => 'user',
+        ]);
+
         NamaBarang::create([
             'nama' => 'Baut' ,           
             'unit' => 'pcs'
