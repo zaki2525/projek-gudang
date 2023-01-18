@@ -73,6 +73,7 @@ Route::group(['middleware' => 'auth'] , function() {
 
     // Surat Jalan
     Route::get('suratjalan/history', 'SuratJalanController@history');
+    Route::get('suratjalan/cetak', 'SuratJalanController@cetak');
     Route::resource('suratjalan', SuratJalanController::class);
 
 

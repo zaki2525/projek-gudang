@@ -130,6 +130,12 @@
                                             <td>{{ $item->created_at }}</td> 
                                             <td>{{ $item->no_mobil }}</td>
                                             <td>
+                                                <a href="{{ route('suratjalan.create')}}">
+                                                    <button type="button" class="btn btn-primary mb-1">
+                                                    <!-- <i class='bx bx-plus-medical'></i> -->
+                                                        Riwayat
+                                                    </button>
+                                                </a>
                                                 <!-- EDIT DATA -->
                                                 <button type="button" class="btn btn-dark btn-sm" data-toggle="modal"
                                                     data-target="#modalEditData{{$item->id}}">

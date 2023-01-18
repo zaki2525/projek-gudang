@@ -56,6 +56,25 @@ class SuratJalanController extends Controller
         ])->with($data);   
     }
 
+    public function cetak()
+    {          
+        $data = [
+            'history' => true,
+            'category_name' => 'suratJalan',
+            'page_name' => 'suratJalan',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+            'alt_menu' => 0,
+        ];              
+        
+        return view('suratjalan.cetak', [           
+            'su' => SuratJalan::latest()->get(),
+            'barngs' => Barang::all(),
+            'pros' => Project::all(),
+        ])->with($data);   
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -63,7 +82,20 @@ class SuratJalanController extends Controller
      */
     public function create()
     {
-        //
+        $data = [
+            'history' => true,
+            'category_name' => 'suratJalan',
+            'page_name' => 'suratJalan',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+            'alt_menu' => 0,
+        ];              
+        
+        return view('suratjalan.cetak', [           
+            'su' => SuratJalan::latest()->get(),
+            'barngs' => Barang::all(),
+            'pros' => Project::all(),
+        ])->with($data);  
     }
 
     /**
