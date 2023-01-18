@@ -29,18 +29,17 @@ class SuratJalanController extends Controller
             'has_scrollspy' => 1,
             'scrollspy_offset' => 100,
             'alt_menu' => 0,
-        ];              
-        
+        ];
+
         return view('suratjalan.index', [
-            'su' => SuratJalan::where('created_at', '>=', Carbon::today())->latest()->get(),
-            // 'trans' => Transaksi::all(),
-        'barngs' => Barang::all(),
+            'data' => SuratJalan::where('created_at', '>=', Carbon::today())->latest()->get(),
+            'barngs' => Barang::all(),
             'pros' => Project::all(),
         ])->with($data);
     }
 
     public function history()
-    {          
+    {
         $data = [
             'history' => true,
             'category_name' => 'suratJalan',
@@ -48,22 +47,39 @@ class SuratJalanController extends Controller
             'has_scrollspy' => 1,
             'scrollspy_offset' => 100,
             'alt_menu' => 0,
-        ];              
-        
-        return view('suratjalan.index', [           
+        ];
+
+        return view('suratjalan.index', [
             'su' => SuratJalan::latest()->get(),
             'barngs' => Barang::all(),
             'pros' => Project::all(),
-        ])->with($data);   
+        ])->with($data);
     }
 
     public function cetak()
     {
-        // $pegawai = Pegawai::all();
-        $data =  SuratJalan::latest()->get();
-    	$pdf = PDF::loadview('suratjalan', ['data'=>$data] );
-    	return $pdf->download('laporan-pegawai-pdf');
+        $data = [
+            'history' => true,
+            'category_name' => 'suratJalan',
+            'page_name' => 'suratJalan',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+            'alt_menu' => 0,
+        ];
+
+        return view('suratjalan.cetak', [
+            'su' => SuratJalan::latest()->get(),
+            'barngs' => Barang::all(),
+            'pros' => Project::all(),
+        ])->with($data);
     }
+
+    public function barang(Request $request)
+    {
+        $data['barang'] = BarangProject::where("id_project", $request->id_project)->get();
+        return response()->json($data);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -72,7 +88,7 @@ class SuratJalanController extends Controller
      */
     public function create()
     {
-        //
+       
     }
 
     /**

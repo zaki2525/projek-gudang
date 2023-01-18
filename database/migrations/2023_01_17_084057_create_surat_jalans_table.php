@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('surat_jalans', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_project');
-            $table->integer('id_barang');
+            $table->integer('id_project');        
             $table->string('delivery');
             $table->string('kepada');
             $table->string('no_sj');

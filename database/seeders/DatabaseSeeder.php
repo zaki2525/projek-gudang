@@ -3,8 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Barang;
+use App\Models\BarangProject;
 use App\Models\NamaBarang;
 use App\Models\Project;
+use App\Models\Transaksi;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
@@ -72,6 +74,23 @@ class DatabaseSeeder extends Seeder
 
         Project::create([
             'nama' => 'Bojonggede',            
+        ]);
+
+        Transaksi::create([
+            'id_barang' => '1',
+            'id_project' => '1',
+            'code_project' => 'TGR',
+            'masuk' => '0',
+            'keluar' => '2',
+            'stock' => '48',
+            'keterangan' => '-',
+            'remark' => '-']);
+
+        BarangProject::create([
+            'code_project' => 'TGR',
+            'id_barang' => '1',
+            'id_project' => '1',
+            'stock' => '2',            
         ]);
     }
 }
