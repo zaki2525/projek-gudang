@@ -33,8 +33,8 @@ class SuratJalanController extends Controller
 
         return view('suratjalan.index', [
             'data' => SuratJalan::where('created_at', '>=', Carbon::today())->latest()->get(),
-            'barngs' => Barang::all(),
-            'pros' => Project::all(),
+            'barangs' => Barang::all(),
+            'projects' => Project::all(),
         ])->with($data);
     }
 
@@ -76,7 +76,7 @@ class SuratJalanController extends Controller
 
     public function barang(Request $request)
     {
-        $data['barang'] = BarangProject::where("id_project", $request->id_project)->get();
+        $data['barang'] = BarangProject::with(['barang.namaBarang'])->where("id_project", $request->id_project)->get();
         return response()->json($data);
     }
 

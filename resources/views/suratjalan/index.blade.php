@@ -61,8 +61,8 @@
                                                 <label for="floatingInput6">Projek Name</label>
                                                 <select name="id_project" id="id_project" class="form-control">
                                                     <option value="">Default</option>
-                                                    @foreach ($pros as $bar)
-                                                        <option value="{{ $bar->id }}">{{ $bar->nama }}</option>
+                                                    @foreach ($projects as $project)
+                                                        <option value="{{ $project->id }}">{{ $project->nama }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -78,10 +78,10 @@
                                                             <option>
                                                                 Select
                                                             </option>
-                                                            @foreach ($pros as $barang)
+                                                            {{-- @foreach ($barangs as $barang)
                                                                 <option value="{{ $barang->id }}">{{ $barang->id }}
                                                                 </option>
-                                                            @endforeach
+                                                            @endforeach --}}
                                                         </select>
                                                     </div>
                                                     <div class="col">
@@ -98,8 +98,7 @@
                                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                                             <script>
                                                 $(document).ready(function() {
-                                                    $('#id_project').on('change', function() {
-                                                        var idpengujian = this.value;
+                                                    $('#id_project').on('change', function() {                                                        
                                                         $("#id_barang").html('');
                                                         $.ajax({
                                                             url: "{{ url('suratjalan/fetch') }}",
@@ -114,7 +113,7 @@
                                                                 $.each(result.barang, function(key, value) {
                                                                     $("#id_barang").append(
                                                                         '<option name="id_barang" value="' + value
-                                                                        .id_barang + '">' + value.barang.namaBarang.nama + '</option>');
+                                                                        .id_barang + '">' + value.barang.namaBarang.nama + '</option>');                                                         
                                                                 });
                                                             }
                                                         });
