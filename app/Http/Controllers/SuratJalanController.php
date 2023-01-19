@@ -7,6 +7,7 @@ use App\Models\Barang;
 use App\Models\NamaBarang;
 use App\Models\Project;
 use App\Models\BarangProject;
+use App\Models\SuratJalanItem;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use PDF;
@@ -80,6 +81,14 @@ class SuratJalanController extends Controller
         return response()->json($data);
     }
 
+    public function data()
+    {
+        $barang = new BarangProject();
+        $data['barang'] = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", 1)->get();
+        // $data = $barang->get();
+        return response()->json($data);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -88,7 +97,6 @@ class SuratJalanController extends Controller
      */
     public function create()
     {
-       
     }
 
     /**
@@ -99,7 +107,27 @@ class SuratJalanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data_surat_jalan = $request->validate([
+            'id_project' => ['required'],
+            'delivery' => ['required'],
+            'kepada' => ['required'],
+            'no_sj' => ['required'],
+            'no_mobil' => ['required'],
+        ]);
+
+        if ($surat_jalan = SuratJalan::create($data_surat_jalan)) {
+            foreach ($request->id_barang as $key => $id_barang) {
+                $data_surat_jalan_items = [
+                    'id_surat_jalan' => $surat_jalan->id,
+                    'id_barang' => $id_barang[$key],
+                    'id_project' => $request->id_project,
+                    'keluar' => $request->keluar[$key],                   
+                ];
+                SuratJalanItem::create($data_surat_jalan_items);               
+            }
+
+            return redirect('/suratjalan');
+        }
     }
 
     /**
@@ -108,9 +136,23 @@ class SuratJalanController extends Controller
      * @param  \App\Models\SuratJalan  $suratJalan
      * @return \Illuminate\Http\Response
      */
-    public function show(SuratJalan $suratJalan)
+    public function show(SuratJalan $suratjalan)
     {
-        //
+        $data = [
+            'history' => true,
+            'category_name' => 'suratJalan',
+            'page_name' => 'suratJalan',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+            'alt_menu' => 0,
+        ]; 
+
+        return view('suratjalan.cetak', [
+            'surat_jalan' => $suratjalan,
+            'surat_jalan_items' => SuratJalanItem::where('id_surat_jalan', $suratjalan->id)->get(),
+            'barngs' => Barang::all(),
+            'pros' => Project::all(),
+        ])->with($data);
     }
 
     /**

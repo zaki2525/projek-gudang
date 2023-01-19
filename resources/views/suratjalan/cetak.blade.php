@@ -20,13 +20,13 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="border-style: none;">Cell 1</td>
+                            <td style="border-style: none;">{{$surat_jalan->delivery}}</td>
                         </tr>
                         <tr>
-                            <td style="font-weight: bold;border-style: none;">To&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; :</td>
+                            <td style="font-weight: bold;border-style: none;">To&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : {{ $surat_jalan->kepada }}</td>
                         </tr>
                         <tr>
-                            <td style="font-weight: bold;border-style: none;">Project&nbsp; &nbsp; &nbsp; &nbsp; :</td>
+                            <td style="font-weight: bold;border-style: none;">Project&nbsp; &nbsp; &nbsp; &nbsp; : {{ $surat_jalan->project->nama}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -37,15 +37,15 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th style="border-style: none;">No SJ&nbsp; &nbsp; &nbsp; &nbsp; :</th>
+                            <th style="border-style: none;">No SJ&nbsp; &nbsp; &nbsp; &nbsp; : {{ $surat_jalan->no_sj }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="border-style: none;font-weight: bold;">Date&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; :</td>
+                            <td style="border-style: none;font-weight: bold;">Date&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : {{ $surat_jalan->created_at }}</td>
                         </tr>
                         <tr>
-                            <td style="font-weight: bold;border-style: none;">No Mobil&nbsp; :</td>
+                            <td style="font-weight: bold;border-style: none;">No Mobil&nbsp; : {{ $surat_jalan->no_mobil }}</td>
                         </tr>
                         <tr></tr>
                     </tbody>
@@ -65,19 +65,15 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($surat_jalan_items as $item)
                 <tr>
-                    <td>Cell 1</td>
-                    <td>Cell 2</td>
-                    <td>Cell 2</td>
-                    <td>Cell 2</td>
-                    <td>Cell 2</td>
-                </tr>
-                <tr>
-                    <td>Cell 3</td>
-                    <td>Cell 4</td>
-                    <td>Cell 4</td>
-                    <td>Cell 4</td>
-                    <td>Cell 4</td>
+                <td>{{ $loop->iteration }}</td> 
+                <td>{{ $item->keluar }}</td> 
+                <td>{{ $item->barang->namaBarang->unit }}</td>
+                <td>{{ $item->barang->namaBarang->nama }} </td>
+                <td></td>
+                </tr>                   
+                @endforeach     
                 </tr>
             </tbody>
         </table>

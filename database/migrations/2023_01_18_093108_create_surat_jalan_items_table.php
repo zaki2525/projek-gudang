@@ -18,8 +18,7 @@ return new class extends Migration
             $table->integer('id_surat_jalan');
             $table->integer('id_barang');
             $table->integer('id_project');
-            $table->integer('keluar');
-            $table->string('description');
+            $table->integer('keluar');        
             $table->string('remark');
             $table->timestamps();
         });

@@ -30,6 +30,7 @@ Route::get('suratjalan/surat', function () {
 
 Route::get('suratjalan/cetak', [SuratJalanController::class, 'cetak']);
 Route::post('suratjalan/fetch', [SuratJalanController::class, 'barang']);
+Route::get('suratjalan/data', [SuratJalanController::class, 'data']);
 Route::group(['middleware' => 'auth'] , function() {
 
     // $this->middleware

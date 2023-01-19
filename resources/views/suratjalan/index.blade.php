@@ -74,31 +74,23 @@
                                                 </a>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <select name="id_barang[]" class="form-control" id="id_barang">
+                                                        <select name="id_barang[]" class="form-control id_barang" id="id_barang">
                                                             <option>
                                                                 Select
-                                                            </option>
-                                                            {{-- @foreach ($barangs as $barang)
-                                                                <option value="{{ $barang->id }}">{{ $barang->id }}
-                                                                </option>
-                                                            @endforeach --}}
+                                                            </option>                                                      
                                                         </select>
                                                     </div>
                                                     <div class="col">
                                                         <input type="number" name="keluar[]" class="form-control"
-                                                            placeholder="Qty" value="1">
-                                                        <a class="btn btn-secondary btn-delete-bahan"
-                                                            style="font-size: 18px;">
-                                                            <i class='bx bxs-trash'></i>
-                                                        </a>
+                                                            placeholder="Qty" value="1">                                               
                                                     </div>
-                                                </div>
+                                                </div>                                                
                                             </div>
 
                                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                                             <script>
                                                 $(document).ready(function() {
-                                                    $('#id_project').on('change', function() {                                                        
+                                                    $('#id_project').on('change', function() {
                                                         $("#id_barang").html('');
                                                         $.ajax({
                                                             url: "{{ url('suratjalan/fetch') }}",
@@ -109,37 +101,58 @@
                                                             },
                                                             dataType: 'json',
                                                             success: function(result) {
-                                                                $('#id_barang').html('<option value="">Select</option>');
+                                                                $('.id_barang').html('<option value="" selected>Select</option>');
                                                                 $.each(result.barang, function(key, value) {
-                                                                    $("#id_barang").append(
+                                                                    $(".id_barang").append(
                                                                         '<option name="id_barang" value="' + value
-                                                                        .id_barang + '">' + value.barang.namaBarang.nama + '</option>');                                                         
+                                                                        .id_barang + '">' + value.barang.nama_barang.nama +
+                                                                        '</option>');
                                                                 });
                                                             }
                                                         });
-                                                    });
-
-                                                    // $('#parameter-dd').on('change', function() {
-                                                    //     var idLayanan = this.value;
-                                                    //     $("#bahan-dd").html('');
-                                                    //     $.ajax({
-                                                    //         url: "{{ url('pengajuanLayanan/fetch/bahan') }}",
-                                                    //         type: "POST",
-                                                    //         data: {
-                                                    //             layananId: idLayanan,
-                                                    //             _token: '{{ csrf_token() }}'
-                                                    //         },
-                                                    //         dataType: 'json',
-                                                    //         success: function(res) {
-                                                    //             $.each(res.bahan, function(key, value) {
-                                                    //                 $("#bahan-dd").html(
-                                                    //                     '<label class="form-label">Bahan Yang Dibutuhkan :</label><br><ul type="1"><li>' +
-                                                    //                     value.bahanId + '</ul></li>');
-                                                    //             });
-                                                    //         }
-                                                    //     });
-                                                    // });
+                                                    });                     
                                                 });
+                                            </script>
+
+                                            <script>
+                                                $('.btn-add-barang').click(function() {
+                                                    $('.barang-container').append(barang())
+                                                })
+
+                                                $(document).on('click', '.btn-delete-barang', function() {
+                                                    $(this).closest('.barang').remove()
+                                                })
+
+                                                function barang() {
+                                                    return `<div class="row barang mt-2">
+                                                    <div class="col">
+                                                        <select name="id_barang[]" class="form-control id_barang" id="id_barang">
+                                                            <option>
+                                                                Select
+                                                            </option>                                                      
+                                                        </select>
+                                                    </div>
+                                                    <div class="col input-group">
+                                                        <input type="number" name="keluar[]" class="form-control"
+                                                            placeholder="Qty" value="1">  
+                                                            <button class="btn btn-sm btn-danger btn-delete-barang" style="border-top-left-radius:0;border-bottom-left-radius:0"                                                            >
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                            class="feather feather-trash-2">
+                                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                                            <path
+                                                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                                            </path>
+                                                            <line x1="10" y1="11" x2="10"
+                                                                y2="17"></line>
+                                                            <line x1="14" y1="11" x2="14"
+                                                                y2="17"></line>
+                                                            </svg>
+                                                        </button>                                                      
+                                                    </div>                                                    
+                                                    </div>`
+                                                }
                                             </script>
 
                                             <div class="form-floating mb-3">
@@ -190,7 +203,7 @@
                                         <td>{{ $item->created_at }}</td>
                                         <td>{{ $item->no_mobil }}</td>
                                         <td>
-                                            <a href="/suratjalan/cetak">
+                                            <a href="/suratjalan/{{ $item->id }}">
                                                 <button type="button" class="btn btn-primary mb-1">
                                                     <!-- <i class='bx bx-plus-medical'></i> -->
                                                     Cetak
@@ -233,7 +246,7 @@
                                             <!-- END HAPUS DATA -->
                                         </td>
                                     </tr>
-                                    <!-- MODAL EDIT DATA -->
+                                    {{-- <!-- MODAL EDIT DATA -->
                                     <div class="modal fade" id="modalEditData{{ $item->id }}" tabindex="-1"
                                         aria-labelledby="modalEditData" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -339,7 +352,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- END TAMBAH DATA -->
+                                    <!-- END TAMBAH DATA --> --}}
                                 @endforeach
                             </tbody>
                         </table>
