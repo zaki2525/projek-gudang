@@ -19,10 +19,10 @@
                                             <th>In</th>
                                             <th>Out</th>
                                             <th>Stock</th>
-                                            <th>Project</th>
+                                            <th>Dari</th>
+                                            <th>Ke</th>
                                             <th>Keterangan</th>
-                                            <th>Remarks</th>                                                                                    
-                                            <th>Action</th>
+                                            <th>Remarks</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -35,7 +35,8 @@
                                             <td>{{ $item->masuk }}</td>
                                             <td>{{ $item->keluar }}</td>                                         
                                             <td>{{ $item->stock}}</td> 
-                                            <td>{{ $item->project->nama}}</td>                                          
+                                            <td>{{ $item->dariproject->nama}}</td> 
+                                            <td>{{ $item->keproject->nama}}</td>                                          
                                             <td>{{ $item->keterangan }}</td>
                                             <td>{{ $item->remark }}</td>
                                         </tr>
