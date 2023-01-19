@@ -1,6 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Barang;
+use App\Models\Transaksi;
+use App\Models\NamaBarang;
+use App\Models\Project;
+use App\Models\BarangProject;
 
 use Illuminate\Http\Request;
 
@@ -23,6 +28,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard2');
+        $data = [
+            'category_name' => 'dashboard',
+            'page_name' => 'sales',
+            'has_scrollspy' => 0,
+            'scrollspy_offset' => '',
+            'alt_menu' => 0,
+        ];            
+        
+        return view('dashboard2', [           
+            'trans' => Transaksi::latest()->get(),
+            'barngs' => Barang::all(),
+            'pros' => Project::all(),
+        ])->with($data);
     }
 }
