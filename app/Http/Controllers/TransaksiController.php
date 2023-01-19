@@ -19,7 +19,7 @@ class TransaksiController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {  
+    {
         // $category_name = '';
         $data = [
             'history' => false,
@@ -28,18 +28,18 @@ class TransaksiController extends Controller
             'has_scrollspy' => 1,
             'scrollspy_offset' => 100,
             'alt_menu' => 0,
-        ];              
-        
+        ];
+
         return view('transaksi.index', [
             'trans' => Transaksi::where('created_at', '>=', Carbon::today())->latest()->get(),
             // 'trans' => Transaksi::all(),
-        'barngs' => Barang::all(),
+            'barngs' => Barang::all(),
             'pros' => Project::all(),
         ])->with($data);
     }
 
     public function history()
-    {          
+    {
         $data = [
             'history' => true,
             'category_name' => 'transaksis',
@@ -47,13 +47,13 @@ class TransaksiController extends Controller
             'has_scrollspy' => 1,
             'scrollspy_offset' => 100,
             'alt_menu' => 0,
-        ];              
-        
-        return view('transaksi.index', [           
+        ];
+
+        return view('transaksi.index', [
             'trans' => Transaksi::latest()->get(),
             'barngs' => Barang::all(),
             'pros' => Project::all(),
-        ])->with($data);   
+        ])->with($data);
     }
 
     /**
@@ -63,7 +63,6 @@ class TransaksiController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -79,60 +78,74 @@ class TransaksiController extends Controller
 
         $barang = Barang::all()->where('id', $request->id_barang)->first();
         // return $barang->stock;
-        if($request->masuk > 0){
+        if ($request->masuk > 0) {
             $stok_transaksi = $barang->stock + $request->masuk;
         } else {
             $stok_transaksi = $barang->stock - $request->keluar;
-        }   
-        
+        }
+
         $data_transaksi = [
             'id_barang'    => $request->id_barang,
-            'id_project' => $request->id_project,
-            'code_project' => $request->code_project, 
+            'dari' => $request->dari,
+            'ke' => $request->ke,
+            'code_project' => $request->code_project,
             'masuk'   => $request->masuk,
             'keluar'     => $request->keluar,
-            'stock' => $stok_transaksi,               
+            'stock' => $stok_transaksi,
             'keterangan'        => $request->keterangan,
             'remark'   => $request->remark
         ];
 
-        if ($request->id_project != null){
-            if(BarangProject::all()->where('id_project', $request->id_project)->where('id_barang', $request->id_barang)->first()){
-                                            
+        if ($request->ke != null) {
+            if (BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->dari)->first()) {
+
                 Transaksi::create($data_transaksi);
-                            
+
                 return redirect("/transaksi");
             } else {
-                $data_barang_project = [
-                    'code_project' => $request->code_project, 
-                    'id_project' => $request->id_project,
-                    'id_barang' => $request->id_barang,
-                    'stock'     => 0,
-                ];
-                BarangProject::create($data_barang_project);                 
-                                
+                if ($request->dari != null) {
+                    $data_barang_project_dari = [
+                        'code_project' => $request->code_project,
+                        'id_project' => $request->dari,
+                        'id_barang' => $request->id_barang,
+                        'stock'     => 0,
+                    ];
+
+                    BarangProject::create($data_barang_project_dari);
+                }
+
+                if (BarangProject::all()->where('id_project', $request->ke)->where('id_barang', $request->ke)->first() == null) {
+                    $data_barang_project_ke = [
+                        'code_project' => $request->code_project,
+                        'id_project' => $request->ke,
+                        'id_barang' => $request->id_barang,
+                        'stock'     => 0,
+                    ];
+
+                    BarangProject::create($data_barang_project_ke);
+                }
+
                 Transaksi::create($data_transaksi);
-                            
+
                 return redirect("/transaksi");
-            }       
+            }
         } else {
-            $data_transaksi = [
-                'id_barang'    => $request->id_barang,
-                'id_project' => $request->id_project,
-                'code_project' => $request->code_project, 
-                'masuk'   => $request->masuk,
-                'keluar'     => $request->keluar,
-                'stock' => $stok_transaksi,
-                'keterangan'        => $request->keterangan,
-                'remark'   => $request->remark
-            ];
+            // $data_transaksi = [
+            //     'id_barang'    => $request->id_barang,
+            //     'dari' => $request->dari,
+            //     'ke' => $request->ke,
+            //     'code_project' => $request->code_project, 
+            //     'masuk'   => $request->masuk,
+            //     'keluar'     => $request->keluar,
+            //     'stock' => $stok_transaksi,
+            //     'keterangan'        => $request->keterangan,
+            //     'remark'   => $request->remark
+            // ];
             // return $validateData;
             Transaksi::create($data_transaksi);
-            
-            return redirect("/transaksi");  
+
+            return redirect("/transaksi");
         }
-        
-                      
     }
 
     /**
@@ -143,7 +156,6 @@ class TransaksiController extends Controller
      */
     public function show(Transaksi $transaksi)
     {
-        
     }
 
     /**
@@ -174,7 +186,7 @@ class TransaksiController extends Controller
             'keterangan'        => 'required',
             'remark'   => 'required'
         ]);
-        if(Transaksi::where('id', $transaksi->id)->update($validateData)){
+        if (Transaksi::where('id', $transaksi->id)->update($validateData)) {
             return redirect('transaksi');
         }
     }

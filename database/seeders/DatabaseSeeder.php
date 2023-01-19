@@ -76,40 +76,42 @@ class DatabaseSeeder extends Seeder
             'nama' => 'Bojonggede',
         ]);
 
-        Transaksi::create([
-            'id_barang' => '1',
-            'id_project' => '1',
-            'code_project' => 'TGR',
-            'masuk' => '0',
-            'keluar' => '2',
-            'stock' => '48',
-            'keterangan' => '-',
-            'remark' => '-'
-        ]);
+        // Transaksi::create([
+        //     'id_barang' => '1',
+        //     'dari' => '',
+        //     'ke' => '2',
+        //     'code_project' => 'TGR',
+        //     'masuk' => '0',
+        //     'keluar' => '2',
+        //     'stock' => '48',
+        //     'keterangan' => '-',
+        //     'remark' => '-'
+        // ]);
 
-        Transaksi::create([
-            'id_barang' => '2',
-            'id_project' => '1',
-            'code_project' => 'TGR',
-            'masuk' => '0',
-            'keluar' => '10',
-            'stock' => '110',
-            'keterangan' => '-',
-            'remark' => '-'
-        ]);
+        // Transaksi::create([
+        //     'id_barang' => '2',
+        //     'dari' => '1',
+        //     'ke' => '2',
+        //     'code_project' => 'TGR',
+        //     'masuk' => '0',
+        //     'keluar' => '10',
+        //     'stock' => '110',
+        //     'keterangan' => '-',
+        //     'remark' => '-'
+        // ]);
 
-        BarangProject::create([
-            'code_project' => 'TGR',
-            'id_barang' => '1',
-            'id_project' => '1',
-            'stock' => '2',
-        ]);
+        // BarangProject::create([
+        //     'code_project' => 'TGR',
+        //     'id_barang' => '1',
+        //     'id_project' => '1',
+        //     'stock' => '2',
+        // ]);
 
-        BarangProject::create([
-            'code_project' => 'TGR',
-            'id_barang' => '2',
-            'id_project' => '1',
-            'stock' => '10',
-        ]);
+        // BarangProject::create([
+        //     'code_project' => 'TGR',
+        //     'id_barang' => '2',
+        //     'id_project' => '1',
+        //     'stock' => '10',
+        // ]);
     }
 }
