@@ -8,7 +8,7 @@
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <div class="widget-content widget-content-area br-6">
                     <div>
-                        <!-- Tambah Data -->
+                        {{-- <!-- Tambah Data -->
                         <button type="button" class="btn btn-primary mb-1" data-toggle="modal" data-target="#modalTambahData">
                             <!-- <i class='bx bx-plus-medical'></i> -->
                             Tambah Data
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- END TAMBAH DATA -->
+                        <!-- END TAMBAH DATA --> --}}
                     </div>
                     <div class="table-responsive mb-4 mt-4">
                         <table id="html5-extension" class="table table-hover non-hover" style="width:100%">

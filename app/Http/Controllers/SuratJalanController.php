@@ -76,7 +76,7 @@ class SuratJalanController extends Controller
 
     public function barang(Request $request)
     {
-        $data['barang'] = BarangProject::with(['barang.namaBarang'])->where("id_project", $request->id_project)->get();
+        $data['barang'] = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", $request->id_project)->get();
         return response()->json($data);
     }
 
