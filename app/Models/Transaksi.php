@@ -18,8 +18,13 @@ class Transaksi extends Model
     }
 
 
-    public function project()
+    public function dariproject()
     {
-        return $this->belongsTo(Project::class, 'id_project')->withDefault('nama', 'null');
+        return $this->belongsTo(Project::class, 'dari')->withDefault('nama', 'null');
+    }
+
+    public function keproject()
+    {
+        return $this->belongsTo(Project::class, 'ke')->withDefault('nama', 'null');
     }
 }

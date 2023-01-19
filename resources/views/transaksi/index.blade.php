@@ -43,19 +43,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <form method="POST" action="{{ route('transaksi.store') }}" id="addTransaksi">
-                                                    @csrf
-                                                    <!-- <div class="form-floating mb-3">
-                                                        <label for="floatingInput2">Tanggal</label>
-                                                        <input type="date" value="{{ old('tgl') }}" name="tgl" id="date-picker" required class="form-control">
-                                                        <script>
-                                                            var date = new Date();
-                                                            var year = date.getFullYear();
-                                                            var month = String(date.getMonth()+1).padStart(2,'0');
-                                                            var todayDate = String(date.getDate()).padStart(2,'0');
-                                                            var datePattern = year + '-' + month + '-' + todayDate;
-                                                            document.getElementById("date-picker").value = datePattern;
-                                                        </script>
-                                                    </div> -->
+                                                    @csrf                                                   
                                                     <div class="form-floating mb-3">
                                                         <label for="floatingInput6">Material Name</label>
                                                         <select name="id_barang" id="id_barang" class="form-control">
@@ -70,33 +58,48 @@
                                                     </div>
 
                                                     <div class="form-floating mb-3">
-                                                        <label for="floatingInput6">Projek Name</label>
-                                                        <select name="id_project" id="id_project" class="form-control">
-                                                            <option value="">Default</option>
+                                                        <label for="floatingInput6">Dari</label>
+                                                        <select name="dari" id="dari" class="form-control">
+                                                            <option value="">None</option>
                                                         @foreach ($pros as $bar)
                                                             <option value="{{ $bar->id }}">{{ $bar->nama }}</option>
                                                         @endforeach
                                                         </select>
                                                     </div>
 
-                                                    <div class="form-floating mb-3 menu" id="code_project" style='display:none'>
+                                                    <div class="form-floating mb-3" id="ke" 
+                                                    {{-- style='display:none' --}}
+                                                    >
+                                                        <label for="floatingInput6">Ke</label>
+                                                        <select name="ke" class="form-control">
+                                                            <option value="">None</option>
+                                                        @foreach ($pros as $bar)
+                                                            <option value="{{ $bar->id }}">{{ $bar->nama }}</option>
+                                                        @endforeach
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-floating mb-3 menu" id="code_project" 
+                                                    {{-- style='display:none' --}}
+                                                    >
                                                         <label for="floatingInput5">Code Projek</label>
                                                         <input value="{{ old('code_project') }}" name="code_project" type="text" class="form-control" id="code_project">
                                                     </div>
                                                     
                                                     <div class="code-container"> 
                                                     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-                                                    <script>
-                                                        
-                                                        $('#id_project').on('change', function() {
-                                                            // const selected = $(this).find('option:selected');
-                                                            const selected = document.getElementById('id_project').value;
-                                                            if(selected != ''){
-                                                                document.getElementById('code_project').style.display = "block"
-                                                            } else{
-                                                                document.getElementById('code_project').style.display = "none"                                                               
-                                                            }
-                                                            });
+                                                    <script>                                                     
+                                                        // $('#dari').on('change', function() {
+                                                        //     // const selected = $(this).find('option:selected');
+                                                        //     const selected = document.getElementById('dari').value;
+                                                        //     if(selected != ''){
+                                                        //         document.getElementById('code_project').style.display = "block"
+                                                        //         document.getElementById('ke').style.display = "block"
+                                                        //     } else{
+                                                        //         document.getElementById('code_project').style.display = "none"   
+                                                        //         document.getElementById('ke').style.display = "none"                                                            
+                                                        //     }
+                                                        //     });
                                                     </script>
 
                                                     </div>
@@ -135,7 +138,8 @@
                                             <th>In</th>
                                             <th>Out</th>
                                             <th>Stock</th>
-                                            <th>Project</th>
+                                            <th>Dari</th>
+                                            <th>Ke</th>
                                             <th>Keterangan</th>
                                             <th>Remarks</th>                                                                                    
                                             <th>Action</th>
@@ -151,7 +155,8 @@
                                             <td>{{ $item->masuk }}</td>
                                             <td>{{ $item->keluar }}</td>                                         
                                             <td>{{ $item->stock}}</td> 
-                                            <td>{{ $item->project->nama}}</td>                                          
+                                            <td>{{ $item->dariproject->nama}}</td> 
+                                            <td>{{ $item->keproject->nama}}</td>                                          
                                             <td>{{ $item->keterangan }}</td>
                                             <td>{{ $item->remark }}</td>
                                             <td>
