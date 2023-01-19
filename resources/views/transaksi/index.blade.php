@@ -13,7 +13,7 @@
                                 <!-- Tambah Data -->
                                 <button type="button" class="btn btn-primary mb-1" data-toggle="modal" data-target="#modalTambahData">
                                 <!-- <i class='bx bx-plus-medical'></i> -->
-                                    Tambah Data
+                                    Transaksi Barang
                                 </button>
                             
                                 <a href="{{ route('transaksi.history')}}">

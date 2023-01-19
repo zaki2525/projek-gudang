@@ -26,14 +26,14 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        User::create([           
+        User::create([
             'name' => "admin",
             'email' => "admin@cork.com",
             'password' => bcrypt('password'),
             'role' => 'admin',
         ]);
 
-        User::create([           
+        User::create([
             'name' => "user",
             'email' => "user",
             'password' => bcrypt('password'),
@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         NamaBarang::create([
-            'nama' => 'Baut' ,           
+            'nama' => 'Baut',
             'unit' => 'pcs'
         ]);
 
@@ -60,20 +60,20 @@ class DatabaseSeeder extends Seeder
             'stock' => '50',
         ]);
         Barang::create([
-            'id_nama_barang' => '2',            
+            'id_nama_barang' => '2',
             'stock' => '110',
         ]);
         Barang::create([
-            'id_nama_barang' => '3',            
+            'id_nama_barang' => '3',
             'stock' => '200',
         ]);
 
         Project::create([
-            'nama' => 'Lampung',            
+            'nama' => 'Lampung',
         ]);
 
         Project::create([
-            'nama' => 'Bojonggede',            
+            'nama' => 'Bojonggede',
         ]);
 
         Transaksi::create([
@@ -84,13 +84,32 @@ class DatabaseSeeder extends Seeder
             'keluar' => '2',
             'stock' => '48',
             'keterangan' => '-',
-            'remark' => '-']);
+            'remark' => '-'
+        ]);
+
+        Transaksi::create([
+            'id_barang' => '2',
+            'id_project' => '1',
+            'code_project' => 'TGR',
+            'masuk' => '0',
+            'keluar' => '10',
+            'stock' => '110',
+            'keterangan' => '-',
+            'remark' => '-'
+        ]);
 
         BarangProject::create([
             'code_project' => 'TGR',
             'id_barang' => '1',
             'id_project' => '1',
-            'stock' => '2',            
+            'stock' => '2',
+        ]);
+
+        BarangProject::create([
+            'code_project' => 'TGR',
+            'id_barang' => '2',
+            'id_project' => '1',
+            'stock' => '10',
         ]);
     }
 }

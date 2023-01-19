@@ -119,7 +119,7 @@ class SuratJalanController extends Controller
             foreach ($request->id_barang as $key => $id_barang) {
                 $data_surat_jalan_items = [
                     'id_surat_jalan' => $surat_jalan->id,
-                    'id_barang' => $id_barang[$key],
+                    'id_barang' => $id_barang,
                     'id_project' => $request->id_project,
                     'keluar' => $request->keluar[$key],                   
                 ];
