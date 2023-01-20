@@ -20,8 +20,11 @@ return new class extends Migration
         END');
         DB::unprepared('CREATE TRIGGER keluar AFTER INSERT ON `transaksis` FOR EACH ROW
         BEGIN
-        UPDATE barangs SET barangs.stock = barangs.stock - NEW.keluar WHERE barangs.id = NEW.id_barang;    
-        UPDATE barang_projects SET barang_projects.stock = barang_projects.stock - NEW.keluar WHERE barang_projects.id_project = NEW.dari AND barang_projects.id_barang = NEW.id_barang;
+        IF NEW.dari THEN UPDATE barang_projects SET barang_projects.stock = barang_projects.stock - NEW.keluar WHERE barang_projects.id_project = NEW.dari AND barang_projects.id_barang = NEW.id_barang;
+        ELSE UPDATE barangs SET barangs.stock = barangs.stock - NEW.keluar WHERE barangs.id = NEW.id_barang;        
+        END IF;
+
+        
         UPDATE barang_projects SET barang_projects.stock = barang_projects.stock + NEW.keluar WHERE barang_projects.id_project = NEW.ke AND barang_projects.id_barang = NEW.id_barang;
         END');
         DB::unprepared('CREATE TRIGGER masuk_update AFTER UPDATE ON `transaksis` FOR EACH ROW
