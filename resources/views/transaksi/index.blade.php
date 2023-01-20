@@ -74,7 +74,7 @@
 
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Dari</label>
-                                                <select name="dari" id="dari" class="form-control">
+                                                <select name="dari" id="dari" class="form-control project">
                                                     <option value="">None</option>
                                                     @foreach ($pros as $bar)
                                                         <option value="{{ $bar->id }}">{{ $bar->nama }}</option>
@@ -122,9 +122,9 @@
                                                 });
                                             </script>
 
-                                            <div class="form-floating mb-3" id="ke" {{-- style='display:none' --}}>
+                                            <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Ke</label>
-                                                <select name="ke" class="form-control">
+                                                <select name="ke" id="ke" class="form-control project">
                                                     <option value="">None</option>
                                                     @foreach ($pros as $bar)
                                                         <option value="{{ $bar->id }}">{{ $bar->nama }}</option>
@@ -132,27 +132,31 @@
                                                 </select>
                                             </div>
 
-                                            <div class="form-floating mb-3 menu" id="code_project" {{-- style='display:none' --}}>
+                                            <div class="form-floating mb-3 menu" id="code_project" style='display:none'>
                                                 <label for="floatingInput5">Code Projek</label>
                                                 <input value="{{ old('code_project') }}" name="code_project" type="text"
-                                                    class="form-control" id="code_project">
+                                                    class="form-control" id="code_project_form">
                                             </div>
 
                                             <div class="code-container">
                                                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
                                                     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
                                                 <script>
-                                                    // $('#dari').on('change', function() {
-                                                    //     // const selected = $(this).find('option:selected');
-                                                    //     const selected = document.getElementById('dari').value;
-                                                    //     if(selected != ''){
-                                                    //         document.getElementById('code_project').style.display = "block"
-                                                    //         document.getElementById('ke').style.display = "block"
-                                                    //     } else{
-                                                    //         document.getElementById('code_project').style.display = "none"   
-                                                    //         document.getElementById('ke').style.display = "none"                                                            
-                                                    //     }
-                                                    //     });
+                                                    $('.project').on('change', function() {
+                                                        // const selected = $(this).find('option:selected');
+                                                        const selecteddari = document.getElementById('dari').value;
+                                                        const selectedke = document.getElementById('ke').value;
+                                                        if(selecteddari != '' || selectedke != ''){
+                                                            document.getElementById('code_project').style.display = "block"
+                                                            // document.getElementById('ke').style.display = "block"
+                                                            // $('#code_project_form').val(''); 
+                                                            
+                                                        } else if(selecteddari == '' && selectedke == ''){
+                                                            document.getElementById('code_project').style.display = "none"   
+                                                            // document.getElementById('ke').style.display = "none"   
+                                                            $('#code_project_form').val('');                                                      
+                                                        }
+                                                        });
                                                 </script>
 
                                             </div>
