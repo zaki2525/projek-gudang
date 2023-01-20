@@ -68,23 +68,31 @@
                                             </div>
 
                                             <div class="form-floating mb-3 barang-container">
-                                                <label for="floatingInput6">Barang</label>
-                                                <a type="" class=" btn-add-barang" style="font-size: 14px;">
-                                                    Add
-                                                </a>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <select name="id_barang[]" class="form-control id_barang" id="id_barang">
+                                                        <label for="floatingInput6">Barang</label>
+                                                    </div>
+                                                    <div class="col d-flex justify-content-end ">
+                                                        
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <select name="id_barang[]" class="form-control id_barang"
+                                                            id="id_barang">
                                                             <option>
                                                                 Select
-                                                            </option>                                                      
+                                                            </option>
                                                         </select>
                                                     </div>
-                                                    <div class="col">
+                                                    <div class="col input-group">
                                                         <input type="number" name="keluar[]" class="form-control"
-                                                            placeholder="Qty" value="1">                                               
+                                                            placeholder="Qty" value="1">
+                                                            <button type="" class="btn btn-primary btn-sm btn-add-barang" style="border-top-left-radius:0;border-bottom-left-radius:0" >Add
+                                                        </button>
                                                     </div>
-                                                </div>                                                
+                                                </div>
                                             </div>
 
                                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -110,12 +118,32 @@
                                                                 });
                                                             }
                                                         });
-                                                    });                     
+                                                    });
+
                                                 });
                                             </script>
 
                                             <script>
                                                 $('.btn-add-barang').click(function() {
+                                                    $("#id_barang").html('');
+                                                    $.ajax({
+                                                        url: "{{ url('suratjalan/fetch') }}",
+                                                        type: "POST",
+                                                        data: {
+                                                            id_project: document.getElementById('id_project').value,
+                                                            _token: '{{ csrf_token() }}'
+                                                        },
+                                                        dataType: 'json',
+                                                        success: function(result) {
+                                                            $('.id_barang').html('<option value="" selected>Select</option>');
+                                                            $.each(result.barang, function(key, value) {
+                                                                $(".id_barang").append(
+                                                                    '<option name="id_barang" value="' + value
+                                                                    .id_barang + '">' + value.barang.nama_barang.nama +
+                                                                    '</option>');
+                                                            });
+                                                        }
+                                                    });
                                                     $('.barang-container').append(barang())
                                                 })
 

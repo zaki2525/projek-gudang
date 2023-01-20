@@ -96,25 +96,14 @@ class TransaksiController extends Controller
             'remark'   => $request->remark
         ];
 
-        if ($request->ke != null) {
-            if (BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->dari)->first()) {
-
-                Transaksi::create($data_transaksi);
-
-                return redirect("/transaksi");
-            } else {
-                if ($request->dari != null) {
-                    $data_barang_project_dari = [
-                        'code_project' => $request->code_project,
-                        'id_project' => $request->dari,
-                        'id_barang' => $request->id_barang,
-                        'stock'     => 0,
-                    ];
-
-                    BarangProject::create($data_barang_project_dari);
-                }
-
-                if (BarangProject::all()->where('id_project', $request->ke)->where('id_barang', $request->ke)->first() == null) {
+        if ($request->dari != null  && $request->ke != null) {
+            // cek apakah ada record barangproject where id project = dari
+            if (BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->id_barang)->first()) {
+                // cek apakah ada record barangproject where id project = ke
+                if (BarangProject::all()->where('id_project', $request->ke)->where('id_barang', $request->id_barang->first())) {
+                    Transaksi::create($data_transaksi);
+                    return redirect("/transaksi");
+                } else {
                     $data_barang_project_ke = [
                         'code_project' => $request->code_project,
                         'id_project' => $request->ke,
@@ -123,27 +112,75 @@ class TransaksiController extends Controller
                     ];
 
                     BarangProject::create($data_barang_project_ke);
+
+                    Transaksi::create($data_transaksi);
+                    return redirect("/transaksi");
                 }
+            } else {
+                $data_barang_project_dari = [
+                    'code_project' => $request->code_project,
+                    'id_project' => $request->dari,
+                    'id_barang' => $request->id_barang,
+                    'stock'     => 0,
+                ];
+
+                BarangProject::create($data_barang_project_dari);
+
+                // cek apakah ada record barangproject where id project = ke
+                if (BarangProject::all()->where('id_project', $request->ke)->where('id_barang', $request->id_barang->first())) {
+                    Transaksi::create($data_transaksi);
+                    return redirect("/transaksi");
+                } else {
+                    $data_barang_project_ke = [
+                        'code_project' => $request->code_project,
+                        'id_project' => $request->ke,
+                        'id_barang' => $request->id_barang,
+                        'stock'     => 0,
+                    ];
+
+                    BarangProject::create($data_barang_project_ke);
+
+                    Transaksi::create($data_transaksi);
+                    return redirect("/transaksi");
+                }
+            }
+        } else if ($request->dari != null && $request->ke == null) {
+            // cek apakah ada record barangproject where id project = dari
+            if (BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->id_barang)->first()) {
+                Transaksi::create($data_transaksi);
+                return redirect("/transaksi");
+            } else {
+                $data_barang_project_dari = [
+                    'code_project' => $request->code_project,
+                    'id_project' => $request->dari,
+                    'id_barang' => $request->id_barang,
+                    'stock'     => 0,
+                ];
+                BarangProject::create($data_barang_project_dari);
 
                 Transaksi::create($data_transaksi);
+                return redirect("/transaksi");
+            }
+        } else if ($request->dari == null && $request->ke != null) {
+            // cek apakah ada record barangproject where id project = ke
+            if (BarangProject::all()->where('id_project', $request->ke)->where('id_barang', $request->id_barang->first())) {
+                Transaksi::create($data_transaksi);
+                return redirect("/transaksi");
+            } else {
+                $data_barang_project_ke = [
+                    'code_project' => $request->code_project,
+                    'id_project' => $request->ke,
+                    'id_barang' => $request->id_barang,
+                    'stock'     => 0,
+                ];
 
+                BarangProject::create($data_barang_project_ke);
+
+                Transaksi::create($data_transaksi);
                 return redirect("/transaksi");
             }
         } else {
-            // $data_transaksi = [
-            //     'id_barang'    => $request->id_barang,
-            //     'dari' => $request->dari,
-            //     'ke' => $request->ke,
-            //     'code_project' => $request->code_project, 
-            //     'masuk'   => $request->masuk,
-            //     'keluar'     => $request->keluar,
-            //     'stock' => $stok_transaksi,
-            //     'keterangan'        => $request->keterangan,
-            //     'remark'   => $request->remark
-            // ];
-            // return $validateData;
             Transaksi::create($data_transaksi);
-
             return redirect("/transaksi");
         }
     }
