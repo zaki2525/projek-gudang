@@ -163,7 +163,7 @@ class TransaksiController extends Controller
             }
         } else if ($request->dari == null && $request->ke != null) {
             // cek apakah ada record barangproject where id project = ke
-            if (BarangProject::all()->where('id_project', $request->ke)->where('id_barang', $request->id_barang->first())) {
+            if (BarangProject::all()->where('id_project', $request->ke)->where('id_barang', $request->id_barang)->first()) {
                 Transaksi::create($data_transaksi);
                 return redirect("/transaksi");
             } else {
