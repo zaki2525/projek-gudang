@@ -41,40 +41,46 @@ class DatabaseSeeder extends Seeder
         ]);
 
         NamaBarang::create([
-            'nama' => 'Baut',
-            'unit' => 'pcs'
+            'nama' => 'Switch Hub HIKVISION 4 Port            ',
+            'unit' => 'unit'
         ]);
 
         NamaBarang::create([
-            'nama' => 'Baterai',
+            'nama' => 'Kamera PTZ HIKVISION Speed Dome            ',
+            'unit' => 'unit',
+        ]);
+
+        NamaBarang::create([
+            'nama' => 'Mini Display Port Adapter            ',
             'unit' => 'pcs',
-        ]);
-
-        NamaBarang::create([
-            'nama' => 'Kabel Lan',
-            'unit' => 'meter',
         ]);
 
         Barang::create([
             'id_nama_barang' => '1',
-            'stock' => '50',
+            'stock' => '2',
         ]);
         Barang::create([
             'id_nama_barang' => '2',
-            'stock' => '110',
+            'stock' => '24',
         ]);
         Barang::create([
             'id_nama_barang' => '3',
-            'stock' => '200',
+            'stock' => '15',
         ]);
 
         Project::create([
-            'nama' => 'Lampung',
+            'nama' => 'Sentralisasi Minning
+            ',
         ]);
 
         Project::create([
-            'nama' => 'Bojonggede',
+            'nama' => 'Dawuan',
         ]);
+
+        Project::create([
+            'nama' => 'Sentra',
+        ]);
+
 
         // Transaksi::create([
         //     'id_barang' => '1',
