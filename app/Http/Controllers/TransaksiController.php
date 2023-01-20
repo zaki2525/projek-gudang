@@ -100,7 +100,7 @@ class TransaksiController extends Controller
             // cek apakah ada record barangproject where id project = dari
             if (BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->id_barang)->first()) {
                 // cek apakah ada record barangproject where id project = ke
-                if (BarangProject::all()->where('id_project', $request->ke)->where('id_barang', $request->id_barang->first())) {
+                if (BarangProject::all()->where('id_project', $request->ke)->where('id_barang', $request->id_barang)->first()) {
                     Transaksi::create($data_transaksi);
                     return redirect("/transaksi");
                 } else {
