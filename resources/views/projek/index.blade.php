@@ -57,6 +57,7 @@
                                     <tr align="center">
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->nama }}</td>
+                                        @if(auth()->user->role == 'admin')
                                         <td>                                    
                                                 <button type="button" class="btn btn-dark btn-sm" data-toggle="modal"
                                                     data-target="#modalEditData{{$item->id}}">
@@ -93,6 +94,7 @@
                                                 </form>
                                                 <!-- END HAPUS DATA -->                                      
                                         </td>
+                                        @endif
                                     </tr>
                                     
                                     <!-- MODAL EDIT DATA -->

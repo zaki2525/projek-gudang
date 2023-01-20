@@ -92,6 +92,7 @@
                                                     </svg>
                                                 </button>
                                             </a>
+                                            @if(auth()->user->role == 'admin')
                                             <button type="button" class="btn btn-dark btn-sm" data-toggle="modal"
                                                 data-target="#modalEditData{{ $item->id }}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -126,6 +127,7 @@
                                                 </button>
                                             </form>
                                             <!-- END HAPUS DATA -->
+                                            @endif
                                         </td>
                                     </tr>
 
