@@ -48,10 +48,11 @@
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Material Name</label>
                                                 <select name="id_barang" id="id_barang" class="form-control">
-                                                    @foreach ($barngs as $bar)
+                                                    <option value="">Select</option>
+                                                    {{-- @foreach ($barngs as $bar)
                                                         <option value="{{ $bar->id }}">{{ $bar->namaBarang->nama }}
                                                         </option>
-                                                    @endforeach
+                                                    @endforeach --}}
                                                 </select>
                                             </div>
                                             <div class="row">
@@ -80,6 +81,34 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+
+                                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                                            <script>
+                                                $(document).ready(function() {
+                                                    $('#dari').on('change', function() {
+                                                        // $("#dari").html('');
+                                                        $.ajax({
+                                                            url: "{{ url('transaksi/fetch') }}",
+                                                            type: "POST",
+                                                            data: {
+                                                                id_project: this.value,
+                                                                _token: '{{ csrf_token() }}'
+                                                            },
+                                                            dataType: 'json',
+                                                            success: function(result) {
+                                                                $('#id_barang').html('<option value="" selected>Select</option>');
+                                                                $.each(result.barang, function(key, value) {
+                                                                    $("#id_barang").append(
+                                                                        '<option name="id_barang" value="' + value
+                                                                        .id_barang + '">' + value.barang.nama_barang.nama +
+                                                                        '</option>');
+                                                                });
+                                                            }
+                                                        });
+                                                    });
+
+                                                });
+                                            </script>
 
                                             <div class="form-floating mb-3" id="ke" {{-- style='display:none' --}}>
                                                 <label for="floatingInput6">Ke</label>

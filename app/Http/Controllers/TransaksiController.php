@@ -65,12 +65,19 @@ class TransaksiController extends Controller
     {
     }
 
+    public function barang(Request $request)
+    {
+        $data['barang'] = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", $request->id_project)->where('stock', '>', 0)->get();
+        return response()->json($data);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+     
     public function store(Request $request)
     {
 
