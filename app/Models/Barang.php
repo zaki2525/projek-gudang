@@ -16,4 +16,12 @@ class Barang extends Model
     {
         return $this->belongsTo(NamaBarang::class, 'id_nama_barang');        
     }
+    
+    public function totalBarang()
+    {
+      
+        $total = BarangProject::where('id_barang', $this->id)->sum('stock');
+        
+        return $total;
+    }
 }

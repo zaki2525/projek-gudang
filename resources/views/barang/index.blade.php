@@ -79,7 +79,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->namaBarang->nama }}</td>
                                         <td>{{ $item->namaBarang->unit }}</td>
-                                        <td>{{ $item->stock }}</td>
+                                        <td>{{ $item->stock + $item->totalBarang() }}</td>
                                         <td>
                                             <a href="/barang/{{ $item->id }}">                                        
                                                 <button type="button" class="btn btn-primary btn-sm">
