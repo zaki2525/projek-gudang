@@ -24,6 +24,12 @@
                                 </tr>
                             </thead>                            
                             <tbody>
+                                <tr align="center">
+                                    <td>1</td>
+                                    <td>None</td>
+                                    <td>{{$barang->stock}}</td>
+                                    <td>{{$barang->namabarang->unit}}</td>
+                                   </tr>
                                @foreach($datas as $item)
                                <tr align="center">
                                 <td>{{$loop->iteration}}</td>
