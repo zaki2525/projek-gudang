@@ -9,12 +9,14 @@
                     <div>
 
                         @if ($history == false)
-                            <!-- Tambah Data -->
-                            <button type="button" class="btn btn-primary mb-1" data-toggle="modal"
-                                data-target="#modalTambahData">
-                                <!-- <i class='bx bx-plus-medical'></i> -->
-                                Tambah Surat
-                            </button>
+                            @if (auth()->user()->role == 'admin')
+                                <!-- Tambah Data -->
+                                <button type="button" class="btn btn-primary mb-1" data-toggle="modal"
+                                    data-target="#modalTambahData">
+                                    <!-- <i class='bx bx-plus-medical'></i> -->
+                                    Tambah Surat
+                                </button>
+                            @endif
 
                             <a href="{{ route('suratjalan.history') }}">
                                 <button type="button" class="btn btn-primary mb-1">
@@ -73,7 +75,7 @@
                                                         <label for="floatingInput6">Barang</label>
                                                     </div>
                                                     <div class="col d-flex justify-content-end ">
-                                                        
+
                                                     </div>
                                                 </div>
 
@@ -89,7 +91,8 @@
                                                     <div class="col input-group">
                                                         <input type="number" name="keluar[]" class="form-control"
                                                             placeholder="Qty" value="1">
-                                                            <button type="" class="btn btn-primary btn-sm btn-add-barang" style="border-top-left-radius:0;border-bottom-left-radius:0" >Add
+                                                        <button type="" class="btn btn-primary btn-sm btn-add-barang"
+                                                            style="border-top-left-radius:0;border-bottom-left-radius:0">Add
                                                         </button>
                                                     </div>
                                                 </div>

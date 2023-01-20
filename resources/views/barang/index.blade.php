@@ -8,12 +8,13 @@
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <div class="widget-content widget-content-area br-6">
                     <div>
+                        @if(auth()->user()->role == 'admin')
                         <!-- Tambah Data -->
                         <button type="button" class="btn btn-primary mb-1" data-toggle="modal" data-target="#modalTambahData">
                             <!-- <i class='bx bx-plus-medical'></i> -->
                             Tambah Data
                         </button>
-
+                        @endif
                         <!-- MODAL TAMBAH DATA -->
                         <div class="modal fade" id="modalTambahData" tabindex="-1" aria-labelledby="modalTambahBarang"
                             aria-hidden="true">

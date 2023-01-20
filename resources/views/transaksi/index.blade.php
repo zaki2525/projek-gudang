@@ -9,12 +9,14 @@
                     <div>
 
                         @if ($history == false)
-                            <!-- Tambah Data -->
-                            <button type="button" class="btn btn-primary mb-1" data-toggle="modal"
-                                data-target="#modalTambahData">
-                                <!-- <i class='bx bx-plus-medical'></i> -->
-                                Transaksi Barang
-                            </button>
+                            @if (auth()->user()->role == 'admin')
+                                <!-- Tambah Data -->
+                                <button type="button" class="btn btn-primary mb-1" data-toggle="modal"
+                                    data-target="#modalTambahData">
+                                    <!-- <i class='bx bx-plus-medical'></i> -->
+                                    Transaksi Barang
+                                </button>
+                            @endif
 
                             <a href="{{ route('transaksi.history') }}">
                                 <button type="button" class="btn btn-primary mb-1">
@@ -146,17 +148,17 @@
                                                         // const selected = $(this).find('option:selected');
                                                         const selecteddari = document.getElementById('dari').value;
                                                         const selectedke = document.getElementById('ke').value;
-                                                        if(selecteddari != '' || selectedke != ''){
+                                                        if (selecteddari != '' || selectedke != '') {
                                                             document.getElementById('code_project').style.display = "block"
                                                             // document.getElementById('ke').style.display = "block"
                                                             // $('#code_project_form').val(''); 
-                                                            
-                                                        } else if(selecteddari == '' && selectedke == ''){
-                                                            document.getElementById('code_project').style.display = "none"   
+
+                                                        } else if (selecteddari == '' && selectedke == '') {
+                                                            document.getElementById('code_project').style.display = "none"
                                                             // document.getElementById('ke').style.display = "none"   
-                                                            $('#code_project_form').val('');                                                      
+                                                            $('#code_project_form').val('');
                                                         }
-                                                        });
+                                                    });
                                                 </script>
 
                                             </div>
@@ -229,7 +231,7 @@
                                                 </svg>
                                             </button>                                        
                                         </td>   
-                                        --}}                                      
+                                        --}}
                                     </tr>
                                     <!-- MODAL EDIT DATA -->
                                     <div class="modal fade" id="modalEditData{{ $item->id }}" tabindex="-1"
