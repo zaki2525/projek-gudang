@@ -49,7 +49,9 @@
                                 <tr align="center">
                                     <th>No</th>
                                     <th>Projek Name</th>
+                                    @if(auth()->user()->role == 'admin')
                                     <th>Action</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,7 +59,7 @@
                                     <tr align="center">
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->nama }}</td>
-                                        @if(auth()->user->role == 'admin')
+                                        @if(auth()->user()->role == 'admin')
                                         <td>                                    
                                                 <button type="button" class="btn btn-dark btn-sm" data-toggle="modal"
                                                     data-target="#modalEditData{{$item->id}}">

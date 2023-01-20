@@ -66,8 +66,7 @@
                                 @foreach ($datas as $item)
                                     <tr align="center">
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->nama }}</td>
-                                        @if(auth()->user->role == 'admin')
+                                        <td>{{ $item->nama }}</td>                                    
                                         <td>
                                             <a href="/bproject/{{ $item->id }}">                                        
                                                 <button type="button" class="btn btn-primary btn-sm">
@@ -80,8 +79,7 @@
                                                     </svg>
                                                 </button>
                                             </a>                                            
-                                        </td>
-                                        @endif
+                                        </td>                                   
                                     </tr>                                                                 
                                 @endforeach
                             </tbody>
