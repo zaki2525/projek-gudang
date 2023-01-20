@@ -49,10 +49,10 @@
                                                 <label for="floatingInput6">Material Name</label>
                                                 <select name="id_barang" id="id_barang" class="form-control">
                                                     <option value="">Select</option>
-                                                    {{-- @foreach ($barngs as $bar)
+                                                    @foreach ($barngs as $bar)
                                                         <option value="{{ $bar->id }}">{{ $bar->namaBarang->nama }}
                                                         </option>
-                                                    @endforeach --}}
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="row">
@@ -97,12 +97,24 @@
                                                             dataType: 'json',
                                                             success: function(result) {
                                                                 $('#id_barang').html('<option value="" selected>Select</option>');
-                                                                $.each(result.barang, function(key, value) {
-                                                                    $("#id_barang").append(
-                                                                        '<option name="id_barang" value="' + value
-                                                                        .id_barang + '">' + value.barang.nama_barang.nama +
-                                                                        '</option>');
-                                                                });
+                                                                const selected = document.getElementById('dari').value;
+                                                                if (selected == '') {
+                                                                    $.each(result.barang, function(key, value) {
+                                                                        $("#id_barang").append(
+                                                                            '<option name="id_barang" value="' + value
+                                                                            .id_barang + '">' + value.nama_barang
+                                                                            .nama +
+                                                                            '</option>');
+                                                                    });
+                                                                } else {
+                                                                    $.each(result.barang, function(key, value) {
+                                                                        $("#id_barang").append(
+                                                                            '<option name="id_barang" value="' + value
+                                                                            .id_barang + '">' + value.barang.nama_barang
+                                                                            .nama +
+                                                                            '</option>');
+                                                                    });
+                                                                }
                                                             }
                                                         });
                                                     });

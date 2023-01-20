@@ -67,11 +67,21 @@ class TransaksiController extends Controller
 
     public function barang(Request $request)
     {
-        if($request->id_project){
-            $data['barang'] = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", $request->id_project)->where('stock', '>', 0)->get();            
+        if ($request->id_project) {
+            $data['barang'] = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", $request->id_project)->where('stock', '>', 0)->get();
         } else {
             $data['barang'] = Barang::with(['namaBarang'])->where('stock', '>', 0)->get();
-        }     
+        }
+        return response()->json($data);
+    }
+
+    public function data()
+    {
+
+        // $data['barang'] = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", $request->id_project)->where('stock', '>', 0)->get();            
+
+        $data['barang'] = Barang::with(['namaBarang'])->where('stock', '>', 0)->get();
+
         return response()->json($data);
     }
 
@@ -81,7 +91,7 @@ class TransaksiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-     
+
     public function store(Request $request)
     {
 
