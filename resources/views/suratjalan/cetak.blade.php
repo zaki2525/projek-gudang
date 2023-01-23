@@ -71,7 +71,7 @@
                 <td>{{ $item->keluar }}</td> 
                 <td>{{ $item->barang->namaBarang->unit }}</td>
                 <td>{{ $item->barang->namaBarang->nama }} </td>
-                <td></td>
+                <td>{{ $item->remark }}</td>
                 </tr>                   
                 @endforeach     
                 </tr>

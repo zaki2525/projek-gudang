@@ -121,7 +121,8 @@ class SuratJalanController extends Controller
                     'id_surat_jalan' => $surat_jalan->id,
                     'id_barang' => $id_barang,
                     'id_project' => $request->id_project,
-                    'keluar' => $request->keluar[$key],                   
+                    'keluar' => $request->keluar[$key],
+                    'remark' => $request->remark[$key],                   
                 ];
                 SuratJalanItem::create($data_surat_jalan_items);               
             }

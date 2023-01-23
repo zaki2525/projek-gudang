@@ -35,8 +35,8 @@
 
                         <!-- MODAL TAMBAH DATA -->
                         <div class="modal fade" id="modalTambahData" tabindex="-1" aria-labelledby="modalTambahBarang"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
+                            aria-hidden="true" >
+                            <div class="modal-dialog" style="width: 850px;">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="title">Create New Surat</h5>
@@ -90,7 +90,13 @@
                                                     </div>
                                                     <div class="col input-group">
                                                         <input type="number" name="keluar[]" class="form-control"
-                                                            placeholder="Qty" value="1">
+                                                            placeholder="Qty" value="1" style="width: 20px;">
+                                                        
+                                                    </div>
+                                                    <div class="col input-group">
+                                                        <input value="" required
+                                                            name="remark[]" type="text" required
+                                                            class="form-control" id="remark" placeholder="remark">
                                                         <button type="" class="btn btn-primary btn-sm btn-add-barang"
                                                             style="border-top-left-radius:0;border-bottom-left-radius:0">Add
                                                         </button>
@@ -165,7 +171,12 @@
                                                     </div>
                                                     <div class="col input-group">
                                                         <input type="number" name="keluar[]" class="form-control"
-                                                            placeholder="Qty" value="1">  
+                                                            placeholder="Qty" value="1">                                                   
+                                                    </div>
+                                                    <div class="col input-group">
+                                                        <input value="" required
+                                                            name="remark[]" type="text" required
+                                                            class="form-control" id="remark" placeholder="remark">
                                                             <button class="btn btn-sm btn-danger btn-delete-barang" style="border-top-left-radius:0;border-bottom-left-radius:0"                                                            >
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -180,7 +191,7 @@
                                                             <line x1="14" y1="11" x2="14"
                                                                 y2="17"></line>
                                                             </svg>
-                                                        </button>                                                      
+                                                        </button>   
                                                     </div>                                                    
                                                     </div>`
                                                 }
