@@ -123,6 +123,7 @@ class TransaksiController extends Controller
                 // cek apakah ada record barangproject where id project = ke
                 if (BarangProject::all()->where('id_project', $request->ke)->where('id_barang', $request->id_barang)->first()) {
                     Transaksi::create($data_transaksi);
+                    alert()->success('success','Transaction Barang berhasil di tambahkan');
                     return redirect("/transaksi");
                 } else {
                     $data_barang_project_ke = [
@@ -135,6 +136,7 @@ class TransaksiController extends Controller
                     BarangProject::create($data_barang_project_ke);
 
                     Transaksi::create($data_transaksi);
+                    alert()->success('success','Transaction Barang berhasil di tambahkan');
                     return redirect("/transaksi");
                 }
             } else {
@@ -150,6 +152,7 @@ class TransaksiController extends Controller
                 // cek apakah ada record barangproject where id project = ke
                 if (BarangProject::all()->where('id_project', $request->ke)->where('id_barang', $request->id_barang)->first()) {
                     Transaksi::create($data_transaksi);
+                    alert()->success('success','Transaction Barang berhasil di tambahkan');
                     return redirect("/transaksi");
                 } else {
                     $data_barang_project_ke = [
@@ -162,6 +165,7 @@ class TransaksiController extends Controller
                     BarangProject::create($data_barang_project_ke);
 
                     Transaksi::create($data_transaksi);
+                    alert()->success('success','Transaction Barang berhasil di tambahkan');
                     return redirect("/transaksi");
                 }
             }
@@ -169,6 +173,7 @@ class TransaksiController extends Controller
             // cek apakah ada record barangproject where id project = dari
             if (BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->id_barang)->first()) {
                 Transaksi::create($data_transaksi);
+                alert()->success('success','Transaction Barang berhasil di tambahkan');
                 return redirect("/transaksi");
             } else {
                 $data_barang_project_dari = [
@@ -180,12 +185,14 @@ class TransaksiController extends Controller
                 BarangProject::create($data_barang_project_dari);
 
                 Transaksi::create($data_transaksi);
+                alert()->success('success','Transaction Barang berhasil di tambahkan');
                 return redirect("/transaksi");
             }
         } else if ($request->dari == null && $request->ke != null) {
             // cek apakah ada record barangproject where id project = ke
             if (BarangProject::all()->where('id_project', $request->ke)->where('id_barang', $request->id_barang)->first()) {
                 Transaksi::create($data_transaksi);
+                alert()->success('success','Transaction Barang berhasil di tambahkan');
                 return redirect("/transaksi");
             } else {
                 $data_barang_project_ke = [
@@ -198,12 +205,15 @@ class TransaksiController extends Controller
                 BarangProject::create($data_barang_project_ke);
 
                 Transaksi::create($data_transaksi);
+                alert()->success('success','Transaction Barang berhasil di tambahkan');
                 return redirect("/transaksi");
             }
         } else {
             Transaksi::create($data_transaksi);
+            alert()->success('success','Transaction Barang berhasil di tambahkan');
             return redirect("/transaksi");
-        }
+        } 
+        alert()->error('Error','Transaction Barang gagal di tambahkan');
     }
 
     /**

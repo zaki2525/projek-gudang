@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
+@include('sweetalert::alert')
+
     <div class="layout-px-spacing">
 
         <div class="row layout-top-spacing">
@@ -107,11 +110,11 @@
                                                 </svg>
                                             </button>
                                             <!-- HAPUS DATA -->
-                                            <form action="/barang/{{ $item->id }}" method="POST" class="d-inline">
+                                            <form action="/barang/{{ $item->id }}" method="POST" class="d-inline delete">
                                                 @method('delete')
                                                 @csrf
-                                                <button type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('Sure?')">
+                                                <button type="submit" class="btn btn-danger btn-sm warning cancel"
+                                                    onclick="return false">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -147,7 +150,7 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <form method="POST" action="barang/{{ $item->id }}"
-                                                        id="addUser">
+                                                        id="addUser" class="update">
                                                         @csrf
                                                         @method('put')
                                                         <div class="form-floating mb-3">
@@ -170,8 +173,8 @@
                                                                 class="form-control" id="stock">
                                                         </div>
                                                         <div class="input-group">
-                                                            <button class="btn btn-primary"
-                                                                onClick="store()">Update</button>
+                                                            <button class="btn btn-primary warning confirm"
+                                                                onclick="return false">Update</button>
                                                         </div>
                                                     </form>
                                                 </div>

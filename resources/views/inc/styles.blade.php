@@ -14,6 +14,13 @@
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 @switch($page_name)
     @case('bproject')
+      {{-- Component Sweetalert --}}
+      <link href="{{asset('assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
+      <link href="{{asset('plugins/animate/animate.css')}}" rel="stylesheet" type="text/css" />
+      <script src="{{asset('plugins/sweetalerts/promise-polyfill.js')}}"></script>
+      <link href="{{asset('plugins/sweetalerts/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
+      <link href="{{asset('plugins/sweetalerts/sweetalert.css')}}" rel="stylesheet" type="text/css" />
+      <link href="{{asset('assets/css/components/custom-sweetalert.css')}}" rel="stylesheet" type="text/css" />
       {{-- Table Datatable HTML5 --}}
       <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/datatables.css')}}">
       <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/custom_dt_html5.css')}}">

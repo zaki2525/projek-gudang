@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use RealRashid\SweetAlert\Facades\Alert;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -53,6 +55,10 @@ class ProjectController extends Controller
         ]);
 
         if(Project::create($data)){
+            alert()->success('success','data project berhasil di tambahkan');
+            return redirect('/project');
+        } else {
+            alert()->error('error','data project gagal di tambahkan');
             return redirect('/project');
         }
     }
@@ -63,7 +69,7 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $projek
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $projek)
+    public function show(Project $project)
     {
         //
     }
@@ -74,7 +80,7 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $projek
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $projek)
+    public function edit(Project $project)
     {
         //
     }
@@ -86,13 +92,16 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $projek
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $projek)
+    public function update(Request $request, Project $project)
     {
         $data = $request->validate([
             'nama' => 'required'   
         ]);
 
-        if(Project::where('id', $projek->id)->update($data)){
+        if(Project::where('id', $project->id)->update($data)){
+            return redirect('/project');
+        } else {
+            alert()->error('error','data project gagal di update');
             return redirect('/project');
         }
     }
@@ -103,9 +112,12 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $projek
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $projek)
+    public function destroy(Project $project)
     {
-        if(Project::destroy($projek->id)){
+        if(Project::destroy($project->id)){
+            return redirect('/project');
+        } else {
+            alert()->error('error','data project gagal di hapus');
             return redirect('/project');
         }
     }

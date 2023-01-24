@@ -61,9 +61,13 @@ class BarangController extends Controller
                 // 'stock' => $request->validate(['stock'], ['required'])
                 'stock' => 0
             ];    
-                if(Barang::create($data_barang)){
-                    return redirect('barang');
-                }
+            if(Barang::create($data_barang)){
+                alert()->success('success','data barang berhasil di tambahkan');
+                return redirect('/barang');
+            } else {
+                alert()->error('error','data barang gagal di tambahkan');
+                return redirect('/barang');
+            }
         }     
     }
 
@@ -117,7 +121,10 @@ class BarangController extends Controller
         ]);
 
         if(NamaBarang::where('id', $barang->id)->update($data_nama_barang)){
-            return redirect('barang');
+            return redirect('/barang');
+        } else {
+            alert()->error('error','data barang gagal di update');
+            return redirect('/barang');
         }
     }
 
@@ -130,7 +137,10 @@ class BarangController extends Controller
     public function destroy(Barang $barang)
     {
         if(Barang::destroy($barang->id)){
-            return redirect('barang');
+            return redirect('/barang');
+        } else {
+            alert()->error('error','data barang gagal di hapus');
+            return redirect('/barang');
         }
     }
 }

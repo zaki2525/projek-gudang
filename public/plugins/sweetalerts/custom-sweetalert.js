@@ -51,13 +51,14 @@ $('.widget-content .warning.confirm').on('click', function () {
       text: "You won't be able to revert this!",
       type: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Delete',
+      confirmButtonText: 'Update',
       padding: '2em'
     }).then(function(result) {
       if (result.value) {
+        $('.update').submit();
         swal(
-          'Deleted!',
-          'Your file has been deleted.',
+          'Updated!',
+          'Your data has been Updated.',
           'success'
         )
       }
@@ -72,7 +73,7 @@ $('.widget-content .warning.cancel').on('click', function () {
   })
 
   swalWithBootstrapButtons({
-    title: 'Are you sure?',
+    title: 'Are you sure ?',
     text: "You won't be able to revert this!",
     type: 'warning',
     showCancelButton: true,
@@ -82,9 +83,10 @@ $('.widget-content .warning.cancel').on('click', function () {
     padding: '2em'
   }).then(function(result) {
     if (result.value) {
+      $('.delete').submit();
       swalWithBootstrapButtons(
         'Deleted!',
-        'Your file has been deleted.',
+        'Your Data has been deleted.',
         'success'
       )
     } else if (
@@ -93,7 +95,7 @@ $('.widget-content .warning.cancel').on('click', function () {
     ) {
       swalWithBootstrapButtons(
         'Cancelled',
-        'Your imaginary file is safe :)',
+        'Your imaginary Data is safe :)',
         'error'
       )
     }

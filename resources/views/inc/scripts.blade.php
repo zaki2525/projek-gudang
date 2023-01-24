@@ -20,6 +20,10 @@
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 @switch($page_name)
     @case('project')
+    {{-- Components Sweetalerts --}}
+      <script src="{{asset('assets/js/scrollspyNav.js')}}"></script>
+      <script src="{{asset('plugins/sweetalerts/sweetalert2.min.js')}}"></script>
+      <script src="{{asset('plugins/sweetalerts/custom-sweetalert.js')}}"></script>
     {{-- Table Datatable HTML5 --}}
     <script src="{{asset('plugins/table/datatable/datatables.js')}}"></script>
     <script src="{{asset('plugins/table/datatable/button-ext/dataTables.buttons.min.js')}}"></script>
@@ -82,6 +86,10 @@
     </script>
     @break
     @case('barang')
+    {{-- Components Sweetalerts --}}
+      <script src="{{asset('assets/js/scrollspyNav.js')}}"></script>
+      <script src="{{asset('plugins/sweetalerts/sweetalert2.min.js')}}"></script>
+      <script src="{{asset('plugins/sweetalerts/custom-sweetalert.js')}}"></script>
     {{-- Table Datatable HTML5 --}}
     <script src="{{asset('plugins/table/datatable/datatables.js')}}"></script>
     <script src="{{asset('plugins/table/datatable/button-ext/dataTables.buttons.min.js')}}"></script>
@@ -146,6 +154,10 @@
     @break
 
     @case('suratJalan')
+    {{-- Components Sweetalerts --}}
+      <script src="{{asset('assets/js/scrollspyNav.js')}}"></script>
+      <script src="{{asset('plugins/sweetalerts/sweetalert2.min.js')}}"></script>
+      <script src="{{asset('plugins/sweetalerts/custom-sweetalert.js')}}"></script>
     {{-- Table Datatable HTML5 --}}
     <script src="{{asset('plugins/table/datatable/datatables.js')}}"></script>
     <script src="{{asset('plugins/table/datatable/button-ext/dataTables.buttons.min.js')}}"></script>

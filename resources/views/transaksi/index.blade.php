@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
+@include('sweetalert::alert')
+
     <div class="layout-px-spacing">
 
         <div class="row layout-top-spacing">

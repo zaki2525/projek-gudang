@@ -51,9 +51,9 @@ class SuratJalanController extends Controller
         ];
 
         return view('suratjalan.index', [
-            'su' => SuratJalan::latest()->get(),
+            'data' => SuratJalan::latest()->get(),
             'barngs' => Barang::all(),
-            'pros' => Project::all(),
+            'projects' => Project::all(),
         ])->with($data);
     }
 
@@ -105,7 +105,7 @@ class SuratJalanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, BarangProject $barangproject)
     {
         $data_surat_jalan = $request->validate([
             'id_project' => ['required'],
@@ -115,18 +115,26 @@ class SuratJalanController extends Controller
             'no_mobil' => ['required'],
         ]);
 
-        if ($surat_jalan = SuratJalan::create($data_surat_jalan)) {
-            foreach ($request->id_barang as $key => $id_barang) {
-                $data_surat_jalan_items = [
-                    'id_surat_jalan' => $surat_jalan->id,
-                    'id_barang' => $id_barang,
-                    'id_project' => $request->id_project,
-                    'keluar' => $request->keluar[$key],
-                    'remark' => $request->remark[$key],                   
-                ];
-                SuratJalanItem::create($data_surat_jalan_items);               
+        if($barangproject->stock != 0){
+            if ($surat_jalan = SuratJalan::create($data_surat_jalan)) {
+                foreach ($request->id_barang as $key => $id_barang) {
+                    $data_surat_jalan_items = [
+                        'id_surat_jalan' => $surat_jalan->id,
+                        'id_barang' => $id_barang,
+                        'id_project' => $request->id_project,
+                        'keluar' => $request->keluar[$key],
+                        'remark' => $request->remark[$key],                   
+                    ];
+                    SuratJalanItem::create($data_surat_jalan_items);               
+                }
+                alert()->success('success','Surat Jalan berhasil di tambahkan');
+                return redirect('/suratjalan');
+            } else {
+                alert()->error('Error','Surat Jalan gagal di tambahkan');
+                return redirect('/suratjalan');
             }
-
+        } else {
+            alert()->error('Error','Barang habis');
             return redirect('/suratjalan');
         }
     }
