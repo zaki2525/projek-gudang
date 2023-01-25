@@ -124,7 +124,8 @@ class TransaksiController extends Controller
             'keluar'     => $request->keluar,
             'stock' => $stok_transaksi,
             'keterangan'        => $request->keterangan,
-            'remark'   => $request->remark
+            'remark'   => $request->remark,
+            'created_at' => $request->created_at
         ];
 
         if ($request->dari != null  && $request->ke != null) {

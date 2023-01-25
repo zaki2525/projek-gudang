@@ -51,6 +51,10 @@
                                         <form method="POST" action="{{ route('transaksi.store') }}" id="addTransaksi">
                                             @csrf
                                             <div class="form-floating mb-3">
+                                                <label for="floatingInput6">Tanggal</label>
+                                                <input type="date" name="created_at" class="form-control">
+                                            </div>
+                                            <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Material Name</label>
                                                 <select name="id_barang" id="id_barang" class="form-control">
                                                     <option value="">Select</option>
