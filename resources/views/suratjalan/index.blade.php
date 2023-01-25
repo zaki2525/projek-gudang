@@ -97,8 +97,8 @@
                                                         
                                                     </div>
                                                     <div class="col input-group">
-                                                        <input value="" required
-                                                            name="remark[]" type="text" required
+                                                        <input value="" 
+                                                            name="remark[]" type="text" 
                                                             class="form-control" id="remark" placeholder="remark">
                                                         <button type="" class="btn btn-primary btn-sm btn-add-barang"
                                                             style="border-top-left-radius:0;border-bottom-left-radius:0">Add
@@ -172,13 +172,13 @@
                                                             </option>                                                      
                                                         </select>
                                                     </div>
-                                                    <div class="col input-group">
+                                                    <div class="col-2">
                                                         <input type="number" name="keluar[]" class="form-control"
                                                             placeholder="Qty" value="1">                                                   
                                                     </div>
                                                     <div class="col input-group">
-                                                        <input value="" required
-                                                            name="remark[]" type="text" required
+                                                        <input value="" 
+                                                            name="remark[]" type="text"
                                                             class="form-control" id="remark" placeholder="remark">
                                                             <button class="btn btn-sm btn-danger btn-delete-barang" style="border-top-left-radius:0;border-bottom-left-radius:0"                                                            >
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
