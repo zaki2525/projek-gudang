@@ -64,14 +64,14 @@
                                                 <div class="col">
                                                     <div class="form-floating mb-3">
                                                         <label for="floatingInput4">Stock In</label>
-                                                        <input value="{{ old('masuk') }}" required name="masuk"
+                                                        <input value="{{ old('masuk') }}" name="masuk"
                                                             type="number" required class="form-control" id="masuk">
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-floating mb-3">
                                                         <label for="floatingInput5">Stock Out</label>
-                                                        <input value="{{ old('keluar') }}" required name="keluar"
+                                                        <input value="{{ old('keluar') }}" name="keluar"
                                                             type="number" required class="form-control" id="keluar">
                                                     </div>
                                                 </div>
