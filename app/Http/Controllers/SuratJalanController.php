@@ -77,7 +77,7 @@ class SuratJalanController extends Controller
 
     public function barang(Request $request)
     {
-        $data['barang'] = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", $request->id_project)->get();
+        $data['barang'] = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", $request->id_project)->where('stock', '>', '0')->get();
         return response()->json($data);
     }
 
@@ -108,6 +108,7 @@ class SuratJalanController extends Controller
     public function store(Request $request)
     {
         $barangproject = BarangProject::where('id_project', $request->id_project)->where('id_barang', $request->id_barang)->first();
+        // return $request->all();
         $data_surat_jalan = $request->validate([
             'id_project' => ['required'],
             'delivery' => ['required'],
@@ -116,26 +117,29 @@ class SuratJalanController extends Controller
             'no_mobil' => ['required'],
         ]);
 
-        if($request->keluar <= $barangproject->stock){
-            if ($surat_jalan = SuratJalan::create($data_surat_jalan)) {
-                foreach ($request->id_barang as $key => $id_barang) {
-                    $data_surat_jalan_items = [
-                        'id_surat_jalan' => $surat_jalan->id,
-                        'id_barang' => $id_barang,
-                        'id_project' => $request->id_project,
-                        'keluar' => $request->keluar[$key],
-                        'remark' => $request->remark[$key],                   
-                    ];
-                    SuratJalanItem::create($data_surat_jalan_items);               
-                }
-                alert()->success('success','Surat Jalan berhasil di tambahkan');
-                return redirect('/suratjalan');
+        foreach ($request->keluar as $key => $keluar) {
+            if ($keluar[$key] <= $barangproject->stock) {
             } else {
-                alert()->error('Error','Surat Jalan gagal di tambahkan');
+                alert()->error('Error', 'Barang habis');
                 return redirect('/suratjalan');
             }
+        }
+
+        if ($surat_jalan = SuratJalan::create($data_surat_jalan)) {
+            foreach ($request->id_barang as $key => $id_barang) {
+                $data_surat_jalan_items = [
+                    'id_surat_jalan' => $surat_jalan->id,
+                    'id_barang' => $id_barang,
+                    'id_project' => $request->id_project,
+                    'keluar' => $request->keluar[$key],
+                    'remark' => $request->remark[$key],
+                ];
+                SuratJalanItem::create($data_surat_jalan_items);
+            }
+            alert()->success('success', 'Surat Jalan berhasil di tambahkan');
+            return redirect('/suratjalan');
         } else {
-            alert()->error('Error','Barang habis');
+            alert()->error('Error', 'Surat Jalan gagal di tambahkan');
             return redirect('/suratjalan');
         }
     }
@@ -155,7 +159,7 @@ class SuratJalanController extends Controller
             'has_scrollspy' => 1,
             'scrollspy_offset' => 100,
             'alt_menu' => 0,
-        ]; 
+        ];
 
         return view('suratjalan.cetak', [
             'surat_jalan' => $suratjalan,
