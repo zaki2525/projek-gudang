@@ -6,12 +6,12 @@
             <ul class="navbar-nav theme-brand flex-row  text-center">
                 <li class="nav-item theme-logo">
                     <a href="index.html">
-                        <img src="{{asset('public/storage/img/logo2.svg')}}" class="navbar-logo" alt="logo">
+                        <img src="{{asset('storage/img/meet.jpg')}}" class="navbar-logo" alt="logo" style="width: 200px;">
                     </a>
                 </li>
-                <li class="nav-item theme-text">
+                <!-- <li class="nav-item theme-text">
                     <a href="index.html" class="nav-link"> E-Inventory </a>
-                </li>
+                </li> -->
             </ul>
 
             <ul class="list-unstyled menu-categories" id="topAccordion">
