@@ -98,12 +98,14 @@ class TransaksiController extends Controller
         if($request->dari == null){   
             $barang = Barang::all()->where('id', $request->id_barang)->first();         
             if($request->keluar > $barang->stock){
-                return alert()->error('Error', 'Barang habis');
+                alert()->error('Error', 'Barang habis');
+                return redirect('/transaksi');
             }
         } else {
             $barang = BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->id_barang)->first();
             if($request->keluar > $barang->stock){
-                return alert()->error('Error', 'Barang habis');
+                alert()->error('Error', 'Barang habis');
+                return redirect('/transaksi');
             }
         }
             
