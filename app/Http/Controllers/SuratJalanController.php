@@ -105,8 +105,9 @@ class SuratJalanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, BarangProject $barangproject)
+    public function store(Request $request)
     {
+        $barangproject = BarangProject::where('id_project', $request->id_project)->where('id_barang', $request->id_barang)->first();
         $data_surat_jalan = $request->validate([
             'id_project' => ['required'],
             'delivery' => ['required'],
@@ -115,7 +116,7 @@ class SuratJalanController extends Controller
             'no_mobil' => ['required'],
         ]);
 
-        if($barangproject->stock != 0){
+        if($request->keluar <= $barangproject->stock){
             if ($surat_jalan = SuratJalan::create($data_surat_jalan)) {
                 foreach ($request->id_barang as $key => $id_barang) {
                     $data_surat_jalan_items = [
