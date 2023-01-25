@@ -107,7 +107,7 @@
                                                                     $.each(result.barang, function(key, value) {
                                                                         $("#id_barang").append(
                                                                             '<option name="id_barang" value="' + value
-                                                                            .id_barang + '">' + value.nama_barang
+                                                                            .id + '">' + value.nama_barang
                                                                             .nama +
                                                                             '</option>');
                                                                     });
