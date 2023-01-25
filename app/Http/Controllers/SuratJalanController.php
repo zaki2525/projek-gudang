@@ -119,8 +119,11 @@ class SuratJalanController extends Controller
 
         foreach ($request->keluar as $key => $keluar) {
             if ($keluar[$key] <= $barangproject->stock) {
+            } else if ($keluar[$key] > $barangproject->stock ){
+                alert()->error('Error', 'Barang yang akan dikeluarkan melebihi Stock yang ada saat ini!!');
+                return redirect('/suratjalan');
             } else {
-                alert()->error('Error', 'Barang habis');
+                alert()->error('Error', 'Stock Barang Habis!!');
                 return redirect('/suratjalan');
             }
         }
