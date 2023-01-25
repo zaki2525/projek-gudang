@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('id_barang');
             $table->integer('id_project');
             $table->integer('keluar');        
-            $table->string('remark');
+            $table->string('remark')->nullable(true);
             $table->timestamps();
         });
     }

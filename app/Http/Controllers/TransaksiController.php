@@ -93,12 +93,20 @@ class TransaksiController extends Controller
      */
 
     public function store(Request $request)
-    {
-
-        // return $request->all();     
-
-        $barang = Barang::all()->where('id', $request->id_barang)->first();
-        // return $barang->stock;
+    {   
+        // cek barang         
+        if($request->dari == null){   
+            $barang = Barang::all()->where('id', $request->id_barang)->first();         
+            if($request->keluar > $barang->stock){
+                return alert()->error('Error', 'Barang habis');
+            }
+        } else {
+            $barang = BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->id_barang)->first();
+            if($request->keluar > $barang->stock){
+                return alert()->error('Error', 'Barang habis');
+            }
+        }
+            
         if ($request->masuk > 0) {
             $stok_transaksi = $barang->stock + $request->masuk;
         } else {
