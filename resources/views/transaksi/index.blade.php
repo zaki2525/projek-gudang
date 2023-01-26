@@ -215,7 +215,7 @@
                                 @foreach ($trans as $item)
                                     <tr align="center">
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->created_at }}</td>
+                                        <td>{{ $item->created_at->format('d/m/Y') }}</td>
                                         <td>{{ $item->barang->namaBarang->nama }}</td>
                                         <td>{{ $item->barang->namaBarang->unit }}</td>
                                         <td>{{ $item->masuk }}</td>
@@ -261,85 +261,134 @@
                                                         @method('put')
                                                         @csrf
                                                         <div class="form-floating mb-3">
-                                                            <label for="floatingInput6">Material Name</label>
-                                                            <select name="id_barang" id="id_barang" class="form-control">
-                                                                @foreach ($barngs as $bar)
-                                                                    <option value="{{ $bar->id }}"
-                                                                        {{ $bar->id == $item->id_barang ? 'selected' : '' }}>
-                                                                        {{ $bar->namaBarang->nama }}</option>
-                                                                @endforeach
-                                                            </select>
+                                                            <label for="floatingInput6">Tanggal</label>
+                                                            <input type="date" name="created_at" class="form-control">
                                                         </div>
                                                         <div class="form-floating mb-3">
-                                                            <label for="floatingInput6">Projek Name</label>
-                                                            <select name="id_project" id="id_project"
-                                                                class="form-control">
-                                                                <option value="">Default</option>
-                                                                @foreach ($pros as $bar)
-                                                                    <option value="{{ $bar->id }}"
-                                                                        {{ $bar->id == $item->id_project ? 'selected' : '' }}>
-                                                                        {{ $bar->nama }}</option>
+                                                            <label for="floatingInput6">Material Name</label>
+                                                            <select name="id_barang" id="id_barang" class="form-control">
+                                                                <option value="">Select</option>
+                                                                @foreach ($barngs as $bar)
+                                                                    <option value="{{ $bar->id }}">{{ $bar->namaBarang->nama }}
+                                                                    </option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
-                                                        @if ($item->code_project == '')
-                                                            <div class="form-floating mb-3 menu" id="code_project"
-                                                                style='display:none'>
-                                                                <label for="floatingInput5">Code Projek</label>
-                                                                <input
-                                                                    value="{{ old('code_project', $item->code_project) }}"
-                                                                    name="code_project" type="text"
-                                                                    class="form-control" id="code_project">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-floating mb-3">
+                                                                    <label for="floatingInput4">Stock In</label>
+                                                                    <input value="{{ old('masuk') }}" name="masuk"
+                                                                        type="number" required class="form-control" id="masuk">
+                                                                </div>
                                                             </div>
-                                                        @else
-                                                            <div class="form-floating mb-3 menu" id="code_project"
-                                                                style='display'>
-                                                                <label for="floatingInput5">Code Projek</label>
-                                                                <input
-                                                                    value="{{ old('code_project', $item->code_project) }}"
-                                                                    name="code_project" type="text"
-                                                                    class="form-control" id="code_project">
+                                                            <div class="col">
+                                                                <div class="form-floating mb-3">
+                                                                    <label for="floatingInput5">Stock Out</label>
+                                                                    <input value="{{ old('keluar') }}" name="keluar"
+                                                                        type="number" required class="form-control" id="keluar">
+                                                                </div>
                                                             </div>
-                                                        @endif
-
+                                                        </div>
+            
+                                                        <div class="form-floating mb-3">
+                                                            <label for="floatingInput6">Dari</label>
+                                                            <select name="dari" id="dari" class="form-control project">
+                                                                <option value="">None</option>
+                                                                @foreach ($pros as $bar)
+                                                                    <option value="{{ $bar->id }}">{{ $bar->nama }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+            
+                                                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                                                        <script>
+                                                            $(document).ready(function() {
+                                                                $('#dari').on('change', function() {
+                                                                    // $("#dari").html('');
+                                                                    $.ajax({
+                                                                        url: "{{ url('transaksi/fetch') }}",
+                                                                        type: "POST",
+                                                                        data: {
+                                                                            id_project: this.value,
+                                                                            _token: '{{ csrf_token() }}'
+                                                                        },
+                                                                        dataType: 'json',
+                                                                        success: function(result) {
+                                                                            $('#id_barang').html('<option value="" selected>Select</option>');
+                                                                            const selected = document.getElementById('dari').value;
+                                                                            if (selected == '') {
+                                                                                $.each(result.barang, function(key, value) {
+                                                                                    $("#id_barang").append(
+                                                                                        '<option name="id_barang" value="' + value
+                                                                                        .id + '">' + value.nama_barang
+                                                                                        .nama +
+                                                                                        '</option>');
+                                                                                });
+                                                                            } else {
+                                                                                $.each(result.barang, function(key, value) {
+                                                                                    $("#id_barang").append(
+                                                                                        '<option name="id_barang" value="' + value
+                                                                                        .id_barang + '">' + value.barang.nama_barang
+                                                                                        .nama +
+                                                                                        '</option>');
+                                                                                });
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                });
+            
+                                                            });
+                                                        </script>
+            
+                                                        <div class="form-floating mb-3">
+                                                            <label for="floatingInput6">Ke</label>
+                                                            <select name="ke" id="ke" class="form-control project">
+                                                                <option value="">None</option>
+                                                                @foreach ($pros as $bar)
+                                                                    <option value="{{ $bar->id }}">{{ $bar->nama }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+            
+                                                        <div class="form-floating mb-3 menu" id="code_project" style='display:none'>
+                                                            <label for="floatingInput5">Code Projek</label>
+                                                            <input value="{{ old('code_project') }}" name="code_project" type="text"
+                                                                class="form-control" id="code_project_form">
+                                                        </div>
+            
                                                         <div class="code-container">
                                                             <script src="https://code.jquery.com/jquery-3.6.0.min.js"
                                                                 integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
                                                             <script>
-                                                                $('#id_project').on('change', function() {
+                                                                $('.project').on('change', function() {
                                                                     // const selected = $(this).find('option:selected');
-                                                                    const selected = document.getElementById('id_project').value;
-                                                                    if (selected != '') {
+                                                                    const selecteddari = document.getElementById('dari').value;
+                                                                    const selectedke = document.getElementById('ke').value;
+                                                                    if (selecteddari != '' || selectedke != '') {
                                                                         document.getElementById('code_project').style.display = "block"
-                                                                    } else {
+                                                                        // document.getElementById('ke').style.display = "block"
+                                                                        // $('#code_project_form').val(''); 
+            
+                                                                    } else if (selecteddari == '' && selectedke == '') {
                                                                         document.getElementById('code_project').style.display = "none"
+                                                                        // document.getElementById('ke').style.display = "none"   
+                                                                        $('#code_project_form').val('');
                                                                     }
                                                                 });
                                                             </script>
-                                                            <div class="form-floating mb-3">
-                                                                <label for="floatingInput4">Stock In</label>
-                                                                <input value="{{ old('masuk', $item->masuk) }}" required
-                                                                    name="masuk" type="number" required
-                                                                    class="form-control" id="masuk">
-                                                            </div>
-                                                            <div class="form-floating mb-3">
-                                                                <label for="floatingInput5">Stock Out</label>
-                                                                <input value="{{ old('keluar', $item->keluar) }}" required
-                                                                    name="keluar" type="number" required
-                                                                    class="form-control" id="keluar">
-                                                            </div>
-                                                            <div class="form-floating mb-3">
-                                                                <label for="floatingInput5">Keterangan</label>
-                                                                <input value="{{ old('keterangan', $item->keterangan) }}"
-                                                                    required name="keterangan" type="text" required
-                                                                    class="form-control" id="keterangan">
-                                                            </div>
-                                                            <div class="form-floating mb-3">
-                                                                <label for="floatingInput5">Remarks</label>
-                                                                <input value="{{ old('remark', $item->remark) }}" required
-                                                                    name="remark" type="text" required
-                                                                    class="form-control" id="remark">
-                                                            </div>
+            
+                                                        </div>
+                                                        <div class="form-floating mb-3">
+                                                            <label for="floatingInput5">Keterangan</label>
+                                                            <input value="{{ old('keterangan') }}" required name="keterangan"
+                                                                type="text" required class="form-control" id="keterangan">
+                                                        </div>
+                                                        <div class="form-floating mb-3">
+                                                            <label for="floatingInput5">Remarks</label>
+                                                            <input value="{{ old('remark') }}" required name="remark" type="text"
+                                                                required class="form-control" id="remark">
+                                                        </div>
 
                                                             <div class="input-group">
                                                                 <button class="btn btn-primary">Update</button>
