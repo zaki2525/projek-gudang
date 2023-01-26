@@ -52,7 +52,7 @@
                                             @csrf
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Tanggal</label>
-                                                <input type="date" name="created_at" class="form-control">
+                                                <input type="date" name="created_at" class="form-control" value="{{ date('Y-m-d') }}">
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Material Name</label>
@@ -262,14 +262,14 @@
                                                         @csrf
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput6">Tanggal</label>
-                                                            <input type="date" name="created_at" class="form-control" value="{{ old('created_at', $item->created_at) }}">
+                                                            <input type="date" name="created_at" class="form-control" value="{{ old('created_at', $item->created_at->format("Y-m-d")) }}">
                                                         </div>
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput6">Material Name</label>
                                                             <select name="id_barang" id="id_barang" class="form-control">
                                                                 <option value="">Select</option>
                                                                 @foreach ($barngs as $bar)
-                                                                    <option value="{{ $bar->id }}">{{ $bar->namaBarang->nama }}
+                                                                    <option value="{{ $bar->id }}" {{$item->id_barang == $bar->id ? "selected":""}} >{{ $bar->namaBarang->nama }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
@@ -285,7 +285,7 @@
                                                             <div class="col">
                                                                 <div class="form-floating mb-3">
                                                                     <label for="floatingInput5">Stock Out</label>
-                                                                    <input value="{{ old('keluar') }}" name="keluar"
+                                                                    <input value="{{ old('keluar', $item->keluar) }}" name="keluar"
                                                                         type="number" required class="form-control" id="keluar">
                                                                 </div>
                                                             </div>
@@ -296,7 +296,7 @@
                                                             <select name="dari" id="dari" class="form-control project">
                                                                 <option value="">None</option>
                                                                 @foreach ($pros as $bar)
-                                                                    <option value="{{ $bar->id }}">{{ $bar->nama }}</option>
+                                                                    <option value="{{ $bar->id }}" {{$item->dari == $bar->id ? "selected":""}}>{{ $bar->nama }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -346,14 +346,14 @@
                                                             <select name="ke" id="ke" class="form-control project">
                                                                 <option value="">None</option>
                                                                 @foreach ($pros as $bar)
-                                                                    <option value="{{ $bar->id }}">{{ $bar->nama }}</option>
+                                                                    <option value="{{ $bar->id }}" {{$item->ke == $bar->id ? "selected":""}}>{{ $bar->nama }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
             
                                                         <div class="form-floating mb-3 menu" id="code_project" style='display:none'>
                                                             <label for="floatingInput5">Code Projek</label>
-                                                            <input value="{{ old('code_project') }}" name="code_project" type="text"
+                                                            <input value="{{ old('code_project', $item->code_project) }}" name="code_project" type="text"
                                                                 class="form-control" id="code_project_form">
                                                         </div>
             
@@ -381,12 +381,12 @@
                                                         </div>
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput5">Keterangan</label>
-                                                            <input value="{{ old('keterangan') }}"  name="keterangan"
+                                                            <input value="{{ old('keterangan', $item->keterangan) }}"  name="keterangan"
                                                                 type="text"  class="form-control" id="keterangan">
                                                         </div>
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput5">Remarks</label>
-                                                            <input value="{{ old('remark') }}"  name="remark" type="text"
+                                                            <input value="{{ old('remark', $item->remark) }}"  name="remark" type="text"
                                                                  class="form-control" id="remark">
                                                         </div>
 
