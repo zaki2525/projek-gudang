@@ -206,7 +206,9 @@
                                     <th>Ke</th>
                                     <th>Keterangan</th>
                                     <th>Remarks</th>
-                                    {{-- <th>Action</th> --}}
+                                    @if(auth()->user()->role == 'admin')
+                                    <th>Action</th>
+                                    @endif                                   
                                 </tr>
                             </thead>
                             <tbody>
@@ -223,7 +225,8 @@
                                         <td>{{ $item->keproject->nama }}</td>
                                         <td>{{ $item->keterangan }}</td>
                                         <td>{{ $item->remark }}</td>
-                                        {{-- <td>
+                                        @if(auth()->user()->role == 'admin')
+                                        <td>                                            
                                             <!-- EDIT DATA -->
                                             <button type="button" class="btn btn-dark btn-sm" data-toggle="modal"
                                                 data-target="#modalEditData{{ $item->id }}">
@@ -238,7 +241,7 @@
                                                 </svg>
                                             </button>                                        
                                         </td>   
-                                        --}}
+                                       @endif
                                     </tr>
                                     <!-- MODAL EDIT DATA -->
                                     <div class="modal fade" id="modalEditData{{ $item->id }}" tabindex="-1"
