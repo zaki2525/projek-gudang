@@ -22,8 +22,8 @@ return new class extends Migration
             $table->integer('masuk');
             $table->integer('keluar');
             $table->integer('stock');
-            $table->string('keterangan');
-            $table->string('remark');
+            $table->string('keterangan')->nullable(true);
+            $table->string('remark')->nullable(true);
             $table->timestamps();
             $table->softDeletes();
         });
