@@ -2,7 +2,7 @@
 
 @section('content')
 
-@include('sweetalert::alert')
+    @include('sweetalert::alert')
 
     <div class="layout-px-spacing">
 
@@ -52,7 +52,8 @@
                                             @csrf
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Tanggal</label>
-                                                <input type="date" name="created_at" class="form-control" value="{{ date('Y-m-d') }}">
+                                                <input type="date" name="created_at" class="form-control"
+                                                    value="{{ date('Y-m-d') }}">
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Material Name</label>
@@ -68,15 +69,15 @@
                                                 <div class="col">
                                                     <div class="form-floating mb-3">
                                                         <label for="floatingInput4">Stock In</label>
-                                                        <input value="{{ old('masuk') }}" name="masuk"
-                                                            type="number" required class="form-control" id="masuk">
+                                                        <input value="{{ old('masuk') }}" name="masuk" type="number"
+                                                            required class="form-control" id="masuk">
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-floating mb-3">
                                                         <label for="floatingInput5">Stock Out</label>
-                                                        <input value="{{ old('keluar') }}" name="keluar"
-                                                            type="number" required class="form-control" id="keluar">
+                                                        <input value="{{ old('keluar') }}" name="keluar" type="number"
+                                                            required class="form-control" id="keluar">
                                                     </div>
                                                 </div>
                                             </div>
@@ -171,13 +172,13 @@
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput5">Keterangan</label>
-                                                <input value="{{ old('keterangan') }}"  name="keterangan"
-                                                    type="text"  class="form-control" id="keterangan">
+                                                <input value="{{ old('keterangan') }}" name="keterangan" type="text"
+                                                    class="form-control" id="keterangan">
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput5">Remarks</label>
-                                                <input value="{{ old('remark') }}"  name="remark" type="text"
-                                                     class="form-control" id="remark">
+                                                <input value="{{ old('remark') }}" name="remark" type="text"
+                                                    class="form-control" id="remark">
                                             </div>
 
                                             <div class="input-group">
@@ -206,9 +207,9 @@
                                     <th>Ke</th>
                                     <th>Keterangan</th>
                                     <th>Remarks</th>
-                                    @if(auth()->user()->role == 'admin')
-                                    <th>Action</th>
-                                    @endif                                   
+                                    @if (auth()->user()->role == 'admin')
+                                        <th>Action</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -225,23 +226,24 @@
                                         <td>{{ $item->keproject->nama }}</td>
                                         <td>{{ $item->keterangan }}</td>
                                         <td>{{ $item->remark }}</td>
-                                        @if(auth()->user()->role == 'admin')
-                                        <td>                                            
-                                            <!-- EDIT DATA -->
-                                            <button type="button" class="btn btn-dark btn-sm" data-toggle="modal"
-                                                data-target="#modalEditData{{ $item->id }}">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-edit">
-                                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
-                                                    </path>
-                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
-                                                    </path>
-                                                </svg>
-                                            </button>                                        
-                                        </td>   
-                                       @endif
+                                        @if (auth()->user()->role == 'admin')
+                                            <td>
+                                                <!-- EDIT DATA -->
+                                                <button id="btn-edit" type="button" class="btn btn-dark btn-sm"
+                                                    data-toggle="modal" data-target="#modalEditData{{ $item->id }}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="feather feather-edit">
+                                                        <path
+                                                            d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                                                        </path>
+                                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                                                        </path>
+                                                    </svg>
+                                                </button>
+                                            </td>
+                                        @endif
                                     </tr>
                                     <!-- MODAL EDIT DATA -->
                                     <div class="modal fade" id="modalEditData{{ $item->id }}" tabindex="-1"
@@ -262,48 +264,99 @@
                                                         @csrf
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput6">Tanggal</label>
-                                                            <input type="date" name="created_at" class="form-control" value="{{ old('created_at', $item->created_at->format("Y-m-d")) }}">
+                                                            <input type="date" name="created_at" class="form-control"
+                                                                value="{{ old('created_at', $item->created_at->format('Y-m-d')) }}">
                                                         </div>
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput6">Material Name</label>
-                                                            <select name="id_barang" id="id_barang" class="form-control">
+                                                            <select name="id_barang" id="id_barang-edit"
+                                                                class="form-control">
                                                                 <option value="">Select</option>
-                                                                @foreach ($barngs as $bar)
+                                                                {{-- @foreach ($barngs as $bar)
                                                                     <option value="{{ $bar->id }}" {{$item->id_barang == $bar->id ? "selected":""}} >{{ $bar->namaBarang->nama }}
                                                                     </option>
-                                                                @endforeach
+                                                                @endforeach --}}
                                                             </select>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col">
                                                                 <div class="form-floating mb-3">
                                                                     <label for="floatingInput4">Stock In</label>
-                                                                    <input value="{{ old('masuk', $item->masuk) }}" name="masuk"
-                                                                        type="number" required class="form-control" id="masuk">
+                                                                    <input value="{{ old('masuk', $item->masuk) }}"
+                                                                        name="masuk" type="number" required
+                                                                        class="form-control" id="masuk">
                                                                 </div>
                                                             </div>
                                                             <div class="col">
                                                                 <div class="form-floating mb-3">
                                                                     <label for="floatingInput5">Stock Out</label>
-                                                                    <input value="{{ old('keluar', $item->keluar) }}" name="keluar"
-                                                                        type="number" required class="form-control" id="keluar">
+                                                                    <input value="{{ old('keluar', $item->keluar) }}"
+                                                                        name="keluar" type="number" required
+                                                                        class="form-control" id="keluar">
                                                                 </div>
                                                             </div>
                                                         </div>
-            
+
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput6">Dari</label>
-                                                            <select name="dari" id="dari" class="form-control project">
+                                                            <select name="dari" id="dari"
+                                                                class="form-control project">
                                                                 <option value="">None</option>
                                                                 @foreach ($pros as $bar)
-                                                                    <option value="{{ $bar->id }}" {{$item->dari == $bar->id ? "selected":""}}>{{ $bar->nama }}</option>
+                                                                    <option value="{{ $bar->id }}"
+                                                                        {{ $item->dari == $bar->id ? 'selected' : '' }}>
+                                                                        {{ $bar->nama }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
-            
-                                                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                                                         <script>
                                                             $(document).ready(function() {
+                                                                $('#btn-edit').on('click', function() {
+                                                                    $.ajax({
+                                                                        url: "{{ url('transaksi/fetch') }}",
+                                                                        type: "POST",
+                                                                        data: {
+                                                                            @if ($item->dari == null)
+                                                                                id_project: 0,
+                                                                            @else
+                                                                                id_project: {{ $item->dari }},
+                                                                            @endif
+                                                                            _token: '{{ csrf_token() }}'
+                                                                        },
+                                                                        dataType: 'json',
+                                                                        success: function(result) {
+                                                                            $('#id_barang-edit').html('<option value="" selected>Select</option>');
+                                                                            const selected = document.getElementById('dari').value;
+                                                                            if (selected == '') {
+                                                                                $.each(result.barang, function(key, value) {
+                                                                                    if ({{ $item->id_barang }} == value.id) {
+                                                                                        isselected = 'selected';
+                                                                                    } else {
+                                                                                        isselected = '';
+                                                                                    }
+                                                                                    $("#id_barang-edit").append(
+                                                                                        '<option name="id_barang" value="' + value
+                                                                                        .id + '">' + value.nama_barang
+                                                                                        .nama +
+                                                                                        '</option>');
+                                                                                });
+                                                                            } else {
+                                                                                $.each(result.barang, function(key, value) {
+                                                                                    if ({{ $item->id_barang }} == value.id_barang) {
+                                                                                        isselected = 'selected';
+                                                                                    } else {
+                                                                                        isselected = '';
+                                                                                    }
+                                                                                    $("#id_barang-edit").append(
+                                                                                        '<option name="id_barang" value="' + value
+                                                                                        .id_barang + '">' + value.barang.nama_barang
+                                                                                        .nama +
+                                                                                        '</option>');
+                                                                                });
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                });
                                                                 $('#dari').on('change', function() {
                                                                     // $("#dari").html('');
                                                                     $.ajax({
@@ -318,18 +371,27 @@
                                                                             $('#id_barang').html('<option value="" selected>Select</option>');
                                                                             const selected = document.getElementById('dari').value;
                                                                             if (selected == '') {
-                                                                                $.each(result.barang, function(key, value) {
+                                                                                $.each(result.barang, function(key, value) {                                                                                    
                                                                                     $("#id_barang").append(
                                                                                         '<option name="id_barang" value="' + value
-                                                                                        .id + '">' + value.nama_barang
+                                                                                        .id + '"' +
+                                                                                        isselected +
+                                                                                        '>' + value.nama_barang
                                                                                         .nama +
                                                                                         '</option>');
                                                                                 });
                                                                             } else {
                                                                                 $.each(result.barang, function(key, value) {
+                                                                                    if ({{ $item->id_barang }} == value.id_barang) {
+                                                                                        isselected = 'selected';
+                                                                                    } else {
+                                                                                        isselected = '';
+                                                                                    }
                                                                                     $("#id_barang").append(
                                                                                         '<option name="id_barang" value="' + value
-                                                                                        .id_barang + '">' + value.barang.nama_barang
+                                                                                        .id_barang + '"' +
+                                                                                        isselected +
+                                                                                        '>' + value.barang.nama_barang
                                                                                         .nama +
                                                                                         '</option>');
                                                                                 });
@@ -337,29 +399,32 @@
                                                                         }
                                                                     });
                                                                 });
-            
+
                                                             });
                                                         </script>
-            
+
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput6">Ke</label>
-                                                            <select name="ke" id="ke" class="form-control project">
+                                                            <select name="ke" id="ke"
+                                                                class="form-control project">
                                                                 <option value="">None</option>
                                                                 @foreach ($pros as $bar)
-                                                                    <option value="{{ $bar->id }}" {{$item->ke == $bar->id ? "selected":""}}>{{ $bar->nama }}</option>
+                                                                    <option value="{{ $bar->id }}"
+                                                                        {{ $item->ke == $bar->id ? 'selected' : '' }}>
+                                                                        {{ $bar->nama }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
-            
-                                                        <div class="form-floating mb-3 menu" id="code_project" style='display:none'>
+
+                                                        <div class="form-floating mb-3 menu" id="code_project"
+                                                            style='display:none'>
                                                             <label for="floatingInput5">Code Projek</label>
-                                                            <input value="{{ old('code_project', $item->code_project) }}" name="code_project" type="text"
-                                                                class="form-control" id="code_project_form">
+                                                            <input value="{{ old('code_project', $item->code_project) }}"
+                                                                name="code_project" type="text" class="form-control"
+                                                                id="code_project_form">
                                                         </div>
-            
+
                                                         <div class="code-container">
-                                                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-                                                                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
                                                             <script>
                                                                 $('.project').on('change', function() {
                                                                     // const selected = $(this).find('option:selected');
@@ -369,7 +434,7 @@
                                                                         document.getElementById('code_project').style.display = "block"
                                                                         // document.getElementById('ke').style.display = "block"
                                                                         // $('#code_project_form').val(''); 
-            
+
                                                                     } else if (selecteddari == '' && selectedke == '') {
                                                                         document.getElementById('code_project').style.display = "none"
                                                                         // document.getElementById('ke').style.display = "none"   
@@ -377,22 +442,24 @@
                                                                     }
                                                                 });
                                                             </script>
-            
+
                                                         </div>
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput5">Keterangan</label>
-                                                            <input value="{{ old('keterangan', $item->keterangan) }}"  name="keterangan"
-                                                                type="text"  class="form-control" id="keterangan">
+                                                            <input value="{{ old('keterangan', $item->keterangan) }}"
+                                                                name="keterangan" type="text" class="form-control"
+                                                                id="keterangan">
                                                         </div>
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput5">Remarks</label>
-                                                            <input value="{{ old('remark', $item->remark) }}"  name="remark" type="text"
-                                                                 class="form-control" id="remark">
+                                                            <input value="{{ old('remark', $item->remark) }}"
+                                                                name="remark" type="text" class="form-control"
+                                                                id="remark">
                                                         </div>
 
-                                                            <div class="input-group">
-                                                                <button class="btn btn-primary">Update</button>
-                                                            </div>
+                                                        <div class="input-group">
+                                                            <button class="btn btn-primary">Update</button>
+                                                        </div>
                                                     </form>
                                                 </div>
                                             </div>
