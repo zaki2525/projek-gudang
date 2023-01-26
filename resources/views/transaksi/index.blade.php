@@ -69,14 +69,14 @@
                                                 <div class="col">
                                                     <div class="form-floating mb-3">
                                                         <label for="floatingInput4">Stock In</label>
-                                                        <input value="{{ old('masuk') }}" name="masuk" type="number"
+                                                        <input value="{{ old('masuk', 0) }}" name="masuk" type="number"
                                                             required class="form-control" id="masuk">
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-floating mb-3">
                                                         <label for="floatingInput5">Stock Out</label>
-                                                        <input value="{{ old('keluar') }}" name="keluar" type="number"
+                                                        <input value="{{ old('keluar', 0) }}" name="keluar" type="number"
                                                             required class="form-control" id="keluar">
                                                     </div>
                                                 </div>
@@ -217,19 +217,19 @@
                                     <tr align="center">
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->created_at->format('d/m/Y') }}</td>
-                                        <td>{{ $item->barang->namaBarang->nama }}</td>
+                                        <td><a href="/barang/{{$item->id_barang}}">{{ $item->barang->namaBarang->nama }}</a></td>
                                         <td>{{ $item->barang->namaBarang->unit }}</td>
                                         <td>{{ $item->masuk }}</td>
                                         <td>{{ $item->keluar }}</td>
                                         <td>{{ $item->stock }}</td>
-                                        <td>{{ $item->dariproject->nama }}</td>
-                                        <td>{{ $item->keproject->nama }}</td>
+                                        <td><a href="/bproject/{{$item->dari}}">{{ $item->dariproject->nama }}</a></td>
+                                        <td><a href="/bproject/{{$item->ke}}">{{ $item->keproject->nama }}</a></td>
                                         <td>{{ $item->keterangan }}</td>
                                         <td>{{ $item->remark }}</td>
                                         @if (auth()->user()->role == 'admin')
                                             <td>
                                                 <!-- EDIT DATA -->
-                                                <button id="btn-edit" type="button" class="btn btn-dark btn-sm"
+                                                <button type="button" class="btn btn-dark btn-sm"
                                                     data-toggle="modal" data-target="#modalEditData{{ $item->id }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -272,10 +272,10 @@
                                                             <select name="id_barang" id="id_barang-edit"
                                                                 class="form-control">
                                                                 <option value="">Select</option>
-                                                                {{-- @foreach ($barngs as $bar)
+                                                                @foreach ($barngs as $bar)
                                                                     <option value="{{ $bar->id }}" {{$item->id_barang == $bar->id ? "selected":""}} >{{ $bar->namaBarang->nama }}
                                                                     </option>
-                                                                @endforeach --}}
+                                                                @endforeach
                                                             </select>
                                                         </div>
                                                         <div class="row">
@@ -299,8 +299,8 @@
 
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput6">Dari</label>
-                                                            <select name="dari" id="dari"
-                                                                class="form-control project">
+                                                            <select name="dari" id="dari-edit"
+                                                                class="form-control project-edit">
                                                                 <option value="">None</option>
                                                                 @foreach ($pros as $bar)
                                                                     <option value="{{ $bar->id }}"
@@ -405,8 +405,8 @@
 
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput6">Ke</label>
-                                                            <select name="ke" id="ke"
-                                                                class="form-control project">
+                                                            <select name="ke" id="ke-edit"
+                                                                class="form-control project-edit">
                                                                 <option value="">None</option>
                                                                 @foreach ($pros as $bar)
                                                                     <option value="{{ $bar->id }}"
@@ -416,29 +416,29 @@
                                                             </select>
                                                         </div>
 
-                                                        <div class="form-floating mb-3 menu" id="code_project"
+                                                        <div class="form-floating mb-3 menu" id="code_project-edit"
                                                             style='display:none'>
                                                             <label for="floatingInput5">Code Projek</label>
                                                             <input value="{{ old('code_project', $item->code_project) }}"
                                                                 name="code_project" type="text" class="form-control"
-                                                                id="code_project_form">
+                                                                id="code_project_form-edit">
                                                         </div>
 
                                                         <div class="code-container">
                                                             <script>
-                                                                $('.project').on('change', function() {
+                                                                $('.project-edit').on('change', function() {
                                                                     // const selected = $(this).find('option:selected');
-                                                                    const selecteddari = document.getElementById('dari').value;
-                                                                    const selectedke = document.getElementById('ke').value;
+                                                                    const selecteddari = document.getElementById('dari-edit').value;
+                                                                    const selectedke = document.getElementById('ke-edit').value;
                                                                     if (selecteddari != '' || selectedke != '') {
-                                                                        document.getElementById('code_project').style.display = "block"
+                                                                        document.getElementById('code_project-edit').style.display = "block"
                                                                         // document.getElementById('ke').style.display = "block"
                                                                         // $('#code_project_form').val(''); 
 
                                                                     } else if (selecteddari == '' && selectedke == '') {
-                                                                        document.getElementById('code_project').style.display = "none"
+                                                                        document.getElementById('code_project-edit').style.display = "none"
                                                                         // document.getElementById('ke').style.display = "none"   
-                                                                        $('#code_project_form').val('');
+                                                                        $('#code_project_form-edit').val('');
                                                                     }
                                                                 });
                                                             </script>
