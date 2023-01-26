@@ -171,13 +171,13 @@
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput5">Keterangan</label>
-                                                <input value="{{ old('keterangan') }}" required name="keterangan"
-                                                    type="text" required class="form-control" id="keterangan">
+                                                <input value="{{ old('keterangan') }}"  name="keterangan"
+                                                    type="text"  class="form-control" id="keterangan">
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput5">Remarks</label>
-                                                <input value="{{ old('remark') }}" required name="remark" type="text"
-                                                    required class="form-control" id="remark">
+                                                <input value="{{ old('remark') }}"  name="remark" type="text"
+                                                     class="form-control" id="remark">
                                             </div>
 
                                             <div class="input-group">
@@ -381,13 +381,13 @@
                                                         </div>
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput5">Keterangan</label>
-                                                            <input value="{{ old('keterangan') }}" required name="keterangan"
-                                                                type="text" required class="form-control" id="keterangan">
+                                                            <input value="{{ old('keterangan') }}"  name="keterangan"
+                                                                type="text"  class="form-control" id="keterangan">
                                                         </div>
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput5">Remarks</label>
-                                                            <input value="{{ old('remark') }}" required name="remark" type="text"
-                                                                required class="form-control" id="remark">
+                                                            <input value="{{ old('remark') }}"  name="remark" type="text"
+                                                                 class="form-control" id="remark">
                                                         </div>
 
                                                             <div class="input-group">
