@@ -35,22 +35,22 @@ return new class extends Migration
         BEGIN
         IF OLD.dari = null THEN
         UPDATE barangs SET barangs.stock = barangs.stock + OLD.keluar WHERE barangs.id = OLD.id_barang;
-        IF OLD.ke THEN
-        UPDATE barang_projects SET barang_projects.stock = barang_projects.stock - OLD.keluar WHERE barang_projects.id_project = OLD.ke AND barang_projects.id_barang = OLD.id_barang;
-        END IF;
+            IF OLD.ke THEN
+            UPDATE barang_projects SET barang_projects.stock = barang_projects.stock - OLD.keluar WHERE barang_projects.id_project = OLD.ke AND barang_projects.id_barang = OLD.id_barang;
+            END IF;
 
         ELSE 
         UPDATE barang_projects SET barang_projects.stock = barang_projects.stock + OLD.keluar WHERE barang_projects.id_project = OLD.dari AND barang_projects.id_barang = OLD.id_barang;
-        IF OLD.ke THEN
-        UPDATE barang_projects SET barang_projects.stock = barang_projects.stock - OLD.keluar WHERE barang_projects.id_project = OLD.ke AND barang_projects.id_barang = OLD.id_barang;
-        END IF;
+            IF OLD.ke THEN
+            UPDATE barang_projects SET barang_projects.stock = barang_projects.stock - OLD.keluar WHERE barang_projects.id_project = OLD.ke AND barang_projects.id_barang = OLD.id_barang;
+            END IF;
         END IF;
 
         IF NEW.dari = null THEN
         UPDATE barangs SET barangs.stock = barangs.stock - NEW.keluar WHERE barangs.id = NEW.id_barang;
-        IF NEW.ke THEN 
-        UPDATE barang_projects SET barang_projects.stock = barang_projects.stock + NEW.keluar WHERE barang_projects.id_project = NEW.ke AND barang_projects.id_barang = NEW.id_barang;
-        END IF;
+            IF NEW.ke THEN 
+            UPDATE barang_projects SET barang_projects.stock = barang_projects.stock + NEW.keluar WHERE barang_projects.id_project = NEW.ke AND barang_projects.id_barang = NEW.id_barang;
+            END IF;
         ELSE
         UPDATE barang_projects SET barang_projects.stock = barang_projects.stock + NEW.keluar WHERE barang_projects.id_project = NEW.dari AND barang_projects.id_barang = NEW.id_barang;
         END IF;
