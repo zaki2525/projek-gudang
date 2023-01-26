@@ -262,7 +262,7 @@
                                                         @csrf
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput6">Tanggal</label>
-                                                            <input type="date" name="created_at" class="form-control">
+                                                            <input type="date" name="created_at" class="form-control" value="{{ old('created_at', $item->created_at) }}">
                                                         </div>
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput6">Material Name</label>
@@ -278,7 +278,7 @@
                                                             <div class="col">
                                                                 <div class="form-floating mb-3">
                                                                     <label for="floatingInput4">Stock In</label>
-                                                                    <input value="{{ old('masuk') }}" name="masuk"
+                                                                    <input value="{{ old('masuk', $item->masuk) }}" name="masuk"
                                                                         type="number" required class="form-control" id="masuk">
                                                                 </div>
                                                             </div>
