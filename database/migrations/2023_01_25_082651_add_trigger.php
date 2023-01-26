@@ -45,10 +45,10 @@ return new class extends Migration
         BEGIN
         UPDATE barangs SET barangs.stock = barangs.stock + OLD.keluar WHERE barangs.id = OLD.id_barang;
         END');
-        DB::unprepared('CREATE TRIGGER keluar_surat AFTER INSERT ON `surat_jalan_items` FOR EACH ROW
-        BEGIN
-        UPDATE barang_projects SET barang_projects.stock = barang_projects.stock - NEW.keluar WHERE barang_projects.id_project = NEW.id_project AND barang_projects.id_barang = NEW.id_barang;
-        END');
+        // DB::unprepared('CREATE TRIGGER keluar_surat AFTER INSERT ON `surat_jalan_items` FOR EACH ROW
+        // BEGIN
+        // UPDATE barang_projects SET barang_projects.stock = barang_projects.stock - NEW.keluar WHERE barang_projects.id_project = NEW.id_project AND barang_projects.id_barang = NEW.id_barang;
+        // END');
     }
 
     /**
