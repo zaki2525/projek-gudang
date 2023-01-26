@@ -387,7 +387,7 @@ class TransaksiController extends Controller
             }
         } else {
             $transaksi->update($data_transaksi);
-            alert()->success('success', 'Transaction Barang berhasil di tambahkan');
+            alert()->success('success', 'Transaction Barang berhasil di-update');
             return redirect("/transaksi");
         }
         alert()->error('Error', 'Transaction Barang gagal di tambahkan');
