@@ -357,7 +357,7 @@
                                                                         }
                                                                     });
                                                                 });
-                                                                $('#dari').on('change', function() {
+                                                                $('#dari-edit').on('change', function() {
                                                                     // $("#dari").html('');
                                                                     $.ajax({
                                                                         url: "{{ url('transaksi/fetch') }}",
@@ -368,11 +368,11 @@
                                                                         },
                                                                         dataType: 'json',
                                                                         success: function(result) {
-                                                                            $('#id_barang').html('<option value="" selected>Select</option>');
+                                                                            $('#id_barang-edit').html('<option value="" selected>Select</option>');
                                                                             const selected = document.getElementById('dari').value;
                                                                             if (selected == '') {
                                                                                 $.each(result.barang, function(key, value) {                                                                                    
-                                                                                    $("#id_barang").append(
+                                                                                    $("#id_barang-edit").append(
                                                                                         '<option name="id_barang" value="' + value
                                                                                         .id + '"' +
                                                                                         isselected +
@@ -387,7 +387,7 @@
                                                                                     } else {
                                                                                         isselected = '';
                                                                                     }
-                                                                                    $("#id_barang").append(
+                                                                                    $("#id_barang-edit").append(
                                                                                         '<option name="id_barang" value="' + value
                                                                                         .id_barang + '"' +
                                                                                         isselected +
