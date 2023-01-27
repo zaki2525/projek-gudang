@@ -78,9 +78,9 @@ class TransaksiController extends Controller
     public function data()
     {
 
-        // $data['barang'] = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", $request->id_project)->where('stock', '>', 0)->get();            
+        $data['barang'] = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", 1)->where('stock', '>', 0)->get();            
 
-        $data['barang'] = Barang::with(['namaBarang'])->where('stock', '>', 0)->get();
+        // $data['barang'] = Barang::with(['namaBarang'])->where('stock', '>', 0)->get();
 
         return response()->json($data);
     }
