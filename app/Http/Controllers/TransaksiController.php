@@ -300,7 +300,7 @@ class TransaksiController extends Controller
                 // cek apakah ada record barangproject where id project = ke
                 if (BarangProject::all()->where('id_project', $request->ke)->where('id_barang', $request->id_barang)->first()) {
                     $transaksi->update($data_transaksi);
-                    alert()->success('success', 'Transaction Barang berhasil di tambahkan');
+                    alert()->success('success', 'Transaction Barang berhasil di-update');
                     return redirect("/transaksi");
                 } else {
                     $data_barang_project_ke = [
@@ -313,7 +313,7 @@ class TransaksiController extends Controller
                     BarangProject::create($data_barang_project_ke);
 
                     $transaksi->update($data_transaksi);
-                    alert()->success('success', 'Transaction Barang berhasil di tambahkan');
+                    alert()->success('success', 'Transaction Barang berhasil di-update');
                     return redirect("/transaksi");
                 }
             } else {
@@ -329,7 +329,7 @@ class TransaksiController extends Controller
                 // cek apakah ada record barangproject where id project = ke
                 if (BarangProject::all()->where('id_project', $request->ke)->where('id_barang', $request->id_barang)->first()) {
                     $transaksi->update($data_transaksi);
-                    alert()->success('success', 'Transaction Barang berhasil di tambahkan');
+                    alert()->success('success', 'Transaction Barang berhasil di-update');
                     return redirect("/transaksi");
                 } else {
                     $data_barang_project_ke = [
@@ -342,7 +342,7 @@ class TransaksiController extends Controller
                     BarangProject::create($data_barang_project_ke);
 
                     $transaksi->update($data_transaksi);
-                    alert()->success('success', 'Transaction Barang berhasil di tambahkan');
+                    alert()->success('success', 'Transaction Barang berhasil di-update');
                     return redirect("/transaksi");
                 }
             }
@@ -350,7 +350,7 @@ class TransaksiController extends Controller
             // cek apakah ada record barangproject where id project = dari
             if (BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->id_barang)->first()) {
                 $transaksi->update($data_transaksi);
-                alert()->success('success', 'Transaction Barang berhasil di tambahkan');
+                alert()->success('success', 'Transaction Barang berhasil di-update');
                 return redirect("/transaksi");
             } else {
                 $data_barang_project_dari = [
@@ -362,14 +362,14 @@ class TransaksiController extends Controller
                 BarangProject::create($data_barang_project_dari);
 
                 $transaksi->update($data_transaksi);
-                alert()->success('success', 'Transaction Barang berhasil di tambahkan');
+                alert()->success('success', 'Transaction Barang berhasil di-update');
                 return redirect("/transaksi");
             }
         } else if ($request->dari == null && $request->ke != null) {
             // cek apakah ada record barangproject where id project = ke
             if (BarangProject::all()->where('id_project', $request->ke)->where('id_barang', $request->id_barang)->first()) {
                 $transaksi->update($data_transaksi);
-                alert()->success('success', 'Transaction Barang berhasil di tambahkan');
+                alert()->success('success', 'Transaction Barang berhasil di-update');
                 return redirect("/transaksi");
             } else {
                 $data_barang_project_ke = [
@@ -382,7 +382,7 @@ class TransaksiController extends Controller
                 BarangProject::create($data_barang_project_ke);
 
                 $transaksi->update($data_transaksi);
-                alert()->success('success', 'Transaction Barang berhasil di tambahkan');
+                alert()->success('success', 'Transaction Barang berhasil di-update');
                 return redirect("/transaksi");
             }
         } else {
