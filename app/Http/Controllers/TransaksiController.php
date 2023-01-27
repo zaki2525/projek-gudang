@@ -31,7 +31,7 @@ class TransaksiController extends Controller
         ];
 
         return view('transaksi.index', [
-            'trans' => Transaksi::where('created_at', '>=', Carbon::today())->latest()->get(),
+            'trans' => Transaksi::where('created_at', '>=', Carbon::today())->latest('updated_at')->get(),
             // 'trans' => Transaksi::all(),
             'barngs' => Barang::all(),
             'pros' => Project::all(),
@@ -50,7 +50,7 @@ class TransaksiController extends Controller
         ];
 
         return view('transaksi.index', [
-            'trans' => Transaksi::latest()->get(),
+            'trans' => Transaksi::latest('updated_at')->get(),
             'barngs' => Barang::all(),
             'pros' => Project::all(),
         ])->with($data);
