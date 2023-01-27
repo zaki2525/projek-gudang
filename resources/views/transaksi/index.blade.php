@@ -232,7 +232,7 @@
                                         @if (auth()->user()->role == 'admin')
                                             <td>
                                                 <!-- EDIT DATA -->
-                                                <button id="btn-edit" type="button" class="btn btn-dark btn-sm"
+                                                <button id="btn-edit{{$item->id}}" type="button" class="btn btn-dark btn-sm"
                                                     data-toggle="modal" data-target="#modalEditData{{ $item->id }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -272,8 +272,9 @@
                                                         </div>
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput6">Material Name</label>
-                                                            <select name="id_barang" id="id_barang-edit"
-                                                                class="form-control">
+                                                            <select name="id_barang" id="id_barang-edit{{$item->id}}"
+                                                                class="form-control"
+                                                                data-id-barang="{{ $item->id_barang }}">
                                                                 <option value="">Select</option>
                                                                 {{-- @foreach ($barngs as $bar)
                                                                     <option value="{{ $bar->id }}" {{$item->id_barang == $bar->id ? "selected":""}} >{{ $bar->namaBarang->nama }}
@@ -302,8 +303,9 @@
 
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput6">Dari</label>
-                                                            <select name="dari" id="dari-edit"
-                                                                class="form-control project-edit">
+                                                            <select name="dari" id="dari-edit{{$item->id}}"
+                                                                class="form-control project-edit"
+                                                                data-dari='{{ $item->dari }}'>
                                                                 <option value="">None</option>
                                                                 @foreach ($pros as $bar)
                                                                     <option value="{{ $bar->id }}"
@@ -315,7 +317,8 @@
                                                         @if ($item->dari = null)
                                                             <script>
                                                                 $(document).ready(function() {
-                                                                    $('#btn-edit').on('click', function() {
+                                                                    $('#btn-edit{{item->id}}').on('click', function() {
+                                                                        $("#id_barang-edit{{$item->id}}").html('');
                                                                         $.ajax({
                                                                             url: "{{ url('transaksi/fetch') }}",
                                                                             type: "POST",
@@ -325,31 +328,33 @@
                                                                             },
                                                                             dataType: 'json',
                                                                             success: function(result) {
-                                                                                $('#id_barang-edit').html('<option value="" selected>Select</option>');
-                                                                                const selected = document.getElementById('dari-edit').value;
+                                                                                $('#id_barang-edit{{$item->id}}').html('<option value="" selected>Select</option>');
+                                                                                const selected = document.getElementById('dari-edit{{$item->id}}').value;
                                                                                 if (selected == '') {
                                                                                     $.each(result.barang, function(key, value) {
-                                                                                        if ({{ $item->id_barang }} == value.id) {
+                                                                                        if (document.getElementById('id_barang-edit{{$item->id}}')
+                                                                                            .getAttribute('data-id-barang') == value.id) {
                                                                                             isselected = 'selected';
                                                                                         } else {
                                                                                             isselected = '';
                                                                                         }
-                                                                                        $("#id_barang-edit").append(
+                                                                                        $("#id_barang-edit{{$item->id}}").append(
                                                                                             '<option name="id_barang" value="' + value
-                                                                                            .id + '">' + value.nama_barang
+                                                                                            .id + '"' + isselected + '>' + value.nama_barang
                                                                                             .nama +
                                                                                             '</option>');
                                                                                     });
                                                                                 } else {
                                                                                     $.each(result.barang, function(key, value) {
-                                                                                        if ({{ $item->id_barang }} == value.id_barang) {
+                                                                                        if (document.getElementById('id_barang-edit{{$item->id}}')
+                                                                                            .getAttribute('data-id-barang') == value.id_barang) {
                                                                                             isselected = 'selected';
                                                                                         } else {
                                                                                             isselected = '';
                                                                                         }
-                                                                                        $("#id_barang-edit").append(
+                                                                                        $("#id_barang-edit{{$item->id}}").append(
                                                                                             '<option name="id_barang" value="' + value
-                                                                                            .id_barang + '">' + value.barang.nama_barang
+                                                                                            .id_barang + '"' + isselected + '>' + value.barang.nama_barang
                                                                                             .nama +
                                                                                             '</option>');
                                                                                     });
@@ -362,41 +367,44 @@
                                                         @else
                                                             <script>
                                                                 $(document).ready(function() {
-                                                                    $('#btn-edit').on('click', function() {
+                                                                    $('#btn-edit{{$item->id}}').on('click', function() {
+                                                                        $("#id_barang-edit{{$item->id}}").html('');
                                                                         $.ajax({
                                                                             url: "{{ url('transaksi/fetch') }}",
                                                                             type: "POST",
                                                                             data: {
-                                                                                id_project: 1,
+                                                                                id_project: document.getElementById('dari-edit{{$item->id}}').getAttribute('data-dari'),
                                                                                 _token: '{{ csrf_token() }}'
                                                                             },
                                                                             dataType: 'json',
                                                                             success: function(result) {
-                                                                                $('#id_barang-edit').html('<option value="" selected>Select</option>');
-                                                                                const selected = document.getElementById('dari-edit').value;
+                                                                                $('#id_barang-edit{{$item->id}}').html('<option value="" selected>Select</option>');
+                                                                                const selected = document.getElementById('dari-edit{{$item->id}}').value;
                                                                                 if (selected == '') {
                                                                                     $.each(result.barang, function(key, value) {
-                                                                                        if ({{ $item->id_barang }} == value.id) {
+                                                                                        if (document.getElementById('id_barang-edit{{$item->id}}')
+                                                                                            .getAttribute('data-id-barang') == value.id) {
                                                                                             isselected = 'selected';
                                                                                         } else {
                                                                                             isselected = '';
                                                                                         }
-                                                                                        $("#id_barang-edit").append(
+                                                                                        $("#id_barang-edit{{$item->id}}").append(
                                                                                             '<option name="id_barang" value="' + value
-                                                                                            .id + '">' + value.nama_barang
+                                                                                            .id + '"' + isselected + '>' + value.nama_barang
                                                                                             .nama +
                                                                                             '</option>');
                                                                                     });
                                                                                 } else {
                                                                                     $.each(result.barang, function(key, value) {
-                                                                                        if ({{ $item->id_barang }} == value.id_barang) {
+                                                                                        if (document.getElementById('id_barang-edit{{$item->id}}')
+                                                                                            .getAttribute('data-id-barang') == value.id_barang) {
                                                                                             isselected = 'selected';
                                                                                         } else {
                                                                                             isselected = '';
                                                                                         }
-                                                                                        $("#id_barang-edit").append(
+                                                                                        $("#id_barang-edit{{$item->id}}").append(
                                                                                             '<option name="id_barang" value="' + value
-                                                                                            .id_barang + '">' + value.barang.nama_barang
+                                                                                            .id_barang + '"' + isselected + '>' + value.barang.nama_barang
                                                                                             .nama +
                                                                                             '</option>');
                                                                                     });
@@ -408,55 +416,47 @@
                                                             </script>
                                                         @endif
                                                         <script>
-                                                            $('#dari-edit').on('change', function() {
-                                                            // $("#dari").html('');
-                                                            $.ajax({
-                                                                url: "{{ url('transaksi/fetch') }}",
-                                                                type: "POST",
-                                                                data: {
-                                                                    id_project: this.value,
-                                                                    _token: '{{ csrf_token() }}'
-                                                                },
-                                                                dataType: 'json',
-                                                                success: function(result) {
-                                                                    $('#id_barang-edit').html('<option value="" selected>Select</option>');
-                                                                    const selected = document.getElementById('dari').value;
-                                                                    if (selected == '') {
-                                                                        $.each(result.barang, function(key, value) {
-                                                                            $("#id_barang-edit").append(
-                                                                                '<option name="id_barang" value="' + value
-                                                                                .id + '"' +
-                                                                                isselected +
-                                                                                '>' + value.nama_barang
-                                                                                .nama +
-                                                                                '</option>');
-                                                                        });
-                                                                    } else {
-                                                                        $.each(result.barang, function(key, value) {
-                                                                            if ({{ $item->id_barang }} == value.id_barang) {
-                                                                                isselected = 'selected';
+                                                            $(document).ready(function() {
+                                                                $('#dari-edit{{$item->id}}').on('change', function() {
+                                                                    // $("#dari").html('');
+                                                                    $.ajax({
+                                                                        url: "{{ url('transaksi/fetch') }}",
+                                                                        type: "POST",
+                                                                        data: {
+                                                                            id_project: this.value,
+                                                                            _token: '{{ csrf_token() }}'
+                                                                        },
+                                                                        dataType: 'json',
+                                                                        success: function(result) {
+                                                                            $('#id_barang-edit{{$item->id}}').html('<option value="" selected>Select</option>');
+                                                                            const selected = document.getElementById('dari-edit{{$item->id}}').value;
+                                                                            if (selected == '') {
+                                                                                $.each(result.barang, function(key, value) {
+                                                                                    $("#id_barang-edit{{$item->id}}").append(
+                                                                                        '<option name="id_barang" value="' + value
+                                                                                        .id + '">' + value.nama_barang
+                                                                                        .nama +
+                                                                                        '</option>');
+                                                                                });
                                                                             } else {
-                                                                                isselected = '';
+                                                                                $.each(result.barang, function(key, value) {
+                                                                                    $("#id_barang-edit{{$item->id}}").append(
+                                                                                        '<option name="id_barang" value="' + value
+                                                                                        .id_barang + '">' + value.barang.nama_barang
+                                                                                        .nama +
+                                                                                        '</option>');
+                                                                                });
                                                                             }
-                                                                            $("#id_barang-edit").append(
-                                                                                '<option name="id_barang" value="' + value
-                                                                                .id_barang + '"' +
-                                                                                isselected +
-                                                                                '>' + value.barang.nama_barang
-                                                                                .nama +
-                                                                                '</option>');
-                                                                        });
-                                                                    }
-                                                                }
-                                                            });
-                                                            });
+                                                                        }
+                                                                    });
+                                                                });
 
                                                             });
                                                         </script>
 
                                                         <div class="form-floating mb-3">
                                                             <label for="floatingInput6">Ke</label>
-                                                            <select name="ke" id="ke-edit"
+                                                            <select name="ke" id="ke-edit{{$item->id}}"
                                                                 class="form-control project-edit">
                                                                 <option value="">None</option>
                                                                 @foreach ($pros as $bar)
@@ -467,29 +467,29 @@
                                                             </select>
                                                         </div>
 
-                                                        <div class="form-floating mb-3 menu" id="code_project-edit"
+                                                        <div class="form-floating mb-3 menu" id="code_project-edit{{$item->id}}"
                                                             style='display:none'>
                                                             <label for="floatingInput5">Code Projek</label>
                                                             <input value="{{ old('code_project', $item->code_project) }}"
                                                                 name="code_project" type="text" class="form-control"
-                                                                id="code_project_form-edit">
+                                                                id="code_project_form-edit{{$item->id}}">
                                                         </div>
 
                                                         <div class="code-container">
                                                             <script>
                                                                 $('.project-edit').on('change', function() {
                                                                     // const selected = $(this).find('option:selected');
-                                                                    const selecteddari = document.getElementById('dari-edit').value;
-                                                                    const selectedke = document.getElementById('ke-edit').value;
+                                                                    const selecteddari = document.getElementById('dari-edit{{$item->id}}').value;
+                                                                    const selectedke = document.getElementById('ke-edit{{$item->id}}').value;
                                                                     if (selecteddari != '' || selectedke != '') {
-                                                                        document.getElementById('code_project-edit').style.display = "block"
+                                                                        document.getElementById('code_project-edit{{$item->id}}').style.display = "block"
                                                                         // document.getElementById('ke').style.display = "block"
                                                                         // $('#code_project_form').val(''); 
 
                                                                     } else if (selecteddari == '' && selectedke == '') {
-                                                                        document.getElementById('code_project-edit').style.display = "none"
+                                                                        document.getElementById('code_project-edit{{$item->id}}').style.display = "none"
                                                                         // document.getElementById('ke').style.display = "none"   
-                                                                        $('#code_project_form-edit').val('');
+                                                                        $('#code_project_form-edit{{$item->id}}').val('');
                                                                     }
                                                                 });
                                                             </script>
