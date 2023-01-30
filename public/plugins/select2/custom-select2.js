@@ -1,5 +1,6 @@
 $(".basic").select2({
   dropdownParent: $("#modalTambahData"),
+  dropdownParent: $(".modalEditData"),
 	tags: true,
 });
 

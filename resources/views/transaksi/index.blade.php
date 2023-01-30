@@ -250,7 +250,7 @@
                                         @endif
                                     </tr>
                                     <!-- MODAL EDIT DATA -->
-                                    <div class="modal fade" id="modalEditData{{ $item->id }}" tabindex="-1"
+                                    <div class="modal fade modalEditData" id="modalEditData{{ $item->id }}" tabindex="-1"
                                         aria-labelledby="modalEditData" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -275,7 +275,7 @@
                                                             <label for="floatingInput6">Material Name</label>
                                                             <select name="id_barang"
                                                                 id="id_barang-edit{{ $item->id }}"
-                                                                class="form-control"
+                                                                class="form-control basic"
                                                                 data-id-barang="{{ $item->id_barang }}">
                                                                 <option value="">Select</option>
                                                                 {{-- @foreach ($barngs as $bar)
