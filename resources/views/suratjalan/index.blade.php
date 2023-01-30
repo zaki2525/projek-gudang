@@ -64,7 +64,7 @@
 
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Projek Name</label>
-                                                <select name="id_project" id="id_project" class="form-control">
+                                                <select name="id_project" id="id_project" class="form-control basic">
                                                     <option value="">Default</option>
                                                     @foreach ($projects as $project)
                                                         <option value="{{ $project->id }}">{{ $project->nama }}</option>

@@ -20,6 +20,17 @@
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 @switch($page_name)
     @case('project')
+    {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+      $(document).ready(function() {
+          $('.js-example-basic-single').select2({
+            dropdownParent: $("#modalTambahData")
+          });
+      });
+    </script> --}}
+    {{-- Forms Select2 --}}
+    <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
+    <script src="{{asset('plugins/select2/custom-select2.js')}}"></script>
     {{-- Components Sweetalerts --}}
       <script src="{{asset('assets/js/scrollspyNav.js')}}"></script>
       <script src="{{asset('plugins/sweetalerts/sweetalert2.min.js')}}"></script>

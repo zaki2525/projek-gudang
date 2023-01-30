@@ -1,4 +1,5 @@
 $(".basic").select2({
+  dropdownParent: $("#modalTambahData"),
 	tags: true,
 });
 
@@ -9,10 +10,12 @@ $(".nested").select2({
 	tags: true
 });
 $(".tagging").select2({
+  dropdownParent: $("#modalTambahData"),
 	tags: true
 });
 $(".disabled-results").select2();
 $(".placeholder").select2({
+  dropdownParent: $("#modalTambahData"),
 	placeholder: "Make a Selection",
 	allowClear: true
 });
