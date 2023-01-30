@@ -57,11 +57,10 @@
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Material Name</label>
-                                                <select name="id_barang" id="id_barang" class="form-control">
+                                                <select name="id_barang" id="id_barang" class="form-control basic">
                                                     <option value="">Select</option>
                                                     @foreach ($barngs as $bar)
-                                                        <option value="{{ $bar->id }}">{{ $bar->namaBarang->nama }}
-                                                        </option>
+                                                    <option value="{{ $bar->id }}">{{ $bar->namaBarang->nama }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
