@@ -2,7 +2,7 @@
 
 @section('content')
 
-@include('sweetalert::alert')
+    @include('sweetalert::alert')
 
     <div class="layout-px-spacing">
 
@@ -38,7 +38,7 @@
 
                         <!-- MODAL TAMBAH DATA -->
                         <div class="modal fade" id="modalTambahData" tabindex="-1" aria-labelledby="modalTambahBarang"
-                            aria-hidden="true" >
+                            aria-hidden="true">
                             <div class="modal-dialog" style="width: 850px;">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -89,16 +89,18 @@
                                                             <option>
                                                                 Select
                                                             </option>
+                                                            @foreach ($barangs as $item)
+                                                                <option value="{{ $item->id }}">
+                                                                    {{ $item->namaBarang->nama }}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
-                                                    <div class="col input-group">
+                                                    <div class="col-3">
                                                         <input type="number" name="keluar[]" class="form-control"
-                                                            placeholder="Qty" value="1" style="width: 20px;">
-                                                        
+                                                            placeholder="Qty" value="1">
                                                     </div>
                                                     <div class="col input-group">
-                                                        <input value="" 
-                                                            name="remark[]" type="text" 
+                                                        <input value="" name="remark[]" type="text"
                                                             class="form-control" id="remark" placeholder="remark">
                                                         <button type="" class="btn btn-primary btn-sm btn-add-barang"
                                                             style="border-top-left-radius:0;border-bottom-left-radius:0">Add
@@ -106,9 +108,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                                            <script>
+                                            {{-- <script>
                                                 $(document).ready(function() {
                                                     $('#id_project').on('change', function() {
                                                         $("#id_barang").html('');
@@ -133,29 +134,28 @@
                                                     });
 
                                                 });
-                                            </script>
+                                            </script> --}}
 
                                             <script>
                                                 $('.btn-add-barang').click(function() {
-                                                    $("#id_barang").html('');
-                                                    $.ajax({
-                                                        url: "{{ url('suratjalan/fetch') }}",
-                                                        type: "POST",
-                                                        data: {
-                                                            id_project: document.getElementById('id_project').value,
-                                                            _token: '{{ csrf_token() }}'
-                                                        },
-                                                        dataType: 'json',
-                                                        success: function(result) {
-                                                            $('.id_barang').html('<option value="" selected>Select</option>');
-                                                            $.each(result.barang, function(key, value) {
-                                                                $(".id_barang").append(
-                                                                    '<option name="id_barang" value="' + value
-                                                                    .id_barang + '">' + value.barang.nama_barang.nama +
-                                                                    '</option>');
-                                                            });
-                                                        }
-                                                    });
+                                                    // $("#id_barang").html('');
+                                                    // $.ajax({
+                                                    //     url: "{{ url('suratjalan/fetch') }}",
+                                                    //     type: "POST",
+                                                    //     data: {                                                          
+                                                    //         _token: '{{ csrf_token() }}'
+                                                    //     },
+                                                    //     dataType: 'json',
+                                                    //     success: function(result) {
+                                                    //         $('.id_barang').html('<option value="" selected>Select</option>');
+                                                    //         $.each(result.barang, function(key, value) {
+                                                    //             $(".id_barang").append(
+                                                    //                 '<option name="id_barang" value="' + value
+                                                    //                 .id + '">' + value.nama_barang.nama +
+                                                    //                 '</option>');
+                                                    //         });
+                                                    //     }
+                                                    // });
                                                     $('.barang-container').append(barang())
                                                 })
 
@@ -165,16 +165,22 @@
 
                                                 function barang() {
                                                     return `<div class="row barang mt-2">
-                                                    <div class="col">
-                                                        <select name="id_barang[]" class="form-control id_barang" id="id_barang">
+                                                        <div class="col">
+                                                        <select name="id_barang[]" class="form-control id_barang"
+                                                            id="id_barang">
                                                             <option>
                                                                 Select
-                                                            </option>                                                      
+                                                            </option>  
+                                                            @foreach ($barangs as $item)
+                                                                <option value="{{ $item->id }}">
+                                                                    {{ $item->namaBarang->nama }}</option>
+                                                            @endforeach
+                                                        
                                                         </select>
                                                     </div>
-                                                    <div class="col-2">
+                                                    <div class="col-3">
                                                         <input type="number" name="keluar[]" class="form-control"
-                                                            placeholder="Qty" value="1">                                                   
+                                                            placeholder="Qty" value="1">
                                                     </div>
                                                     <div class="col input-group">
                                                         <input value="" 
