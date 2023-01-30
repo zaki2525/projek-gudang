@@ -251,7 +251,7 @@
                                         <td>{{ $item->kepada }}</td>
                                         <td>{{ $item->project->nama }}</td>
                                         <td>{{ $item->no_sj }}</td>
-                                        <td>{{ $item->created_at }}</td>
+                                        <td>{{ $item->created_at->format('d/m/Y') }}</td>
                                         <td>{{ $item->no_mobil }}</td>
                                         <td>
                                             <a href="/suratjalan/{{ $item->id }}">
