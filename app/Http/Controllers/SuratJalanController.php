@@ -117,16 +117,16 @@ class SuratJalanController extends Controller
             'no_mobil' => ['required'],
         ]);
 
-        foreach ($request->keluar as $key => $keluar) {
-            if ($keluar[$key] <= $barangproject->stock) {
-            } else if ($keluar[$key] > $barangproject->stock ){
-                alert()->error('Error', 'Barang yang akan dikeluarkan melebihi Stock yang ada saat ini!!');
-                return redirect('/suratjalan');
-            } else {
-                alert()->error('Error', 'Stock Barang Habis!!');
-                return redirect('/suratjalan');
-            }
-        }
+        // foreach ($request->keluar as $key => $keluar) {
+        //     if ($keluar[$key] <= $barangproject->stock) {
+        //     } else if ($keluar[$key] > $barangproject->stock ){
+        //         alert()->error('Error', 'Barang yang akan dikeluarkan melebihi Stock yang ada saat ini!!');
+        //         return redirect('/suratjalan');
+        //     } else {
+        //         alert()->error('Error', 'Stock Barang Habis!!');
+        //         return redirect('/suratjalan');
+        //     }
+        // }
 
         if ($surat_jalan = SuratJalan::create($data_surat_jalan)) {
             foreach ($request->id_barang as $key => $id_barang) {

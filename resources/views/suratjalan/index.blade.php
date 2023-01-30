@@ -108,7 +108,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                                             {{-- <script>
                                                 $(document).ready(function() {
@@ -139,25 +138,24 @@
 
                                             <script>
                                                 $('.btn-add-barang').click(function() {
-                                                    $("#id_barang").html('');
-                                                    $.ajax({
-                                                        url: "{{ url('suratjalan/fetch') }}",
-                                                        type: "POST",
-                                                        data: {
-                                                            id_project: document.getElementById('id_project').value,
-                                                            _token: '{{ csrf_token() }}'
-                                                        },
-                                                        dataType: 'json',
-                                                        success: function(result) {
-                                                            $('.id_barang').html('<option value="" selected>Select</option>');
-                                                            $.each(result.barang, function(key, value) {
-                                                                $(".id_barang").append(
-                                                                    '<option name="id_barang" value="' + value
-                                                                    .id_barang + '">' + value.nama_barang.nama +
-                                                                    '</option>');
-                                                            });
-                                                        }
-                                                    });
+                                                    // $("#id_barang").html('');
+                                                    // $.ajax({
+                                                    //     url: "{{ url('suratjalan/fetch') }}",
+                                                    //     type: "POST",
+                                                    //     data: {                                                          
+                                                    //         _token: '{{ csrf_token() }}'
+                                                    //     },
+                                                    //     dataType: 'json',
+                                                    //     success: function(result) {
+                                                    //         $('.id_barang').html('<option value="" selected>Select</option>');
+                                                    //         $.each(result.barang, function(key, value) {
+                                                    //             $(".id_barang").append(
+                                                    //                 '<option name="id_barang" value="' + value
+                                                    //                 .id + '">' + value.nama_barang.nama +
+                                                    //                 '</option>');
+                                                    //         });
+                                                    //     }
+                                                    // });
                                                     $('.barang-container').append(barang())
                                                 })
 
@@ -172,7 +170,12 @@
                                                             id="id_barang">
                                                             <option>
                                                                 Select
-                                                            </option>                                                          
+                                                            </option>  
+                                                            @foreach ($barangs as $item)
+                                                                <option value="{{ $item->id }}">
+                                                                    {{ $item->namaBarang->nama }}</option>
+                                                            @endforeach
+                                                        
                                                         </select>
                                                     </div>
                                                     <div class="col-3">
