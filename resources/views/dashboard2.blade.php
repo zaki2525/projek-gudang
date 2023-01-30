@@ -29,7 +29,7 @@
                                         @foreach ($trans as $item)                                     
                                         <tr align="center">
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->created_at }}</td>
+                                            <td>{{ $item->created_at->format('d/m/Y') }}</td>
                                             <td>{{ $item->barang->namaBarang->nama }}</td>
                                             <td>{{ $item->barang->namaBarang->unit }}</td> 
                                             <td>{{ $item->masuk }}</td>
