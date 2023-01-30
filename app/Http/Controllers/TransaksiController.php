@@ -69,8 +69,18 @@ class TransaksiController extends Controller
     {
         if ($request->id_project) {
             $data['barang'] = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", $request->id_project)->where('stock', '>', 0)->get();
+            // agar saat edit barang yang stocknya 0, tetap muncul di select option
+            if ($request->id_barang) {
+                $edit = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", 1)->where("id_barang", 2)->get();
+                $data['barang'] = $data['barang']->merge($edit);
+            }
         } else {
             $data['barang'] = Barang::with(['namaBarang'])->where('stock', '>', 0)->get();
+            // agar saat edit barang yang stocknya 0, tetap muncul di select option
+            if ($request->id_barang) {
+                $edit = Barang::with(['namaBarang'])->where("id", 2)->get();
+                $data['barang'] = $data['barang']->merge($edit);
+            }
         }
         return response()->json($data);
     }
@@ -78,7 +88,9 @@ class TransaksiController extends Controller
     public function data()
     {
 
-        $data['barang'] = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", 1)->where('stock', '>', 0)->get();            
+        $data['barang'] = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", 1)->where('stock', '>', 0)->get();
+        $edit = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", 1)->where("id_barang", 2)->get();
+        $data['barang'] = $data['barang']->merge($edit);
 
         // $data['barang'] = Barang::with(['namaBarang'])->where('stock', '>', 0)->get();
 
@@ -307,14 +319,14 @@ class TransaksiController extends Controller
             $barang = Barang::all()->where('id', $request->id_barang)->first();
             if ($transaksi->dari == null) {
             } else {
-                if ($request->keluar > ($barang->stock +$transaksi->keluar)) {
+                if ($request->keluar > ($barang->stock + $transaksi->keluar)) {
                     alert()->error('Error', 'Barang habis');
                     return redirect('/transaksi');
                 }
             }
         } else {
             $barang = BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->id_barang)->first();
-            if ($request->keluar > ($barang->stock +$transaksi->keluar)) {
+            if ($request->keluar > ($barang->stock + $transaksi->keluar)) {
                 alert()->error('Error', 'Barang habis');
                 return redirect('/transaksi');
             }
