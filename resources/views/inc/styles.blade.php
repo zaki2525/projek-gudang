@@ -44,6 +44,8 @@
       <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/datatables.css')}}">
       <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/custom_dt_html5.css')}}">
       <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/dt-global_style.css')}}">
+      <link href="{{asset('assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="{{asset('plugins/select2/select2.min.css')}}">
       @break
 
     @case('suratJalan')
@@ -51,6 +53,8 @@
       <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/datatables.css')}}">
       <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/custom_dt_html5.css')}}">
       <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/dt-global_style.css')}}">
+      <link href="{{asset('assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="{{asset('plugins/select2/select2.min.css')}}">
       @break
 
     @case('analytics')
