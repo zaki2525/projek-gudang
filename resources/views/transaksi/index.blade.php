@@ -57,7 +57,7 @@
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Material Name</label>
-                                                <select name="id_barang" id="id_barang" class="form-control basic">
+                                                <select name="id_barang" id="id_barang" class="form-control ">
                                                     <option value="">Select</option>
                                                     @foreach ($barngs as $bar)
                                                         <option value="{{ $bar->id }}">{{ $bar->namaBarang->nama }}
@@ -275,7 +275,7 @@
                                                             <label for="floatingInput6">Material Name</label>
                                                             <select name="id_barang"
                                                                 id="id_barang-edit{{ $item->id }}"
-                                                                class="form-control basic"
+                                                                class="form-control "
                                                                 data-id-barang="{{ $item->id_barang }}">
                                                                 <option value="">Select</option>
                                                                 {{-- @foreach ($barngs as $bar)
