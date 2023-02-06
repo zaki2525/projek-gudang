@@ -75,7 +75,7 @@ $(function () {
     --------------------------------------------
     --------------------------------------------*/
     $('body').on('click', '.editTransaksi', function () {
-        var id = $(this).data('id');        
+        var id = $(this).data('id');
         $.get("transaksi" + '/' + id + '/edit', function (data) {
             $.ajax({
                 url: "/transaksi/fetch",
@@ -85,41 +85,33 @@ $(function () {
                     id_barang: data.id_barang,
                 },
                 dataType: 'json',
-                success: function(result) {
-                    $('#id_barang-edit{{ $item->id }}').html(
+                success: function (result) {
+                    $('#id_barang').html(
                         '<option value="" selected>Select</option>');
-                    const selected = document.getElementById(
-                        'dari-edit{{ $item->id }}').value;
                     if (data.dari == '') {
-                        $.each(result.barang, function(key, value) {
-                            if (document.getElementById(
-                                    'id_barang-edit{{ $item->id }}')
-                                .getAttribute('data-id-barang') == value.id) {
+                        $.each(result.barang, function (key, value) {
+                            if (data.id_barang == value.id) {
                                 isselected = 'selected';
                             } else {
                                 isselected = '';
                             }
-                            $("#id_barang-edit{{ $item->id }}").append(
+                            $("#id_barang").append(
                                 '<option name="id_barang" value="' + value
-                                .id + '"' + isselected + '>' + value.nama_barang
-                                .nama +
+                                    .id + '"' + isselected + '>' + value.nama_barang
+                                    .nama +
                                 '</option>');
                         });
                     } else {
-                        $.each(result.barang, function(key, value) {
-                            if (document.getElementById(
-                                    'id_barang-edit{{ $item->id }}')
-                                .getAttribute('data-id-barang') == value.id_barang
+                        $.each(result.barang, function (key, value) {
+                            if (data.id_barang == value.id_barang
                             ) {
                                 isselected = 'selected';
                             } else {
                                 isselected = '';
                             }
-                            $("#id_barang-edit{{ $item->id }}").append(
+                            $("#id_barang").append(
                                 '<option name="id_barang" value="' + value
-                                .id_barang + '"' + isselected + '>' + value
-                                .barang.nama_barang
-                                .nama +
+                                    .id_barang + '"' + isselected + '>' + value.barang.nama_barang.nama +
                                 '</option>');
                         });
                     }
