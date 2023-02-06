@@ -10,6 +10,8 @@ use App\Models\BarangProject;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Svg\Tag\Rect;
+use Yajra\DataTables\DataTables;
 
 class TransaksiController extends Controller
 {
@@ -18,8 +20,25 @@ class TransaksiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
+
+            $datas = Transaksi::where('created_at', '>=', Carbon::today())->latest('updated_at')->with(['barang.namaBarang', 'dariproject', 'keproject'])->get();
+
+            return Datatables::of($datas)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editProject">Edit</a>';
+
+                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProject cancel" onclick="return false">Delete</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
         // $category_name = '';
         $data = [
             'history' => false,
@@ -38,12 +57,30 @@ class TransaksiController extends Controller
         ])->with($data);
     }
 
-    public function history()
+    public function history(Request $request)
     {
+        if ($request->ajax()) {
+
+            $datas = Transaksi::latest('updated_at')->with(['barang.namaBarang', 'dariproject', 'keproject'])->get();
+
+            return Datatables::of($datas)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editProject">Edit</a>';
+
+                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProject cancel" onclick="return false">Delete</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
         $data = [
             'history' => true,
             'category_name' => 'transaksis',
-            'page_name' => 'transaksi',
+            'page_name' => 'transaksi-history',
             'has_scrollspy' => 1,
             'scrollspy_offset' => 100,
             'alt_menu' => 0,

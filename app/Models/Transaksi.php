@@ -20,11 +20,11 @@ class Transaksi extends Model
 
     public function dariproject()
     {
-        return $this->belongsTo(Project::class, 'dari')->withDefault('nama', 'null');
+        return $this->belongsTo(Project::class, 'dari')->withDefault(['nama' => '']);
     }
 
     public function keproject()
     {
-        return $this->belongsTo(Project::class, 'ke')->withDefault('nama', 'null');
+        return $this->belongsTo(Project::class, 'ke')->withDefault(['nama' => '']);
     }
 }
