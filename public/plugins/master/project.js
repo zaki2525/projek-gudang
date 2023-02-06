@@ -85,24 +85,65 @@ $(function () {
     $('#btnCreate').click(function (e) {
         e.preventDefault();
         $(this).html('Sending..');
-      
-        $.ajax({
-          data: $('#addUser').serialize(),
-          url: "project",
-          type: "POST",
-          dataType: 'json',
-          success: function (data) {
-       
-              $('#addUser').trigger("reset");
-              $('#modalTambahData').modal('hide');
-              table.draw();
-           
-          },
-          error: function (data) {
-              console.log('Error:', data);
-              $('#btnCreate').html('Save Changes');
-          }
-      });
+
+        if($('#btnCreate').val() == 'Create'){
+            $.ajax({
+                data: $('#addUser').serialize(),
+                url: "project",
+                type: "POST",
+                dataType: 'json',
+                success: function (data) {
+                  swal({
+                      title: 'Information',
+                      text: "Data has been create",
+                      type: 'success',
+                      padding: '2em'
+                  });
+                    $('#addUser').trigger("reset");
+                    $('#modalTambahData').modal('hide');
+                    table.draw();
+                 
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                    $('#btnCreate').html('Save Changes');
+                }
+            });
+        } else {
+            swal({
+                title: 'Are you sure?',
+                text: "Update this data?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Update',
+            }).then(function (result) {
+                if (result.value) {
+                    $.ajax({
+                        data: $('#addUser').serialize(),
+                        url: "project",
+                        type: "POST",
+                        dataType: 'json',
+                        success: function (data) {
+                          swal({
+                              title: 'Information',
+                              text: "Data has been create",
+                              type: 'success',
+                              padding: '2em'
+                          });
+                            $('#addUser').trigger("reset");
+                            $('#modalTambahData').modal('hide');
+                            table.draw();
+                         
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                            $('#btnCreate').html('Save Changes');
+                        }
+                    });
+                }
+            });
+        }
+        
     });
       
     /*------------------------------------------
@@ -113,16 +154,31 @@ $(function () {
     $('body').on('click', '.deleteProject', function () {
      
         var id = $(this).data("id");
-        confirm("Are you sure want to delete?");
-        
-        $.ajax({
-            type: "DELETE",
-            url: "project"+'/'+id,
-            success: function (data) {
-                table.draw();
-            },
-            error: function (data) {
-                console.log('Error:', data);
+        // confirm("Are you sure want to delete?");
+        swal({
+            title: 'Are you sure?',
+            text: "Delete this data?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+        }).then(function (result) {
+            if (result.value) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "project"+'/'+id,
+                    success: function (data) {
+                        swal({
+                            title: 'Information',
+                            text: "Data has been deleted",
+                            type: 'success',
+                            padding: '2em'
+                        });
+                        table.draw();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
             }
         });
     });

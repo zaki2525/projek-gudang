@@ -27,7 +27,7 @@ class ProjectController extends Controller
    
                            $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProject">Edit</a>';
    
-                           $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProject">Delete</a>';
+                           $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProject cancel" onclick="return false">Delete</a>';
     
                             return $btn;
                     })
@@ -83,8 +83,7 @@ class ProjectController extends Controller
         [
             'nama' => $request->nama 
             // 'detail' => $request->detail
-        ]);        
-
+        ]);
         return response()->json(['success'=>'Product saved successfully.']);
     }
 
@@ -147,7 +146,6 @@ class ProjectController extends Controller
         //     return redirect('/project');
         // }
         Project::find($id)->delete();
-      
         return response()->json(['success'=>'Product deleted successfully.']);
     }
 }

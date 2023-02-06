@@ -41,7 +41,7 @@
                                             </div>
                                             <div class="input-group">
                                                 {{-- <button class="btn btn-primary" id="btnCreate" value="create">Edit</button> --}}
-                                                <input type="button" value="" class="btn btn-primary" id="btnCreate" value="create">
+                                                <input type="button" value="" class="btn btn-primary tambah" id="btnCreate" value="create">
                                             </div>
                                         </form>
                                     </div>
