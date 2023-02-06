@@ -71,14 +71,14 @@ class TransaksiController extends Controller
             $data['barang'] = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", $request->id_project)->where('stock', '>', 0)->get();
             // agar saat edit barang yang stocknya 0, tetap muncul di select option
             if ($request->id_barang) {
-                $edit = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", 1)->where("id_barang", 2)->get();
+                $edit = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", $request->id_project)->where("id_barang", $request->id_barang)->get();
                 $data['barang'] = $data['barang']->merge($edit);
             }
         } else {
             $data['barang'] = Barang::with(['namaBarang'])->where('stock', '>', 0)->get();
             // agar saat edit barang yang stocknya 0, tetap muncul di select option
             if ($request->id_barang) {
-                $edit = Barang::with(['namaBarang'])->where("id", 2)->get();
+                $edit = Barang::with(['namaBarang'])->where("id", $request->id_barang)->get();
                 $data['barang'] = $data['barang']->merge($edit);
             }
         }
