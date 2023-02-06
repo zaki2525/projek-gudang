@@ -37,7 +37,7 @@ class HomeController extends Controller
         ];            
         
         return view('dashboard2', [           
-            'trans' => Transaksi::latest()->get(),
+            'trans' => Transaksi::latest('updated_at')->get(),
             'barngs' => Barang::all(),
             'pros' => Project::all(),
         ])->with($data);
