@@ -139,6 +139,10 @@
     <script src="{{asset('assets/js/scrollspyNav.js')}}"></script>
     <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
     <script src="{{asset('plugins/select2/custom-select2.js')}}"></script>
+    {{-- Components Sweetalerts --}}
+    <script src="{{asset('assets/js/scrollspyNav.js')}}"></script>
+    <script src="{{asset('plugins/sweetalerts/sweetalert2.min.js')}}"></script>
+    <script src="{{asset('plugins/sweetalerts/custom-sweetalert.js')}}"></script>
     {{-- Table Datatable HTML5 --}}
     <script src="{{asset('plugins/table/datatable/datatables.js')}}"></script>
     <script src="{{asset('plugins/table/datatable/button-ext/dataTables.buttons.min.js')}}"></script>
@@ -176,6 +180,10 @@
     <script src="{{asset('assets/js/scrollspyNav.js')}}"></script>
     <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
     <script src="{{asset('plugins/select2/custom-select2.js')}}"></script>
+    {{-- Components Sweetalerts --}}
+    <script src="{{asset('assets/js/scrollspyNav.js')}}"></script>
+    <script src="{{asset('plugins/sweetalerts/sweetalert2.min.js')}}"></script>
+    <script src="{{asset('plugins/sweetalerts/custom-sweetalert.js')}}"></script>
     {{-- Table Datatable HTML5 --}}
     <script src="{{asset('plugins/table/datatable/datatables.js')}}"></script>
     <script src="{{asset('plugins/table/datatable/button-ext/dataTables.buttons.min.js')}}"></script>

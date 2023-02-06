@@ -14,7 +14,7 @@
                         @if ($history == false)
                             @if (auth()->user()->role == 'admin')
                                 <!-- Tambah Data -->
-                                <button type="button" class="btn btn-primary mb-1" data-toggle="modal"
+                                <button id="btnShowFormMaster" type="button" class="btn btn-primary mb-1" data-toggle="modal"
                                     data-target="#modalTambahData">
                                     <!-- <i class='bx bx-plus-medical'></i> -->
                                     Transaksi Barang
@@ -48,11 +48,12 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="POST" action="{{ route('transaksi.store') }}" id="addTransaksi">
-                                            @csrf
+                                        <form id="addTransaksi">
+                                            {{-- @csrf --}}
                                             <div class="form-floating mb-3">
+                                                <input type="hidden" name="id" id="id">
                                                 <label for="floatingInput6">Tanggal</label>
-                                                <input type="date" name="created_at" class="form-control"
+                                                <input id="tanggal" type="date" name="created_at" class="form-control"
                                                     value="{{ date('Y-m-d') }}">
                                             </div>
                                             <div class="form-floating mb-3">
@@ -69,14 +70,14 @@
                                                 <div class="col">
                                                     <div class="form-floating mb-3">
                                                         <label for="floatingInput4">Stock In</label>
-                                                        <input value="{{ old('masuk', 0) }}" name="masuk" type="number"
+                                                        <input id="masuk" value="{{ old('masuk', 0) }}" name="masuk" type="number"
                                                             required class="form-control" id="masuk">
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-floating mb-3">
                                                         <label for="floatingInput5">Stock Out</label>
-                                                        <input value="{{ old('keluar', 0) }}" name="keluar" type="number"
+                                                        <input id="keluar" value="{{ old('keluar', 0) }}" name="keluar" type="number"
                                                             required class="form-control" id="keluar">
                                                     </div>
                                                 </div>
@@ -172,17 +173,17 @@
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput5">Keterangan</label>
-                                                <input value="{{ old('keterangan') }}" name="keterangan" type="text"
+                                                <input id="keterangan" value="{{ old('keterangan') }}" name="keterangan" type="text"
                                                     class="form-control" id="keterangan">
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput5">Remarks</label>
-                                                <input value="{{ old('remark') }}" name="remark" type="text"
+                                                <input id="remark" value="{{ old('remark') }}" name="remark" type="text"
                                                     class="form-control" id="remark">
                                             </div>
 
-                                            <div class="input-group">
-                                                <button class="btn btn-primary">Create</button>
+                                            <div class="input-group">                                            
+                                                <input type="button" class="btn btn-primary" id="btnCreate" value="Create">
                                             </div>
                                         </form>
                                     </div>
