@@ -56,7 +56,7 @@ $(function () {
         $('#btnCreate').val("Create");
         $('#id').val('');
         $('#addUser').trigger("reset");
-        $('#title').html("Create New Product");
+        $('#title').html("Create New Project");
         $('#modalTambahData').modal('show');
     });
       
@@ -95,7 +95,7 @@ $(function () {
                 success: function (data) {
                   swal({
                       title: 'Information',
-                      text: "Data has been create",
+                      text: "Data has been created",
                       type: 'success',
                       padding: '2em'
                   });
@@ -126,7 +126,7 @@ $(function () {
                         success: function (data) {
                           swal({
                               title: 'Information',
-                              text: "Data has been create",
+                              text: "Data has been updated",
                               type: 'success',
                               padding: '2em'
                           });
