@@ -6,6 +6,7 @@ use App\Models\Project;
 use RealRashid\SweetAlert\Facades\Alert;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use DataTables;
 
 class ProjectController extends Controller
 {
@@ -14,8 +15,25 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
+  
+            $datas = Project::all(); 
+  
+            return Datatables::of($datas)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+   
+                           $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProject">Edit</a>';
+   
+                           $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProject">Delete</a>';
+    
+                            return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
         // $category_name = '';
         $data = [
             'category_name' => 'project',
@@ -25,11 +43,9 @@ class ProjectController extends Controller
             'alt_menu' => 0,
         ];              
 
-        $datas = Project::all();
+        // $datas = Project::all();
         
-        return view('projek.index', [
-            'datas' => Project::all()
-        ])->with($data);
+        return view('projek.index')->with($data);
     }
 
     /**
@@ -50,17 +66,26 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'nama' => 'required'  
-        ]);
+        // $data = $request->validate([
+        //     'nama' => 'required'  
+        // ]);
 
-        if(Project::create($data)){
-            alert()->success('success','data project berhasil di tambahkan');
-            return redirect('/project');
-        } else {
-            alert()->error('error','data project gagal di tambahkan');
-            return redirect('/project');
-        }
+        // if(Project::create($data)){
+        //     alert()->success('success','data project berhasil di tambahkan');
+        //     return redirect('/project');
+        // } else {
+        //     alert()->error('error','data project gagal di tambahkan');
+        //     return redirect('/project');
+        // }
+        Project::updateOrCreate([
+            'id' => $request->id
+        ],
+        [
+            'nama' => $request->nama 
+            // 'detail' => $request->detail
+        ]);        
+
+        return response()->json(['success'=>'Product saved successfully.']);
     }
 
     /**
@@ -80,9 +105,10 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $projek
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $project)
+    public function edit($id)
     {
-        //
+        $project = Project::find($id);
+        return response()->json($project);
     }
 
     /**
@@ -112,13 +138,16 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $projek
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy($id)
     {
-        if(Project::destroy($project->id)){
-            return redirect('/project');
-        } else {
-            alert()->error('error','data project gagal di hapus');
-            return redirect('/project');
-        }
+        // if(Project::destroy($project->id)){
+        //     return redirect('/project');
+        // } else {
+        //     alert()->error('error','data project gagal di hapus');
+        //     return redirect('/project');
+        // }
+        Project::find($id)->delete();
+      
+        return response()->json(['success'=>'Product deleted successfully.']);
     }
 }

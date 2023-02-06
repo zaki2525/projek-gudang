@@ -13,7 +13,7 @@
                     <div>
                         @if(auth()->user()->role == 'admin')
                         <!-- Tambah Data -->
-                        <button type="button" class="btn btn-primary mb-1" data-toggle="modal" data-target="#modalTambahData">
+                        <button type="button" class="btn btn-primary mb-1" id="btnShowFormMaster">
                             <!-- <i class='bx bx-plus-medical'></i> -->
                             Tambah Data
                         </button>
@@ -31,15 +31,17 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="POST" action="{{ route('project.store') }}" id="addUser">
-                                            @csrf
+                                        <form id="addUser">
+                                            {{-- @csrf --}}
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput2">Projek Name</label>
+                                                <input type="hidden" name="id" id="id">
                                                 <input value="{{ old('nama') }}" required name="nama"
                                                     type="text" required class="form-control" id="nama">
                                             </div>
                                             <div class="input-group">
-                                                <button class="btn btn-primary" onClick="store()">Create</button>
+                                                {{-- <button class="btn btn-primary" id="btnCreate" value="create">Edit</button> --}}
+                                                <input type="button" value="" class="btn btn-primary" id="btnCreate" value="create">
                                             </div>
                                         </form>
                                     </div>
@@ -49,7 +51,7 @@
                         <!-- END TAMBAH DATA -->
                     </div>
                     <div class="table-responsive mb-4 mt-4">
-                        <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
+                        <table id="tblMaster" class="table table-hover non-hover data-table" style="width:100%">
                             <thead>
                                 <tr align="center">
                                     <th>No</th>
@@ -59,8 +61,8 @@
                                     @endif
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach ($datas as $item)
+                            <tbody align="center">
+                                {{-- @foreach ($datas as $item)
                                     <tr align="center">
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->nama }}</td>
@@ -138,7 +140,7 @@
                                     </div>
                                 </div>
                                 <!-- END EDIT DATA -->
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>
