@@ -91,47 +91,7 @@
                                                         <option value="{{ $bar->id }}">{{ $bar->nama }}</option>
                                                     @endforeach
                                                 </select>
-                                            </div>
-
-                                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                                            <script>
-                                                $(document).ready(function() {
-                                                    $('#dari').on('change', function() {
-                                                        // $("#dari").html('');
-                                                        $.ajax({
-                                                            url: "{{ url('transaksi/fetch') }}",
-                                                            type: "POST",
-                                                            data: {
-                                                                id_project: this.value,
-                                                                _token: '{{ csrf_token() }}'
-                                                            },
-                                                            dataType: 'json',
-                                                            success: function(result) {
-                                                                $('#id_barang').html('<option value="" selected>Select</option>');
-                                                                const selected = document.getElementById('dari').value;
-                                                                if (selected == '') {
-                                                                    $.each(result.barang, function(key, value) {
-                                                                        $("#id_barang").append(
-                                                                            '<option name="id_barang" value="' + value
-                                                                            .id + '">' + value.nama_barang
-                                                                            .nama +
-                                                                            '</option>');
-                                                                    });
-                                                                } else {
-                                                                    $.each(result.barang, function(key, value) {
-                                                                        $("#id_barang").append(
-                                                                            '<option name="id_barang" value="' + value
-                                                                            .id_barang + '">' + value.barang.nama_barang
-                                                                            .nama +
-                                                                            '</option>');
-                                                                    });
-                                                                }
-                                                            }
-                                                        });
-                                                    });
-
-                                                });
-                                            </script>
+                                            </div>                                     
 
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Ke</label>

@@ -67,6 +67,39 @@ $(function () {
         $('#addTransaksi').trigger("reset");
         $('#title').html("Create New Transaksi");
         $('#modalTambahData').modal('show');
+
+        $('#dari').on('change', function () {
+            // $("#dari").html('');
+            $.ajax({
+                url: "/transaksi/fetch",
+                type: "POST",
+                data: {
+                    id_project: this.value,
+                },
+                dataType: 'json',
+                success: function (result) {
+                    $('#id_barang').html('<option value="" selected>Select</option>');
+                    const selected = document.getElementById('dari').value;
+                    if (selected == '') {
+                        $.each(result.barang, function (key, value) {
+                            $("#id_barang").append(
+                                '<option name="id_barang" value="' + value
+                                    .id + '">' + value.nama_barang
+                                    .nama +
+                                '</option>');
+                        });
+                    } else {
+                        $.each(result.barang, function (key, value) {
+                            $("#id_barang").append(
+                                '<option name="id_barang" value="' + value
+                                    .id_barang + '">' + value.barang.nama_barang
+                                    .nama +
+                                '</option>');
+                        });
+                    }
+                }
+            });
+        });
     });
 
     /*------------------------------------------
@@ -77,6 +110,7 @@ $(function () {
     $('body').on('click', '.editTransaksi', function () {
         var id = $(this).data('id');
         $.get("transaksi" + '/' + id + '/edit', function (data) {
+            // Select Option Barang 
             $.ajax({
                 url: "/transaksi/fetch",
                 type: "POST",
@@ -88,7 +122,7 @@ $(function () {
                 success: function (result) {
                     $('#id_barang').html(
                         '<option value="" selected>Select</option>');
-                    if (data.dari == '') {
+                    if (data.dari == null) {
                         $.each(result.barang, function (key, value) {
                             if (data.id_barang == value.id) {
                                 isselected = 'selected';
@@ -117,11 +151,101 @@ $(function () {
                     }
                 }
             });
+            // Select Option 'dari'
+            $.ajax({
+                url: "/transaksi/fetch/project",
+                type: "POST",
+                data: {
+                    id_barang: data.id_barang,
+                },
+                dataType: 'json',
+                success: function (result) {
+                    $('#dari').html('<option value="" selected>None</option>');
+                    const selected = data.id_barang;
+                    $.each(result, function (key, value) {
+                        if (data.dari == value.id_project) {
+                            isselected = 'selected';
+                        } else {
+                            isselected = '';
+                        }
+                        $("#dari").append(
+                            '<option value="' + value.id_project + '"' + isselected + '>' + value.project.nama + '</option>');
+                    });
+                }
+            });
+
+            // Select Option 'ke'
+            $.ajax({
+                url: "/transaksi/fetch/project",
+                type: "POST",
+                data: {
+                    
+                },
+                dataType: 'json',
+                success: function (result) {
+                    $('#ke').html('<option value="" selected>None</option>');
+                    const selected = data.id_barang;
+                    $.each(result, function (key, value) {
+                        if (data.ke == value.id) {
+                            isselected = 'selected';
+                        } else {
+                            isselected = '';
+                        }
+                        $("#ke").append(
+                            '<option value="' + value.id + '"' + isselected + '>' + value.nama + '</option>');
+                    });
+                }
+            });
+
+            // Select Option Barang ketika 'dari' berubah
+            $('#dari').on('change', function () {
+                $.ajax({
+                    url: "/transaksi/fetch",
+                    type: "POST",
+                    data: {
+                        id_project: this.value,
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        $('#id_barang').html('<option value="" selected>Select</option>');
+                        const selected = document.getElementById('dari').value;
+                        if (selected == '') {
+                            $.each(result.barang, function (key, value) {
+                                if (data.id_barang == value.id) {
+                                    isselected = 'selected';
+                                } else {
+                                    isselected = '';
+                                }
+                                $("#id_barang").append(
+                                    '<option name="id_barang" value="' + value
+                                        .id + '"' + isselected + '>' + value.nama_barang
+                                        .nama +
+                                    '</option>');
+                            });
+                        } else {
+                            $.each(result.barang, function (key, value) {
+                                if (data.id_barang == value.id_barang
+                                ) {
+                                    isselected = 'selected';
+                                } else {
+                                    isselected = '';
+                                }
+                                $("#id_barang").append(
+                                    '<option name="id_barang" value="' + value
+                                        .id_barang + '"' + isselected + '>' + value.barang.nama_barang.nama +
+                                    '</option>');
+                            });
+                        }
+                    }
+                });
+            });
+
+
 
             $('#title').html("Edit");
             $('#btnCreate').val("Update");
             $('#modalTambahData').modal('show');
-            $('#id').val(data.id);
+            $('#id').val(data.id);           
             $('#tanggal').val(data.created_at);
             $('#masuk').val(data.masuk);
             $('#keluar').val(data.keluar);
@@ -174,7 +298,7 @@ $(function () {
                 if (result.value) {
                     $.ajax({
                         data: $('#addTransaksi').serialize(),
-                        url: "/transaksi",
+                        url: "/transaksi/" + $("#id").val(),
                         type: "PUT",
                         dataType: 'json',
                         success: function (data) {
@@ -184,7 +308,7 @@ $(function () {
                                 type: 'success',
                                 padding: '2em'
                             });
-                            $('#addUser').trigger("reset");
+                            $('#addTransaksi').trigger("reset");
                             $('#modalTambahData').modal('hide');
                             table.draw();
 
