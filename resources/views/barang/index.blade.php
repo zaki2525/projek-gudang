@@ -30,7 +30,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="addUser">
+                                        <form id="addBarang">
                                             {{-- @csrf --}}
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput2">Material Name</label>
@@ -42,21 +42,7 @@
                                                 <label for="floatingInput4">Unit</label>
                                                 <input value="{{ old('unit') }}" required name="unit" type="text"
                                                     required class="form-control" id="unit">
-                                            </div>
-                                            {{-- <div class="form-floating mb-3">
-                                                <label for="floatingInput5">Stock</label>
-                                                <input value="{{ old('stock') }}" required name="stock" type="number"
-                                                    required class="form-control" id="stock">
-                                            </div> --}}
-                                            {{-- <div class="form-floating mb-3">
-                                                <label for="floatingInput6">Role</label>
-                                                <select name="role" id="role" class="form-control">
-                                                    <option value="kepala">Kepala</option>
-                                                    <option value="subag">Subag</option>
-                                                    <option value="verifikator">Verifikator</option>
-                                                    <option value="analis">Analis</option>
-                                                </select>
-                                            </div> --}}
+                                            </div>                                        
                                             <div class="input-group">
                                                 {{-- <button class="btn btn-primary" onClick="store()">Create</button> --}}
                                                 <input type="button" value="Create" class="btn btn-primary" id="btnCreate">

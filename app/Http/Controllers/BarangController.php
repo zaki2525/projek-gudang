@@ -6,7 +6,7 @@ use App\Models\Barang;
 use App\Models\BarangProject;
 use App\Models\NamaBarang;
 use Illuminate\Http\Request;
-use DataTables;
+use Yajra\DataTables\DataTables;
 
 class BarangController extends Controller
 {
@@ -18,14 +18,14 @@ class BarangController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-  
-            $datas = Barang::with(['namaBarang'])->get(); 
-  
-            return Datatables::of($datas)
-                    ->addIndexColumn()
-                    ->addColumn('action', function($row){
 
-                        $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Show" class="show showBarang">                                        
+            $datas = Barang::with(['namaBarang'])->get();
+
+            return DataTables::of($datas)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+
+                    $btn = '<a href="/barang/'.$row->id.'">                                        
                         <button type="button" class="btn btn-primary btn-sm">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -36,20 +36,20 @@ class BarangController extends Controller
                             </svg>
                         </button>
                     </a>';
-                           $btn = $btn.'<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProject"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
+                    $btn = $btn . '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editBarang"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a>';
 
-                           $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProject cancel" onclick="return false"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
+                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteBarang cancel" onclick="return false"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
                            <polyline points="3 6 5 6 21 6"></polyline>
                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                            <line x1="10" y1="11" x2="10" y2="17"></line>
                            <line x1="14" y1="11" x2="14" y2="17"></line></svg></a>';
-    
-                            return $btn;
-                    })
-                    ->rawColumns(['action'])
-                    ->make(true);
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
         }
         // $category_name = '';
         $data = [
@@ -59,7 +59,7 @@ class BarangController extends Controller
             'scrollspy_offset' => 100,
             'alt_menu' => 0,
         ];
-        
+
         return view('barang.index')->with($data);
     }
 
@@ -83,23 +83,23 @@ class BarangController extends Controller
     {
         $data_nama_barang = $request->validate([
             'nama' => 'required',
-            'unit' => 'required',           
+            'unit' => 'required',
         ]);
 
-        if($nama_barang = NamaBarang::create($data_nama_barang)){
+        if ($nama_barang = NamaBarang::create($data_nama_barang)) {
             $data_barang = [
                 'id_nama_barang' => $nama_barang->id,
                 // 'stock' => $request->validate(['stock'], ['required'])
                 'stock' => 0
-            ];    
-            if(Barang::create($data_barang)){
-                alert()->success('success','data barang berhasil di tambahkan');
+            ];
+            if (Barang::create($data_barang)) {
+                alert()->success('success', 'data barang berhasil di tambahkan');
                 return redirect('/barang');
             } else {
-                alert()->error('error','data barang gagal di tambahkan');
+                alert()->error('error', 'data barang gagal di tambahkan');
                 return redirect('/barang');
             }
-        }     
+        }
     }
 
     /**
@@ -110,13 +110,13 @@ class BarangController extends Controller
      */
     public function show(Barang $barang, Request $request)
     {
-        if($request->ajax){
+        if ($request->ajax) {
             $datas['barangproject'] = BarangProject::where('id_barang', $barang->id)->get();
             $datas['barang'] = $barang;
             return DataTables::of($datas)->addIndexColumn()
-            ->addColumn('action', function($row){
+                ->addColumn('action', function ($row) {
 
-                $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Show" class="show showBarang">                                        
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Show" class="show showBarang">                                        
                 <button type="button" class="btn btn-primary btn-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -127,20 +127,20 @@ class BarangController extends Controller
                     </svg>
                 </button>
             </a>';
-                   $btn = $btn.'<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProject"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
+                    $btn = $btn . '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editProject"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a>';
 
-                   $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProject cancel" onclick="return false"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
+                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProject cancel" onclick="return false"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
                    <polyline points="3 6 5 6 21 6"></polyline>
                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                    <line x1="10" y1="11" x2="10" y2="17"></line>
                    <line x1="14" y1="11" x2="14" y2="17"></line></svg></a>';
 
                     return $btn;
-            })
-            ->rawColumns(['action'])
-            ->make(true);
+                })
+                ->rawColumns(['action'])
+                ->make(true);
         }
         $data = [
             'category_name' => 'barang',
@@ -148,11 +148,11 @@ class BarangController extends Controller
             'has_scrollspy' => 1,
             'scrollspy_offset' => 100,
             'alt_menu' => 0,
-        ];              
+        ];
 
         $datas = Barang::all();
-        
-        return view('barang.show', [        
+
+        return view('barang.show', [
             'datas' => BarangProject::where('id_barang', $barang->id)->get(),
             'barang' => $barang,
         ])->with($data);
@@ -166,7 +166,7 @@ class BarangController extends Controller
      */
     public function edit(Barang $barang)
     {
-        //
+        return response()->json(Barang::with(['namaBarang'])->where('id', $barang->id)->first());
     }
 
     /**
@@ -180,14 +180,15 @@ class BarangController extends Controller
     {
         $data_nama_barang = $request->validate([
             'nama' => 'required',
-            'unit' => 'required',           
+            'unit' => 'required',
         ]);
 
-        if(NamaBarang::where('id', $barang->id)->update($data_nama_barang)){
-            return redirect('/barang');
+        if (NamaBarang::where('id', $barang->id)->update($data_nama_barang)) {
+            // return redirect('/barang');
+            return response()->json(['success' => 'Transaksi has been updated.']);
         } else {
-            alert()->error('error','data barang gagal di update');
-            return redirect('/barang');
+            alert()->error('error', 'data barang gagal di update');
+            // return redirect('/barang');
         }
     }
 
@@ -199,10 +200,10 @@ class BarangController extends Controller
      */
     public function destroy(Barang $barang)
     {
-        if(Barang::destroy($barang->id)){
+        if (Barang::destroy($barang->id)) {
             return redirect('/barang');
         } else {
-            alert()->error('error','data barang gagal di hapus');
+            alert()->error('error', 'data barang gagal di hapus');
             return redirect('/barang');
         }
     }

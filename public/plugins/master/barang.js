@@ -1,16 +1,16 @@
 $(function () {
-      
+
     /*------------------------------------------
      --------------------------------------------
      Pass Header Token
      --------------------------------------------
-     --------------------------------------------*/ 
+     --------------------------------------------*/
     $.ajaxSetup({
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
-      
+
     /*------------------------------------------
     --------------------------------------------
     Render DataTable
@@ -21,67 +21,34 @@ $(function () {
         serverSide: true,
         ajax: "barang",
         dom: '<"row"<"col-md-12"<"row"<"col-md-6"B><"col-md-6"f> > ><"col-md-12"rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>> >',
-            buttons: {
-                buttons: [
-                    // { extend: 'copy', className: 'btn' },
-                    // { extend: 'csv', className: 'btn' },
-                    // { extend: 'excel', className: 'btn' },
-                    { extend: 'print', className: 'btn' }
-                ]
-            },
-            "oLanguage": {
-                "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
-                "sInfo": "Showing page _PAGE_ of _PAGES_",
-                "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
-                "sSearchPlaceholder": "Search...",
-                "sLengthMenu": "Results :  _MENU_",
-            },
-            "stripeClasses": [],
-            "lengthMenu": [7, 10, 20, 50, 100],
-            "pageLength": 7,
-        
+        buttons: {
+            buttons: [
+                // { extend: 'copy', className: 'btn' },
+                // { extend: 'csv', className: 'btn' },
+                // { extend: 'excel', className: 'btn' },
+                { extend: 'print', className: 'btn' }
+            ]
+        },
+        "oLanguage": {
+            "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+            "sInfo": "Showing page _PAGE_ of _PAGES_",
+            "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+            "sSearchPlaceholder": "Search...",
+            "sLengthMenu": "Results :  _MENU_",
+        },
+        "stripeClasses": [],
+        "lengthMenu": [7, 10, 20, 50, 100],
+        "pageLength": 7,
+
         columns: [
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'nama_barang.nama', name: 'nama_barang.nama'},
-            {data: 'nama_barang.unit', name: 'nama_barang.unit'},
-            {data: 'stock', name: 'stock'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+            { data: 'nama_barang.nama', name: 'nama_barang.nama' },
+            { data: 'nama_barang.unit', name: 'nama_barang.unit' },
+            { data: 'stock', name: 'stock' },
+            { data: 'action', name: 'action', orderable: false, searchable: false },
         ]
     });
 
-    var table = $('.data-table1').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "barang",
-        dom: '<"row"<"col-md-12"<"row"<"col-md-6"B><"col-md-6"f> > ><"col-md-12"rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>> >',
-            buttons: {
-                buttons: [
-                    // { extend: 'copy', className: 'btn' },
-                    // { extend: 'csv', className: 'btn' },
-                    // { extend: 'excel', className: 'btn' },
-                    { extend: 'print', className: 'btn' }
-                ]
-            },
-            "oLanguage": {
-                "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
-                "sInfo": "Showing page _PAGE_ of _PAGES_",
-                "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
-                "sSearchPlaceholder": "Search...",
-                "sLengthMenu": "Results :  _MENU_",
-            },
-            "stripeClasses": [],
-            "lengthMenu": [7, 10, 20, 50, 100],
-            "pageLength": 7,
-        
-        columns: [
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'nama_barang.nama', name: 'nama_barang.nama'},
-            {data: 'nama_barang.unit', name: 'nama_barang.unit'},
-            {data: 'stock', name: 'stock'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
-        ]
-    });
-      
     /*------------------------------------------
     --------------------------------------------
     Click to Button
@@ -90,67 +57,54 @@ $(function () {
     $('#btnShowFormMaster').click(function () {
         $('#btnCreate').val("Create");
         $('#id').val('');
-        $('#addUser').trigger("reset");
+        $('#addBarang').trigger("reset");
         $('#title').html("Create New Barang");
         $('#modalTambahData').modal('show');
     });
-      
+
     /*------------------------------------------
     --------------------------------------------
     Click to Edit Button
     --------------------------------------------
     --------------------------------------------*/
-    $('body').on('click', '.editProject', function () {
-      var id = $(this).data('id');
-      $.get("barang" +'/' + id +'/edit', function (data) {
-          $('#title').html("Edit");
-          $('#btnCreate').val("Update");
-          $('#modalTambahData').modal('show');
-          $('#id').val(data.id);
-          $('#nama').val(data.nama);
-        //   $('#detail').val(data.detail);
-      })
+    $('body').on('click', '.editBarang', function () {
+        var id = $(this).data('id');
+        $.get("barang" + '/' + id + '/edit', function (data) {
+            $('#title').html("Edit");
+            $('#btnCreate').val("Update");
+            $('#modalTambahData').modal('show');
+            $('#id').val(data.id);
+            $('#nama').val(data.nama_barang.nama);
+            $('#unit').val(data.nama_barang.unit);
+        })
     });
 
-    //Click Show
-    $('body').on('click', '.showBarang', function () {
-        var id = $(this).data('id');
-        $.get("barang" +'/' + id, function (data) {
-            // $('#title').html("Edit");
-            // $('#btnCreate').val("Update");
-            // $('#modalTambahData').modal('show');
-            // $('#id').val(data.id);
-            // $('#nama').val(data.nama);
-          //   $('#detail').val(data.detail);
-        })
-      });
-      
     /*------------------------------------------
     --------------------------------------------
-    Create Project
+    Create Barang
     --------------------------------------------
     --------------------------------------------*/
     $('#btnCreate').click(function (e) {
         e.preventDefault();
         $(this).html('Sending..');
 
-        if($('#btnCreate').val() == 'Create'){
+        if ($('#btnCreate').val() == 'Create') {
             $.ajax({
-                data: $('#addUser').serialize(),
-                url: "barang",
+                data: $('#addBarang').serialize(),
+                url: "/barang",
                 type: "POST",
                 dataType: 'json',
                 success: function (data) {
-                  swal({
-                      title: 'Information',
-                      text: "Data has been create",
-                      type: 'success',
-                      padding: '2em'
-                  });
-                    $('#addUser').trigger("reset");
+                    swal({
+                        title: 'Information',
+                        text: "Data has been create",
+                        type: 'success',
+                        padding: '2em'
+                    });
+                    $('#addBarang').trigger("reset");
                     $('#modalTambahData').modal('hide');
                     table.draw();
-                 
+
                 },
                 error: function (data) {
                     console.log('Error:', data);
@@ -167,21 +121,21 @@ $(function () {
             }).then(function (result) {
                 if (result.value) {
                     $.ajax({
-                        data: $('#addUser').serialize(),
-                        url: "barang",
-                        type: "POST",
+                        data: $('#addBarang').serialize(),
+                        url: "/barang/" + $("#id").val(),
+                        type: "PUT",
                         dataType: 'json',
                         success: function (data) {
-                          swal({
-                              title: 'Information',
-                              text: "Data has been create",
-                              type: 'success',
-                              padding: '2em'
-                          });
-                            $('#addUser').trigger("reset");
+                            swal({
+                                title: 'Information',
+                                text: "Data has been updated",
+                                type: 'success',
+                                padding: '2em'
+                            });
+                            $('#addBarang').trigger("reset");
                             $('#modalTambahData').modal('hide');
                             table.draw();
-                         
+
                         },
                         error: function (data) {
                             console.log('Error:', data);
@@ -191,16 +145,16 @@ $(function () {
                 }
             });
         }
-        
+
     });
-      
+
     /*------------------------------------------
     --------------------------------------------
-    Delete Project
+    Delete Barang
     --------------------------------------------
     --------------------------------------------*/
-    $('body').on('click', '.deleteProject', function () {
-     
+    $('body').on('click', '.deleteBarang', function () {
+
         var id = $(this).data("id");
         // confirm("Are you sure want to delete?");
         swal({
@@ -213,7 +167,7 @@ $(function () {
             if (result.value) {
                 $.ajax({
                     type: "DELETE",
-                    url: "barang"+'/'+id,
+                    url: "barang" + '/' + id,
                     success: function (data) {
                         swal({
                             title: 'Information',
@@ -230,5 +184,5 @@ $(function () {
             }
         });
     });
-       
-  });
+
+});
