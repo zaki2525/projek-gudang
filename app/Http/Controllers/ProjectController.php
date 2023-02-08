@@ -6,7 +6,7 @@ use App\Models\Project;
 use RealRashid\SweetAlert\Facades\Alert;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use DataTables;
+use Yajra\DataTables\DataTables;
 
 class ProjectController extends Controller
 {

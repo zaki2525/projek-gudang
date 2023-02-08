@@ -19,7 +19,7 @@ $(function () {
     var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "project",
+        ajax: "/transaksi/history",
         dom: '<"row"<"col-md-12"<"row"<"col-md-6"B><"col-md-6"f> > ><"col-md-12"rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>> >',
             buttons: {
                 buttons: [
@@ -42,7 +42,16 @@ $(function () {
         
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'nama', name: 'nama'},
+            {data: 'created_at', name: 'created_at'},
+            {data: 'barang.nama_barang.nama', name: 'barang.nama_barang.nama'},
+            {data: 'barang.nama_barang.unit', name: 'barang.nama_barang.unit'},
+            {data: 'masuk', name: 'masuk'},
+            {data: 'keluar', name: 'keluar'},
+            {data: 'stock', name: 'stock'},
+            {data: 'dariproject.nama', name: 'dariproject.nama'},
+            {data: 'keproject.nama', name: 'keproject.nama'},
+            {data: 'keterangan', name: 'keterangan'},
+            {data: 'remark', name: 'remark'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
@@ -184,9 +193,3 @@ $(function () {
     });
        
   });
-
-  $(document).ready(function() {
-    setInterval(function() {
-
-    }, 200)
-});

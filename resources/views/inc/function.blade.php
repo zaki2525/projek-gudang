@@ -22,6 +22,10 @@ if (!function_exists('setTitle')) :
         elseif ($page_name === 'transaksi') :
             echo 'Transaksi ' . $admin_name;
 
+        //Transaksi History
+        elseif ($page_name === 'transaksi-history') :
+            echo 'History Transaksi ' . $admin_name;
+
         //Project
         elseif ($page_name === 'project') :
             echo 'Project ' . $admin_name;

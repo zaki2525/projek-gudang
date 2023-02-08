@@ -10,6 +10,8 @@ use App\Models\BarangProject;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Svg\Tag\Rect;
+use Yajra\DataTables\DataTables;
 
 class TransaksiController extends Controller
 {
@@ -18,8 +20,55 @@ class TransaksiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
+
+            $datas = Transaksi::where('created_at', '>=', Carbon::today())->latest('updated_at')->with(['barang.namaBarang', 'dariproject', 'keproject'])->get();
+
+            return Datatables::of($datas)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+
+                    $btn = '<button type="button" class="edit btn btn-dark btn-sm editTransaksi" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-edit">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                        </path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                        </path>
+                    </svg>
+                    </button>';
+
+                //     $btn = $btn . '<button type="submit" class="btn btn-danger btn-sm warning deleteTransaksi cancel" data-toggle="tooltip"
+                //     data-id="' . $row->id . '" data-original-title="Delete" onclick="return false">
+                //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                //         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                //         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                //         class="feather feather-trash-2">
+                //         <polyline points="3 6 5 6 21 6"></polyline>
+                //         <path
+                //             d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                //         </path>
+                //         <line x1="10" y1="11" x2="10" y2="17">
+                //         </line>
+                //         <line x1="14" y1="11" x2="14" y2="17">
+                //         </line>
+                //     </svg>
+                // </button>';
+
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->editColumn('created_at', function ($datas) {
+                    $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $datas->created_at)->format('d-m-Y');
+                    return $formatedDate;
+                })
+                ->make(true);
+        }
         // $category_name = '';
         $data = [
             'history' => false,
@@ -33,17 +82,35 @@ class TransaksiController extends Controller
         return view('transaksi.index', [
             'trans' => Transaksi::where('created_at', '>=', Carbon::today())->latest('updated_at')->get(),
             // 'trans' => Transaksi::all(),
-            'barngs' => Barang::all(),
+            'barngs' => Barang::where('stock', '>', 0)->get(),
             'pros' => Project::all(),
         ])->with($data);
     }
 
-    public function history()
+    public function history(Request $request)
     {
+        if ($request->ajax()) {
+
+            $datas = Transaksi::latest('updated_at')->with(['barang.namaBarang', 'dariproject', 'keproject'])->get();
+
+            return Datatables::of($datas)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editTransaksi">Edit</a>';
+
+                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteTransaksi cancel" onclick="return false">Delete</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
         $data = [
             'history' => true,
             'category_name' => 'transaksis',
-            'page_name' => 'transaksi',
+            'page_name' => 'transaksi-history',
             'has_scrollspy' => 1,
             'scrollspy_offset' => 100,
             'alt_menu' => 0,
@@ -51,7 +118,7 @@ class TransaksiController extends Controller
 
         return view('transaksi.index', [
             'trans' => Transaksi::latest('updated_at')->get(),
-            'barngs' => Barang::all(),
+            'barngs' => Barang::where('stock', '>', 0)->get(),
             'pros' => Project::all(),
         ])->with($data);
     }
@@ -81,6 +148,16 @@ class TransaksiController extends Controller
                 $edit = Barang::with(['namaBarang'])->where("id", $request->id_barang)->get();
                 $data['barang'] = $data['barang']->merge($edit);
             }
+        }
+        return response()->json($data);
+    }
+
+    public function project(Request $request)
+    {
+        if ($request->id_barang) {
+            $data = BarangProject::with(['project'])->where('id_barang', $request->id_barang)->where('stock', '>', 0)->get();
+        } else {
+            $data = Project::get();
         }
         return response()->json($data);
     }
@@ -151,8 +228,7 @@ class TransaksiController extends Controller
                         'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
                     ];
                     $transaksi->update($data_stock_transaksi);
-                    alert()->success('success', 'Transaction Barang berhasil di tambahkan');
-                    return redirect("/transaksi");
+                    return response()->json(['success' => 'Transaksi has been created.']);
                 } else {
                     $data_barang_project_ke = [
                         'code_project' => $request->code_project,
@@ -169,8 +245,7 @@ class TransaksiController extends Controller
                         'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
                     ];
                     $transaksi->update($data_stock_transaksi);
-                    alert()->success('success', 'Transaction Barang berhasil di tambahkan');
-                    return redirect("/transaksi");
+                    return response()->json(['success' => 'Transaksi has been created.']);
                 }
             } else {
                 $data_barang_project_dari = [
@@ -190,8 +265,7 @@ class TransaksiController extends Controller
                         'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
                     ];
                     $transaksi->update($data_stock_transaksi);
-                    alert()->success('success', 'Transaction Barang berhasil di tambahkan');
-                    return redirect("/transaksi");
+                    return response()->json(['success' => 'Transaksi has been created.']);
                 } else {
                     $data_barang_project_ke = [
                         'code_project' => $request->code_project,
@@ -208,8 +282,7 @@ class TransaksiController extends Controller
                         'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
                     ];
                     $transaksi->update($data_stock_transaksi);
-                    alert()->success('success', 'Transaction Barang berhasil di tambahkan');
-                    return redirect("/transaksi");
+                    return response()->json(['success' => 'Transaksi has been created.']);
                 }
             }
         } else if ($request->dari != null && $request->ke == null) {
@@ -221,8 +294,7 @@ class TransaksiController extends Controller
                     'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
                 ];
                 $transaksi->update($data_stock_transaksi);
-                alert()->success('success', 'Transaction Barang berhasil di tambahkan');
-                return redirect("/transaksi");
+                return response()->json(['success' => 'Transaksi has been created.']);
             } else {
                 $data_barang_project_dari = [
                     'code_project' => $request->code_project,
@@ -238,8 +310,7 @@ class TransaksiController extends Controller
                     'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
                 ];
                 $transaksi->update($data_stock_transaksi);
-                alert()->success('success', 'Transaction Barang berhasil di tambahkan');
-                return redirect("/transaksi");
+                return response()->json(['success' => 'Transaksi has been created.']);
             }
         } else if ($request->dari == null && $request->ke != null) {
             // cek apakah ada record barangproject where id project = ke
@@ -250,8 +321,7 @@ class TransaksiController extends Controller
                     'stock' => (Barang::where('id', $request->id_barang)->first())->stock
                 ];
                 $transaksi->update($data_stock_transaksi);
-                alert()->success('success', 'Transaction Barang berhasil di tambahkan');
-                return redirect("/transaksi");
+                return response()->json(['success' => 'Transaksi has been created.']);
             } else {
                 $data_barang_project_ke = [
                     'code_project' => $request->code_project,
@@ -268,8 +338,7 @@ class TransaksiController extends Controller
                     'stock' => (Barang::where('id', $request->id_barang)->first())->stock
                 ];
                 $transaksi->update($data_stock_transaksi);
-                alert()->success('success', 'Transaction Barang berhasil di tambahkan');
-                return redirect("/transaksi");
+                return response()->json(['success' => 'Transaksi has been created.']);
             }
         } else {
             $transaksi = Transaksi::create($data_transaksi);
@@ -278,10 +347,8 @@ class TransaksiController extends Controller
                 'stock' => (Barang::where('id', $request->id_barang)->first())->stock
             ];
             $transaksi->update($data_stock_transaksi);
-            alert()->success('success', 'Transaction Barang berhasil di tambahkan');
-            return redirect("/transaksi");
+            return response()->json(['success' => 'Transaksi has been created.']);
         }
-        alert()->error('Error', 'Transaction Barang gagal di tambahkan');
     }
 
     /**
@@ -301,8 +368,8 @@ class TransaksiController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Transaksi $transaksi)
-    {
-        //
+    {             
+        return response()->json($transaksi);
     }
 
     /**
@@ -363,7 +430,8 @@ class TransaksiController extends Controller
                     ];
                     $transaksi->update($data_stock_transaksi);
                     alert()->success('success', 'Transaction Barang berhasil di-update');
-                    return redirect("/transaksi");
+                    // 
+                    return response()->json(['success' => 'Transaksi has been updated.']);
                 } else {
                     $data_barang_project_ke = [
                         'code_project' => $request->code_project,
@@ -381,7 +449,8 @@ class TransaksiController extends Controller
                     ];
                     $transaksi->update($data_stock_transaksi);
                     alert()->success('success', 'Transaction Barang berhasil di-update');
-                    return redirect("/transaksi");
+                    // 
+                    return response()->json(['success' => 'Transaksi has been updated.']);
                 }
             } else {
                 $data_barang_project_dari = [
@@ -402,7 +471,8 @@ class TransaksiController extends Controller
                     ];
                     $transaksi->update($data_stock_transaksi);
                     alert()->success('success', 'Transaction Barang berhasil di-update');
-                    return redirect("/transaksi");
+                    // 
+                    return response()->json(['success' => 'Transaksi has been updated.']);
                 } else {
                     $data_barang_project_ke = [
                         'code_project' => $request->code_project,
@@ -419,7 +489,8 @@ class TransaksiController extends Controller
                     ];
                     $transaksi->update($data_stock_transaksi);
                     alert()->success('success', 'Transaction Barang berhasil di-update');
-                    return redirect("/transaksi");
+                    // 
+                    return response()->json(['success' => 'Transaksi has been updated.']);
                 }
             }
         } else if ($request->dari != null && $request->ke == null) {
@@ -432,7 +503,8 @@ class TransaksiController extends Controller
                 ];
                 $transaksi->update($data_stock_transaksi);
                 alert()->success('success', 'Transaction Barang berhasil di-update');
-                return redirect("/transaksi");
+                // 
+                return response()->json(['success' => 'Transaksi has been updated.']);
             } else {
                 $data_barang_project_dari = [
                     'code_project' => $request->code_project,
@@ -449,7 +521,8 @@ class TransaksiController extends Controller
                 ];
                 $transaksi->update($data_stock_transaksi);
                 alert()->success('success', 'Transaction Barang berhasil di-update');
-                return redirect("/transaksi");
+                // 
+                return response()->json(['success' => 'Transaksi has been updated.']);
             }
         } else if ($request->dari == null && $request->ke != null) {
             // cek apakah ada record barangproject where id project = ke
@@ -461,7 +534,8 @@ class TransaksiController extends Controller
                 ];
                 $transaksi->update($data_stock_transaksi);
                 alert()->success('success', 'Transaction Barang berhasil di-update');
-                return redirect("/transaksi");
+                // 
+                return response()->json(['success' => 'Transaksi has been updated.']);
             } else {
                 $data_barang_project_ke = [
                     'code_project' => $request->code_project,
@@ -479,7 +553,8 @@ class TransaksiController extends Controller
                 ];
                 $transaksi->update($data_stock_transaksi);
                 alert()->success('success', 'Transaction Barang berhasil di-update');
-                return redirect("/transaksi");
+                // 
+                return response()->json(['success' => 'Transaksi has been updated.']);
             }
         } else {
             $transaksi->update($data_transaksi);
@@ -489,7 +564,8 @@ class TransaksiController extends Controller
             ];
             $transaksi->update($data_stock_transaksi);
             alert()->success('success', 'Transaction Barang berhasil di-update');
-            return redirect("/transaksi");
+            // 
+            return response()->json(['success' => 'Transaksi has been updated.']);
         }
         alert()->error('Error', 'Transaction Barang gagal di tambahkan');
     }
