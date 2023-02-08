@@ -246,6 +246,7 @@ $(function () {
             $('#btnCreate').val("Update");
             $('#modalTambahData').modal('show');
             $('#id').val(data.id);           
+            // $('#tanggal').val(JSON.parse(data.created_at));
             $('#tanggal').val(data.created_at);
             $('#masuk').val(data.masuk);
             $('#keluar').val(data.keluar);
