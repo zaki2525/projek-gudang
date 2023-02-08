@@ -52,7 +52,7 @@ class SuratJalanController extends Controller
 
         return view('suratjalan.index', [
             'data' => SuratJalan::latest()->get(),
-            'barngs' => Barang::all(),
+            'barangs' => Barang::all(),
             'projects' => Project::all(),
         ])->with($data);
     }

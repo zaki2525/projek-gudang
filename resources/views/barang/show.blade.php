@@ -24,7 +24,7 @@
                                 </tr>
                             </thead>                            
                             <tbody>
-                                <tr align="center">
+                                {{-- <tr align="center">
                                     <td>1</td>
                                     <td>None</td>
                                     <td>{{$barang->stock}}</td>
@@ -37,7 +37,7 @@
                                 <td>{{$item->stock}}</td>
                                 <td>{{$item->barang->namabarang->unit}}</td>
                                </tr>
-                               @endforeach 
+                               @endforeach  --}}
                             </tbody>
                         </table>
                     </div>              

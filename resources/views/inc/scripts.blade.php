@@ -98,6 +98,7 @@
     </script>
     @break
     @case('barang')
+    <script src="{{asset('plugins/master/barang.js')}}"></script>
     {{-- Components Sweetalerts --}}
       <script src="{{asset('assets/js/scrollspyNav.js')}}"></script>
       <script src="{{asset('plugins/sweetalerts/sweetalert2.min.js')}}"></script>
