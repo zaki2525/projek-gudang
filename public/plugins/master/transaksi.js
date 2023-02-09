@@ -80,15 +80,26 @@ $(function () {
                 success: function (result) {
                     $('#id_barang').html('<option value="" selected>Select</option>');
                     const selected = document.getElementById('dari').value;
+                   
                     if (selected == '') {
                         $.each(result.barang, function (key, value) {
+                            if($('#id_barang').oldValue == value.id){
+                                isselected = 'selected';
+                            } else {
+                                isselected = '';
+                            }
                             $("#id_barang").append(
                                 '<option name="id_barang" value="' + value
-                                    .id + '">' + value.nama +
+                                    .id + '"' + isselected +'>' + value.nama +
                                 '</option>');
                         });
                     } else {
                         $.each(result.barang, function (key, value) {
+                            if($('#id_barang').oldValue == value.id_barang){
+                                isselected = 'selected';
+                            } else {
+                                isselected = '';
+                            }
                             $("#id_barang").append(
                                 '<option name="id_barang" value="' + value
                                     .id_barang + '">' + value.barang.nama +

@@ -278,33 +278,33 @@ class TransaksiController extends Controller
                 }
             }
         } else if ($request->dari && $request->ke == null) {
-            // // cek apakah ada record barangproject where id project = dari
-            // if (BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->id_barang)->first()) {
-            //     $transaksi = Transaksi::create($data_transaksi);
-            //     // update stock di table transaksi
-            //     $data_stock_transaksi = [
-            //         'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
-            //     ];
-            //     $transaksi->update($data_stock_transaksi);
-            //     return response()->json(['success' => 'Transaksi has been created.']);
-            // } else {
-            //     $data_barang_project_dari = [
-            //         'code_project' => $request->code_project,
-            //         'id_project' => $request->dari,
-            //         'id_barang' => $request->id_barang,
-            //         'stock'     => 0,
-            //     ];
-            //     BarangProject::create($data_barang_project_dari);
+            // cek apakah ada record barangproject where id project = dari
+            if (BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->id_barang)->first()) {
+                $transaksi = Transaksi::create($data_transaksi);
+                // update stock di table transaksi
+                $data_stock_transaksi = [
+                    'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
+                ];
+                $transaksi->update($data_stock_transaksi);
+                return response()->json(['success' => 'Transaksi has been created.']);
+            } else {
+                $data_barang_project_dari = [
+                    'code_project' => $request->code_project,
+                    'id_project' => $request->dari,
+                    'id_barang' => $request->id_barang,
+                    'stock'     => 0,
+                ];
+                BarangProject::create($data_barang_project_dari);
 
-            //     $transaksi = Transaksi::create($data_transaksi);
-            //     // update stock di table transaksi
-            //     $data_stock_transaksi = [
-            //         'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
-            //     ];
-            //     $transaksi->update($data_stock_transaksi);
-            //     return response()->json(['success' => 'Transaksi has been created.']);
-            // }
-            return response()->json(['warning' => "Transaksi can't be create"]);
+                $transaksi = Transaksi::create($data_transaksi);
+                // update stock di table transaksi
+                $data_stock_transaksi = [
+                    'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
+                ];
+                $transaksi->update($data_stock_transaksi);
+                return response()->json(['success' => 'Transaksi has been created.']);
+            }
+            // return response()->json(['warning' => "Transaksi can't be create"]);
         } else if ($request->dari == null && $request->ke) {
             // cek apakah ada record barangproject where id project = ke
             if (BarangProject::all()->where('id_project', $request->ke)->where('id_barang', $request->id_barang)->first()) {
@@ -341,6 +341,7 @@ class TransaksiController extends Controller
             // ];
             // $transaksi->update($data_stock_transaksi);
             return response()->json(['warning' => "Transaksi can't be create"]);
+            alert()->success('error', "Transaksi can't be create");
         }
     }
 
