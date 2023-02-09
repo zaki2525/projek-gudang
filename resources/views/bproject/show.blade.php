@@ -27,9 +27,9 @@
                                @foreach($items as $item)
                                <tr align="center">
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$item->barang->namabarang->nama}}</td>
+                                <td>{{$item->barang->nama}}</td>
                                 <td>{{$item->stock}}</td>
-                                <td>{{$item->barang->namabarang->unit}}</td>
+                                <td>{{$item->barang->unit}}</td>
                                </tr>
                                @endforeach 
                             </tbody>

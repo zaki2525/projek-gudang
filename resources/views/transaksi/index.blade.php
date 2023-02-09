@@ -61,7 +61,7 @@
                                                 <select name="id_barang" id="id_barang" class="form-control ">
                                                     <option value="">Select</option>
                                                     @foreach ($barngs as $bar)
-                                                        <option value="{{ $bar->id }}">{{ $bar->namaBarang->nama }}
+                                                        <option value="{{ $bar->id }}">{{ $bar->nama }}
                                                         </option>
                                                     @endforeach
                                                 </select>

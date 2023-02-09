@@ -19,13 +19,13 @@ class BarangController extends Controller
     {
         if ($request->ajax()) {
 
-            $datas = Barang::with(['namaBarang'])->get();
+            $datas = Barang::get();
 
             return DataTables::of($datas)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
 
-                    $btn = '<a href="/barang/'.$row->id.'">                                        
+                    $btn = '<a href="/barang/' . $row->id . '">                                        
                         <button type="button" class="btn btn-primary btn-sm">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -47,6 +47,9 @@ class BarangController extends Controller
                            <line x1="14" y1="11" x2="14" y2="17"></line></svg></a>';
 
                     return $btn;
+                })
+                ->addColumn('stock', function ($row) {
+                    return $row->totalBarang();
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -81,24 +84,17 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        $data_nama_barang = $request->validate([
+        $data = $request->validate([
             'nama' => 'required',
             'unit' => 'required',
         ]);
 
-        if ($nama_barang = NamaBarang::create($data_nama_barang)) {
-            $data_barang = [
-                'id_nama_barang' => $nama_barang->id,
-                // 'stock' => $request->validate(['stock'], ['required'])
-                'stock' => 0
-            ];
-            if (Barang::create($data_barang)) {
-                alert()->success('success', 'data barang berhasil di tambahkan');
-                return redirect('/barang');
-            } else {
-                alert()->error('error', 'data barang gagal di tambahkan');
-                return redirect('/barang');
-            }
+        if (Barang::create($data)) {
+            alert()->success('success', 'data barang berhasil di tambahkan');
+            return redirect('/barang');
+        } else {
+            alert()->error('error', 'data barang gagal di tambahkan');
+            return redirect('/barang');
         }
     }
 
@@ -111,9 +107,10 @@ class BarangController extends Controller
     public function show(Barang $barang, Request $request)
     {
         if ($request->ajax) {
-            $datas['barangproject'] = BarangProject::where('id_barang', $barang->id)->get();
-            $datas['barang'] = $barang;
-            return DataTables::of($datas)->addIndexColumn()
+            $datas = BarangProject::where('id_barang', $barang->id)->get();
+            // $datas['barang'] = $barang;
+            return DataTables::of($datas)
+                ->addIndexColumn()
                 ->addColumn('action', function ($row) {
 
                     $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Show" class="show showBarang">                                        
@@ -144,10 +141,10 @@ class BarangController extends Controller
         }
         $data = [
             'category_name' => 'barang',
-            'page_name' => 'barang',
+            'page_name' => 'barang-show',
             'has_scrollspy' => 1,
             'scrollspy_offset' => 100,
-            'alt_menu' => 0,
+            'alt_menu' => 0,            
         ];
 
         $datas = Barang::all();
@@ -166,7 +163,7 @@ class BarangController extends Controller
      */
     public function edit(Barang $barang)
     {
-        return response()->json(Barang::with(['namaBarang'])->where('id', $barang->id)->first());
+        return response()->json($barang);
     }
 
     /**
@@ -176,14 +173,14 @@ class BarangController extends Controller
      * @param  \App\Models\Barang  $barang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, NamaBarang $barang)
+    public function update(Request $request, Barang $barang)
     {
-        $data_nama_barang = $request->validate([
+        $data = $request->validate([
             'nama' => 'required',
             'unit' => 'required',
         ]);
 
-        if (NamaBarang::where('id', $barang->id)->update($data_nama_barang)) {
+        if ($barang->update($data)) {
             // return redirect('/barang');
             return response()->json(['success' => 'Transaksi has been updated.']);
         } else {

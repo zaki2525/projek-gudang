@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('content')
@@ -91,7 +92,7 @@
                                                             </option>
                                                             @foreach ($barangs as $item)
                                                                 <option value="{{ $item->id }}">
-                                                                    {{ $item->namaBarang->nama }}</option>
+                                                                    {{ $item->nama }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -173,7 +174,7 @@
                                                             </option>  
                                                             @foreach ($barangs as $item)
                                                                 <option value="{{ $item->id }}">
-                                                                    {{ $item->namaBarang->nama }}</option>
+                                                                    {{ $item->nama }}</option>
                                                             @endforeach
                                                         
                                                         </select>

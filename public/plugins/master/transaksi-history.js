@@ -1,16 +1,16 @@
 $(function () {
-      
+
     /*------------------------------------------
      --------------------------------------------
      Pass Header Token
      --------------------------------------------
-     --------------------------------------------*/ 
+     --------------------------------------------*/
     $.ajaxSetup({
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
-      
+
     /*------------------------------------------
     --------------------------------------------
     Render DataTable
@@ -21,41 +21,41 @@ $(function () {
         serverSide: true,
         ajax: "/transaksi/history",
         dom: '<"row"<"col-md-12"<"row"<"col-md-6"B><"col-md-6"f> > ><"col-md-12"rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>> >',
-            buttons: {
-                buttons: [
-                    // { extend: 'copy', className: 'btn' },
-                    // { extend: 'csv', className: 'btn' },
-                    // { extend: 'excel', className: 'btn' },
-                    { extend: 'print', className: 'btn' }
-                ]
-            },
-            "oLanguage": {
-                "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
-                "sInfo": "Showing page _PAGE_ of _PAGES_",
-                "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
-                "sSearchPlaceholder": "Search...",
-                "sLengthMenu": "Results :  _MENU_",
-            },
-            "stripeClasses": [],
-            "lengthMenu": [7, 10, 20, 50, 100],
-            "pageLength": 7,
-        
+        buttons: {
+            buttons: [
+                // { extend: 'copy', className: 'btn' },
+                // { extend: 'csv', className: 'btn' },
+                // { extend: 'excel', className: 'btn' },
+                { extend: 'print', className: 'btn' }
+            ]
+        },
+        "oLanguage": {
+            "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+            "sInfo": "Showing page _PAGE_ of _PAGES_",
+            "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+            "sSearchPlaceholder": "Search...",
+            "sLengthMenu": "Results :  _MENU_",
+        },
+        "stripeClasses": [],
+        "lengthMenu": [7, 10, 20, 50, 100],
+        "pageLength": 7,
+
         columns: [
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'created_at', name: 'created_at'},
-            {data: 'barang.nama_barang.nama', name: 'barang.nama_barang.nama'},
-            {data: 'barang.nama_barang.unit', name: 'barang.nama_barang.unit'},
-            {data: 'masuk', name: 'masuk'},
-            {data: 'keluar', name: 'keluar'},
-            {data: 'stock', name: 'stock'},
-            {data: 'dariproject.nama', name: 'dariproject.nama'},
-            {data: 'keproject.nama', name: 'keproject.nama'},
-            {data: 'keterangan', name: 'keterangan'},
-            {data: 'remark', name: 'remark'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+            { data: 'created_at', name: 'created_at' },
+            { data: 'barang.nama', name: 'barang.nama' },
+            { data: 'barang.unit', name: 'barang.unit' },
+            { data: 'masuk', name: 'masuk' },
+            { data: 'keluar', name: 'keluar' },
+            { data: 'stock', name: 'stock' },
+            { data: 'dariproject.nama', name: 'dariproject.nama' },
+            { data: 'keproject.nama', name: 'keproject.nama' },
+            { data: 'keterangan', name: 'keterangan' },
+            { data: 'remark', name: 'remark' },
+            { data: 'action', name: 'action', orderable: false, searchable: false },
         ]
     });
-      
+
     /*------------------------------------------
     --------------------------------------------
     Click to Button
@@ -64,28 +64,194 @@ $(function () {
     $('#btnShowFormMaster').click(function () {
         $('#btnCreate').val("Create");
         $('#id').val('');
-        $('#addUser').trigger("reset");
-        $('#title').html("Create New Project");
+        $('#addTransaksi').trigger("reset");
+        $('#title').html("Create New Transaksi");
         $('#modalTambahData').modal('show');
+
+        $('#dari').on('change', function () {
+            // $("#dari").html('');
+            $.ajax({
+                url: "/transaksi/fetch",
+                type: "POST",
+                data: {
+                    id_project: this.value,
+                },
+                dataType: 'json',
+                success: function (result) {
+                    $('#id_barang').html('<option value="" selected>Select</option>');
+                    const selected = document.getElementById('dari').value;
+                    if (selected == '') {
+                        $.each(result.barang, function (key, value) {
+                            $("#id_barang").append(
+                                '<option name="id_barang" value="' + value
+                                    .id + '">' + value.nama +
+                                '</option>');
+                        });
+                    } else {
+                        $.each(result.barang, function (key, value) {
+                            $("#id_barang").append(
+                                '<option name="id_barang" value="' + value
+                                    .id_barang + '">' + value.barang.nama +
+                                '</option>');
+                        });
+                    }
+                }
+            });
+        });
     });
-      
+
     /*------------------------------------------
     --------------------------------------------
     Click to Edit Button
     --------------------------------------------
     --------------------------------------------*/
-    $('body').on('click', '.editProject', function () {
-      var id = $(this).data('id');
-      $.get("project" +'/' + id +'/edit', function (data) {
-          $('#title').html("Edit");
-          $('#btnCreate').val("Update");
-          $('#modalTambahData').modal('show');
-          $('#id').val(data.id);
-          $('#nama').val(data.nama);
-        //   $('#detail').val(data.detail);
-      })
+    $('body').on('click', '.editTransaksi', function () {
+        var id = $(this).data('id');
+        $.get("/transaksi" + '/' + id + '/edit', function (data) {
+            // Select Option Barang 
+            $.ajax({
+                url: "/transaksi/fetch",
+                type: "POST",
+                data: {
+                    id_project: data.dari,
+                    id_barang: data.id_barang,
+                },
+                dataType: 'json',
+                success: function (result) {
+                    $('#id_barang').html(
+                        '<option value="" selected>Select</option>');
+                    if (data.dari == null) {
+                        $.each(result.barang, function (key, value) {
+                            if (data.id_barang == value.id) {
+                                isselected = 'selected';
+                            } else {
+                                isselected = '';
+                            }
+                            $("#id_barang").append(
+                                '<option name="id_barang" value="' + value
+                                    .id + '"' + isselected + '>' + value.nama +
+                                '</option>');
+                        });
+                    } else {
+                        $.each(result.barang, function (key, value) {
+                            if (data.id_barang == value.id_barang
+                            ) {
+                                isselected = 'selected';
+                            } else {
+                                isselected = '';
+                            }
+                            $("#id_barang").append(
+                                '<option name="id_barang" value="' + value
+                                    .id_barang + '"' + isselected + '>' + value.barang.nama +
+                                '</option>');
+                        });
+                    }
+                }
+            });
+            // Select Option 'dari'
+            $.ajax({
+                url: "/transaksi/fetch/project",
+                type: "POST",
+                data: {
+                    id_barang: data.id_barang,
+                },
+                dataType: 'json',
+                success: function (result) {
+                    $('#dari').html('<option value="" selected>None</option>');
+                    const selected = data.id_barang;
+                    $.each(result, function (key, value) {
+                        if (data.dari == value.id_project) {
+                            isselected = 'selected';
+                        } else {
+                            isselected = '';
+                        }
+                        $("#dari").append(
+                            '<option value="' + value.id_project + '"' + isselected + '>' + value.project.nama + '</option>');
+                    });
+                }
+            });
+
+            // Select Option 'ke'
+            $.ajax({
+                url: "/transaksi/fetch/project",
+                type: "POST",
+                data: {
+
+                },
+                dataType: 'json',
+                success: function (result) {
+                    $('#ke').html('<option value="" selected>None</option>');
+                    const selected = data.id_barang;
+                    $.each(result, function (key, value) {
+                        if (data.ke == value.id) {
+                            isselected = 'selected';
+                        } else {
+                            isselected = '';
+                        }
+                        $("#ke").append(
+                            '<option value="' + value.id + '"' + isselected + '>' + value.nama + '</option>');
+                    });
+                }
+            });
+
+            // Select Option Barang ketika 'dari' berubah
+            $('#dari').on('change', function () {
+                $.ajax({
+                    url: "/transaksi/fetch",
+                    type: "POST",
+                    data: {
+                        id_project: this.value,
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        $('#id_barang').html('<option value="" selected>Select</option>');
+                        const selected = document.getElementById('dari').value;
+                        if (selected == '') {
+                            $.each(result.barang, function (key, value) {
+                                if (data.id_barang == value.id) {
+                                    isselected = 'selected';
+                                } else {
+                                    isselected = '';
+                                }
+                                $("#id_barang").append(
+                                    '<option name="id_barang" value="' + value
+                                        .id + '"' + isselected + '>' + value.nama +
+                                    '</option>');
+                            });
+                        } else {
+                            $.each(result.barang, function (key, value) {
+                                if (data.id_barang == value.id_barang
+                                ) {
+                                    isselected = 'selected';
+                                } else {
+                                    isselected = '';
+                                }
+                                $("#id_barang").append(
+                                    '<option name="id_barang" value="' + value
+                                        .id_barang + '"' + isselected + '>' + value.barang.nama +
+                                    '</option>');
+                            });
+                        }
+                    }
+                });
+            });
+
+
+
+            $('#title').html("Edit");
+            $('#btnCreate').val("Update");
+            $('#modalTambahData').modal('show');
+            $('#id').val(data.id);
+            // $('#tanggal').val(JSON.parse(data.created_at));
+            $('#tanggal').val(data.created_at);
+            $('#masuk').val(data.masuk);
+            $('#keluar').val(data.keluar);
+            $('#keterangan').val(data.keterangan);
+            $('#remark').val(data.remark);
+            //   $('#detail').val(data.detail);
+        })
     });
-      
+
     /*------------------------------------------
     --------------------------------------------
     Create Project
@@ -95,23 +261,23 @@ $(function () {
         e.preventDefault();
         $(this).html('Sending..');
 
-        if($('#btnCreate').val() == 'Create'){
+        if ($('#btnCreate').val() == 'Create') {
             $.ajax({
-                data: $('#addUser').serialize(),
-                url: "project",
+                data: $('#addTransaksi').serialize(),
+                url: "/transaksi",
                 type: "POST",
                 dataType: 'json',
                 success: function (data) {
-                  swal({
-                      title: 'Information',
-                      text: "Data has been created",
-                      type: 'success',
-                      padding: '2em'
-                  });
-                    $('#addUser').trigger("reset");
+                    swal({
+                        title: 'Information',
+                        text: "Data has been created",
+                        type: 'success',
+                        padding: '2em'
+                    });
+                    $('#addTransaksi').trigger("reset");
                     $('#modalTambahData').modal('hide');
                     table.draw();
-                 
+
                 },
                 error: function (data) {
                     console.log('Error:', data);
@@ -128,21 +294,21 @@ $(function () {
             }).then(function (result) {
                 if (result.value) {
                     $.ajax({
-                        data: $('#addUser').serialize(),
-                        url: "project",
-                        type: "POST",
+                        data: $('#addTransaksi').serialize(),
+                        url: "/transaksi/" + $("#id").val(),
+                        type: "PUT",
                         dataType: 'json',
                         success: function (data) {
-                          swal({
-                              title: 'Information',
-                              text: "Data has been updated",
-                              type: 'success',
-                              padding: '2em'
-                          });
-                            $('#addUser').trigger("reset");
+                            swal({
+                                title: 'Information',
+                                text: "Data has been updated",
+                                type: 'success',
+                                padding: '2em'
+                            });
+                            $('#addTransaksi').trigger("reset");
                             $('#modalTambahData').modal('hide');
                             table.draw();
-                         
+
                         },
                         error: function (data) {
                             console.log('Error:', data);
@@ -152,16 +318,16 @@ $(function () {
                 }
             });
         }
-        
+
     });
-      
+
     /*------------------------------------------
     --------------------------------------------
     Delete Project
     --------------------------------------------
     --------------------------------------------*/
     $('body').on('click', '.deleteProject', function () {
-     
+
         var id = $(this).data("id");
         // confirm("Are you sure want to delete?");
         swal({
@@ -174,7 +340,7 @@ $(function () {
             if (result.value) {
                 $.ajax({
                     type: "DELETE",
-                    url: "project"+'/'+id,
+                    url: "project" + '/' + id,
                     success: function (data) {
                         swal({
                             title: 'Information',
@@ -191,5 +357,5 @@ $(function () {
             }
         });
     });
-       
-  });
+
+});

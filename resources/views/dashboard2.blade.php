@@ -30,9 +30,9 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->created_at->format('d/m/Y') }}</td>
                                         <td><a
-                                                href="/barang/{{ $item->id_barang }}">{{ $item->barang->namaBarang->nama }}</a>
+                                                href="/barang/{{ $item->id_barang }}">{{ $item->barang->nama }}</a>
                                         </td>
-                                        <td>{{ $item->barang->namaBarang->unit }}</td>
+                                        <td>{{ $item->barang->unit }}</td>
                                         <td>{{ $item->masuk }}</td>
                                         <td>{{ $item->keluar }}</td>
                                         <td>{{ $item->stock }}</td>

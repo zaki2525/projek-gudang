@@ -40,33 +40,20 @@ class DatabaseSeeder extends Seeder
             'role' => 'user',
         ]);
 
-        NamaBarang::create([
+        Barang::create([
             'nama' => 'Switch Hub HIKVISION 4 Port            ',
             'unit' => 'unit'
         ]);
 
-        NamaBarang::create([
+        Barang::create([
             'nama' => 'Kamera PTZ HIKVISION Speed Dome            ',
             'unit' => 'unit',
         ]);
 
-        NamaBarang::create([
+        Barang::create([
             'nama' => 'Mini Display Port Adapter            ',
             'unit' => 'pcs',
-        ]);
-
-        Barang::create([
-            'id_nama_barang' => '1',
-            'stock' => '2',
-        ]);
-        Barang::create([
-            'id_nama_barang' => '2',
-            'stock' => '24',
-        ]);
-        Barang::create([
-            'id_nama_barang' => '3',
-            'stock' => '15',
-        ]);
+        ]);    
 
         Project::create([
             'nama' => 'Sentralisasi Minning

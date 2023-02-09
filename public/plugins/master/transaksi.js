@@ -19,7 +19,7 @@ $(function () {
     var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "transaksi",
+        ajax: "/transaksi",
         dom: '<"row"<"col-md-12"<"row"<"col-md-6"B><"col-md-6"f> > ><"col-md-12"rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>> >',
         buttons: {
             buttons: [
@@ -43,8 +43,8 @@ $(function () {
         columns: [
             { data: 'DT_RowIndex', name: 'DT_RowIndex' },
             { data: 'created_at', name: 'created_at' },
-            { data: 'barang.nama_barang.nama', name: 'barang.nama_barang.nama' },
-            { data: 'barang.nama_barang.unit', name: 'barang.nama_barang.unit' },
+            { data: 'barang.nama', name: 'barang.nama' },
+            { data: 'barang.unit', name: 'barang.unit' },
             { data: 'masuk', name: 'masuk' },
             { data: 'keluar', name: 'keluar' },
             { data: 'stock', name: 'stock' },
@@ -84,16 +84,14 @@ $(function () {
                         $.each(result.barang, function (key, value) {
                             $("#id_barang").append(
                                 '<option name="id_barang" value="' + value
-                                    .id + '">' + value.nama_barang
-                                    .nama +
+                                    .id + '">' + value.nama +
                                 '</option>');
                         });
                     } else {
                         $.each(result.barang, function (key, value) {
                             $("#id_barang").append(
                                 '<option name="id_barang" value="' + value
-                                    .id_barang + '">' + value.barang.nama_barang
-                                    .nama +
+                                    .id_barang + '">' + value.barang.nama +
                                 '</option>');
                         });
                     }
@@ -109,7 +107,7 @@ $(function () {
     --------------------------------------------*/
     $('body').on('click', '.editTransaksi', function () {
         var id = $(this).data('id');
-        $.get("transaksi" + '/' + id + '/edit', function (data) {
+        $.get("/transaksi" + '/' + id + '/edit', function (data) {
             // Select Option Barang 
             $.ajax({
                 url: "/transaksi/fetch",
@@ -131,8 +129,7 @@ $(function () {
                             }
                             $("#id_barang").append(
                                 '<option name="id_barang" value="' + value
-                                    .id + '"' + isselected + '>' + value.nama_barang
-                                    .nama +
+                                    .id + '"' + isselected + '>' + value.nama +
                                 '</option>');
                         });
                     } else {
@@ -145,7 +142,7 @@ $(function () {
                             }
                             $("#id_barang").append(
                                 '<option name="id_barang" value="' + value
-                                    .id_barang + '"' + isselected + '>' + value.barang.nama_barang.nama +
+                                    .id_barang + '"' + isselected + '>' + value.barang.nama +
                                 '</option>');
                         });
                     }
@@ -218,8 +215,7 @@ $(function () {
                                 }
                                 $("#id_barang").append(
                                     '<option name="id_barang" value="' + value
-                                        .id + '"' + isselected + '>' + value.nama_barang
-                                        .nama +
+                                        .id + '"' + isselected + '>' + value.nama +
                                     '</option>');
                             });
                         } else {
@@ -232,7 +228,7 @@ $(function () {
                                 }
                                 $("#id_barang").append(
                                     '<option name="id_barang" value="' + value
-                                        .id_barang + '"' + isselected + '>' + value.barang.nama_barang.nama +
+                                        .id_barang + '"' + isselected + '>' + value.barang.nama +
                                     '</option>');
                             });
                         }

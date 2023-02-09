@@ -24,7 +24,7 @@ class TransaksiController extends Controller
     {
         if ($request->ajax()) {
 
-            $datas = Transaksi::where('created_at', '>=', Carbon::today())->latest('updated_at')->with(['barang.namaBarang', 'dariproject', 'keproject'])->get();
+            $datas = Transaksi::where('created_at', '>=', Carbon::today())->latest('updated_at')->with(['barang', 'dariproject', 'keproject'])->get();
 
             return Datatables::of($datas)
                 ->addIndexColumn()
@@ -41,25 +41,6 @@ class TransaksiController extends Controller
                         </path>
                     </svg>
                     </button>';
-
-                //     $btn = $btn . '<button type="submit" class="btn btn-danger btn-sm warning deleteTransaksi cancel" data-toggle="tooltip"
-                //     data-id="' . $row->id . '" data-original-title="Delete" onclick="return false">
-                //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                //         viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                //         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                //         class="feather feather-trash-2">
-                //         <polyline points="3 6 5 6 21 6"></polyline>
-                //         <path
-                //             d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                //         </path>
-                //         <line x1="10" y1="11" x2="10" y2="17">
-                //         </line>
-                //         <line x1="14" y1="11" x2="14" y2="17">
-                //         </line>
-                //     </svg>
-                // </button>';
-
-
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -91,19 +72,30 @@ class TransaksiController extends Controller
     {
         if ($request->ajax()) {
 
-            $datas = Transaksi::latest('updated_at')->with(['barang.namaBarang', 'dariproject', 'keproject'])->get();
+            $datas = Transaksi::latest('updated_at')->with(['barang', 'dariproject', 'keproject'])->get();
 
             return Datatables::of($datas)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
 
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editTransaksi">Edit</a>';
-
-                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteTransaksi cancel" onclick="return false">Delete</a>';
-
+                    $btn = '<button type="button" class="edit btn btn-dark btn-sm editTransaksi" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-edit">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                        </path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                        </path>
+                    </svg>
+                    </button>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
+                ->editColumn('created_at', function ($datas) {
+                    $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $datas->created_at)->format('d-m-Y');
+                    return $formatedDate;
+                })
                 ->make(true);
         }
 
@@ -118,7 +110,7 @@ class TransaksiController extends Controller
 
         return view('transaksi.index', [
             'trans' => Transaksi::latest('updated_at')->get(),
-            'barngs' => Barang::where('stock', '>', 0)->get(),
+            'barngs' => Barang::get(),
             'pros' => Project::all(),
         ])->with($data);
     }
@@ -135,17 +127,17 @@ class TransaksiController extends Controller
     public function barang(Request $request)
     {
         if ($request->id_project) {
-            $data['barang'] = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", $request->id_project)->get();
+            $data['barang'] = BarangProject::with(['barang'])->where("id_project", $request->id_project)->get();
             // agar saat edit barang yang stocknya 0, tetap muncul di select option
             if ($request->id_barang) {
-                $edit = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", $request->id_project)->where("id_barang", $request->id_barang)->get();
+                $edit = BarangProject::with(['barang'])->where("id_project", $request->id_project)->where("id_barang", $request->id_barang)->get();
                 $data['barang'] = $data['barang']->merge($edit);
             }
         } else {
-            $data['barang'] = Barang::with(['namaBarang'])->get();
+            $data['barang'] = Barang::get();
             // agar saat edit barang yang stocknya 0, tetap muncul di select option
             if ($request->id_barang) {
-                $edit = Barang::with(['namaBarang'])->where("id", $request->id_barang)->get();
+                $edit = Barang::where("id", $request->id_barang)->get();
                 $data['barang'] = $data['barang']->merge($edit);
             }
         }
@@ -165,8 +157,8 @@ class TransaksiController extends Controller
     public function data()
     {
 
-        $data['barang'] = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", 1)->where('stock', '>', 0)->get();
-        $edit = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", 1)->where("id_barang", 2)->get();
+        $data['barang'] = BarangProject::with(['barang', 'barang'])->where("id_project", 1)->where('stock', '>', 0)->get();
+        $edit = BarangProject::with(['barang', 'barang'])->where("id_project", 1)->where("id_barang", 2)->get();
         $data['barang'] = $data['barang']->merge($edit);
 
         // $data['barang'] = Barang::with(['namaBarang'])->where('stock', '>', 0)->get();
@@ -185,11 +177,11 @@ class TransaksiController extends Controller
     {
         // cek barang         
         if ($request->dari == null) {
-            $barang = Barang::all()->where('id', $request->id_barang)->first();
-            if ($request->keluar > $barang->stock) {
-                alert()->error('Error', 'Barang habis');
-                return redirect('/transaksi');
-            }
+            // $barang = Barang::all()->where('id', $request->id_barang)->first();
+            // if ($request->keluar > $barang->stock) {
+            //     alert()->error('Error', 'Barang habis');
+            //     return redirect('/transaksi');
+            // }
         } else {
             $barang = BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->id_barang)->first();
             if ($request->keluar > $barang->stock) {
@@ -198,11 +190,11 @@ class TransaksiController extends Controller
             }
         }
 
-        if ($request->masuk > 0) {
-            $stok_transaksi = $barang->stock + $request->masuk;
-        } else {
-            $stok_transaksi = $barang->stock - $request->keluar;
-        }
+        // if ($request->masuk > 0) {
+        //     $stok_transaksi = $barang->stock + $request->masuk;
+        // } else {
+        //     $stok_transaksi = $barang->stock - $request->keluar;
+        // }
 
         $data_transaksi = [
             'id_barang'    => $request->id_barang,
@@ -211,13 +203,13 @@ class TransaksiController extends Controller
             'code_project' => $request->code_project,
             'masuk'   => $request->masuk,
             'keluar'     => $request->keluar,
-            'stock' => $stok_transaksi,
+            'stock' => 0,
             'keterangan'        => $request->keterangan,
             'remark'   => $request->remark,
             'created_at' => $request->created_at
         ];
 
-        if ($request->dari != null  && $request->ke != null) {
+        if ($request->dari && $request->ke) {
             // cek apakah ada record barangproject where id project = dari
             if (BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->id_barang)->first()) {
                 // cek apakah ada record barangproject where id project = ke
@@ -225,7 +217,7 @@ class TransaksiController extends Controller
                     $transaksi = Transaksi::create($data_transaksi);
                     // update stock di table transaksi
                     $data_stock_transaksi = [
-                        'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
+                        'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->ke)->first())->stock
                     ];
                     $transaksi->update($data_stock_transaksi);
                     return response()->json(['success' => 'Transaksi has been created.']);
@@ -242,7 +234,7 @@ class TransaksiController extends Controller
                     $transaksi = Transaksi::create($data_transaksi);
                     // update stock di table transaksi
                     $data_stock_transaksi = [
-                        'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
+                        'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->ke)->first())->stock
                     ];
                     $transaksi->update($data_stock_transaksi);
                     return response()->json(['success' => 'Transaksi has been created.']);
@@ -262,7 +254,7 @@ class TransaksiController extends Controller
                     $transaksi = Transaksi::create($data_transaksi);
                     // update stock di table transaksi
                     $data_stock_transaksi = [
-                        'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
+                        'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->ke)->first())->stock
                     ];
                     $transaksi->update($data_stock_transaksi);
                     return response()->json(['success' => 'Transaksi has been created.']);
@@ -279,46 +271,47 @@ class TransaksiController extends Controller
                     $transaksi = Transaksi::create($data_transaksi);
                     // update stock di table transaksi
                     $data_stock_transaksi = [
-                        'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
+                        'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->ke)->first())->stock
                     ];
                     $transaksi->update($data_stock_transaksi);
                     return response()->json(['success' => 'Transaksi has been created.']);
                 }
             }
-        } else if ($request->dari != null && $request->ke == null) {
-            // cek apakah ada record barangproject where id project = dari
-            if (BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->id_barang)->first()) {
-                $transaksi = Transaksi::create($data_transaksi);
-                // update stock di table transaksi
-                $data_stock_transaksi = [
-                    'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
-                ];
-                $transaksi->update($data_stock_transaksi);
-                return response()->json(['success' => 'Transaksi has been created.']);
-            } else {
-                $data_barang_project_dari = [
-                    'code_project' => $request->code_project,
-                    'id_project' => $request->dari,
-                    'id_barang' => $request->id_barang,
-                    'stock'     => 0,
-                ];
-                BarangProject::create($data_barang_project_dari);
+        } else if ($request->dari && $request->ke == null) {
+            // // cek apakah ada record barangproject where id project = dari
+            // if (BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->id_barang)->first()) {
+            //     $transaksi = Transaksi::create($data_transaksi);
+            //     // update stock di table transaksi
+            //     $data_stock_transaksi = [
+            //         'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
+            //     ];
+            //     $transaksi->update($data_stock_transaksi);
+            //     return response()->json(['success' => 'Transaksi has been created.']);
+            // } else {
+            //     $data_barang_project_dari = [
+            //         'code_project' => $request->code_project,
+            //         'id_project' => $request->dari,
+            //         'id_barang' => $request->id_barang,
+            //         'stock'     => 0,
+            //     ];
+            //     BarangProject::create($data_barang_project_dari);
 
-                $transaksi = Transaksi::create($data_transaksi);
-                // update stock di table transaksi
-                $data_stock_transaksi = [
-                    'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
-                ];
-                $transaksi->update($data_stock_transaksi);
-                return response()->json(['success' => 'Transaksi has been created.']);
-            }
-        } else if ($request->dari == null && $request->ke != null) {
+            //     $transaksi = Transaksi::create($data_transaksi);
+            //     // update stock di table transaksi
+            //     $data_stock_transaksi = [
+            //         'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
+            //     ];
+            //     $transaksi->update($data_stock_transaksi);
+            //     return response()->json(['success' => 'Transaksi has been created.']);
+            // }
+            return response()->json(['warning' => "Transaksi can't be create"]);
+        } else if ($request->dari == null && $request->ke) {
             // cek apakah ada record barangproject where id project = ke
             if (BarangProject::all()->where('id_project', $request->ke)->where('id_barang', $request->id_barang)->first()) {
                 $transaksi = Transaksi::create($data_transaksi);
                 // update stock di table transaksi
                 $data_stock_transaksi = [
-                    'stock' => (Barang::where('id', $request->id_barang)->first())->stock
+                    'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->ke)->first())->stock
                 ];
                 $transaksi->update($data_stock_transaksi);
                 return response()->json(['success' => 'Transaksi has been created.']);
@@ -335,19 +328,19 @@ class TransaksiController extends Controller
                 $transaksi = Transaksi::create($data_transaksi);
                 // update stock di table transaksi
                 $data_stock_transaksi = [
-                    'stock' => (Barang::where('id', $request->id_barang)->first())->stock
+                    'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->ke)->first())->stock
                 ];
                 $transaksi->update($data_stock_transaksi);
                 return response()->json(['success' => 'Transaksi has been created.']);
             }
         } else {
-            $transaksi = Transaksi::create($data_transaksi);
-            // update stock di table transaksi
-            $data_stock_transaksi = [
-                'stock' => (Barang::where('id', $request->id_barang)->first())->stock
-            ];
-            $transaksi->update($data_stock_transaksi);
-            return response()->json(['success' => 'Transaksi has been created.']);
+            // $transaksi = Transaksi::create($data_transaksi);
+            // // update stock di table transaksi
+            // $data_stock_transaksi = [
+            //     'stock' => (Barang::where('id', $request->id_barang)->first())->stock
+            // ];
+            // $transaksi->update($data_stock_transaksi);
+            return response()->json(['warning' => "Transaksi can't be create"]);
         }
     }
 
@@ -368,7 +361,7 @@ class TransaksiController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Transaksi $transaksi)
-    {             
+    {
         return response()->json($transaksi);
     }
 
@@ -399,11 +392,11 @@ class TransaksiController extends Controller
             }
         }
 
-        if ($request->masuk > 0) {
-            $stok_transaksi = $barang->stock + $request->masuk;
-        } else {
-            $stok_transaksi = $barang->stock - $request->keluar;
-        }
+        // if ($request->masuk > 0) {
+        //     $stok_transaksi = $barang->stock + $request->masuk;
+        // } else {
+        //     $stok_transaksi = $barang->stock - $request->keluar;
+        // }
 
         $data_transaksi = [
             'id_barang'    => $request->id_barang,
@@ -412,13 +405,13 @@ class TransaksiController extends Controller
             'code_project' => $request->code_project,
             'masuk'   => $request->masuk,
             'keluar'     => $request->keluar,
-            'stock' => $stok_transaksi,
+            'stock' => 0,
             'keterangan'        => $request->keterangan,
             'remark'   => $request->remark,
             'created_at' => $request->created_at
         ];
 
-        if ($request->dari != null  && $request->ke != null) {
+        if ($request->dari && $request->ke) {
             // cek apakah ada record barangproject where id project = dari
             if (BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->id_barang)->first()) {
                 // cek apakah ada record barangproject where id project = ke
@@ -426,7 +419,7 @@ class TransaksiController extends Controller
                     $transaksi->update($data_transaksi);
                     // update stock di table transaksi
                     $data_stock_transaksi = [
-                        'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
+                        'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->ke)->first())->stock
                     ];
                     $transaksi->update($data_stock_transaksi);
                     alert()->success('success', 'Transaction Barang berhasil di-update');
@@ -445,7 +438,7 @@ class TransaksiController extends Controller
                     $transaksi->update($data_transaksi);
                     // update stock di table transaksi
                     $data_stock_transaksi = [
-                        'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
+                        'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->ke)->first())->stock
                     ];
                     $transaksi->update($data_stock_transaksi);
                     alert()->success('success', 'Transaction Barang berhasil di-update');
@@ -467,7 +460,7 @@ class TransaksiController extends Controller
                     $transaksi->update($data_transaksi);
                     // update stock di table transaksi
                     $data_stock_transaksi = [
-                        'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
+                        'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->ke)->first())->stock
                     ];
                     $transaksi->update($data_stock_transaksi);
                     alert()->success('success', 'Transaction Barang berhasil di-update');
@@ -485,7 +478,7 @@ class TransaksiController extends Controller
                     $transaksi->update($data_transaksi);
                     // update stock di table transaksi
                     $data_stock_transaksi = [
-                        'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
+                        'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->ke)->first())->stock
                     ];
                     $transaksi->update($data_stock_transaksi);
                     alert()->success('success', 'Transaction Barang berhasil di-update');
@@ -493,13 +486,13 @@ class TransaksiController extends Controller
                     return response()->json(['success' => 'Transaksi has been updated.']);
                 }
             }
-        } else if ($request->dari != null && $request->ke == null) {
+        } else if ($request->dari && $request->ke == null) {
             // cek apakah ada record barangproject where id project = dari
             if (BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->id_barang)->first()) {
                 $transaksi->update($data_transaksi);
                 // update stock di table transaksi
                 $data_stock_transaksi = [
-                    'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
+                    'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->ke)->first())->stock
                 ];
                 $transaksi->update($data_stock_transaksi);
                 alert()->success('success', 'Transaction Barang berhasil di-update');
@@ -517,20 +510,20 @@ class TransaksiController extends Controller
                 $transaksi->update($data_transaksi);
                 // update stock di table transaksi
                 $data_stock_transaksi = [
-                    'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
+                    'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->ke)->first())->stock
                 ];
                 $transaksi->update($data_stock_transaksi);
                 alert()->success('success', 'Transaction Barang berhasil di-update');
                 // 
                 return response()->json(['success' => 'Transaksi has been updated.']);
             }
-        } else if ($request->dari == null && $request->ke != null) {
+        } else if ($request->dari == null && $request->ke) {
             // cek apakah ada record barangproject where id project = ke
             if (BarangProject::all()->where('id_project', $request->ke)->where('id_barang', $request->id_barang)->first()) {
                 $transaksi->update($data_transaksi);
                 // update stock di table transaksi
                 $data_stock_transaksi = [
-                    'stock' => (Barang::where('id', $request->id_barang)->first())->stock
+                    'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->ke)->first())->stock
                 ];
                 $transaksi->update($data_stock_transaksi);
                 alert()->success('success', 'Transaction Barang berhasil di-update');
@@ -549,7 +542,7 @@ class TransaksiController extends Controller
                 $transaksi->update($data_transaksi);
                 // update stock di table transaksi
                 $data_stock_transaksi = [
-                    'stock' => (Barang::where('id', $request->id_barang)->first())->stock
+                    'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->ke)->first())->stock
                 ];
                 $transaksi->update($data_stock_transaksi);
                 alert()->success('success', 'Transaction Barang berhasil di-update');
@@ -557,15 +550,15 @@ class TransaksiController extends Controller
                 return response()->json(['success' => 'Transaksi has been updated.']);
             }
         } else {
-            $transaksi->update($data_transaksi);
-            // update stock di table transaksi
-            $data_stock_transaksi = [
-                'stock' => (Barang::where('id', $request->id_barang)->first())->stock
-            ];
-            $transaksi->update($data_stock_transaksi);
-            alert()->success('success', 'Transaction Barang berhasil di-update');
+            // $transaksi->update($data_transaksi);
+            // // update stock di table transaksi
+            // $data_stock_transaksi = [
+            //     'stock' => (Barang::where('id', $request->id_barang)->first())->stock
+            // ];
+            // $transaksi->update($data_stock_transaksi);
+            // alert()->success('success', 'Transaction Barang berhasil di-update');
             // 
-            return response()->json(['success' => 'Transaksi has been updated.']);
+            return response()->json(['warning' => "Transaksi can't be updated."]);
         }
         alert()->error('Error', 'Transaction Barang gagal di tambahkan');
     }

@@ -18,6 +18,9 @@ if (!function_exists('setTitle')) :
         elseif ($page_name === 'barang') :
             echo 'Barang ' . $admin_name;
         
+        elseif ($page_name === 'barang-show') :
+            echo 'Barang ' . $admin_name;
+        
         //Transaksi
         elseif ($page_name === 'transaksi') :
             echo 'Transaksi ' . $admin_name;
