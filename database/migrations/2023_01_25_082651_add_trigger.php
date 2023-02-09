@@ -16,7 +16,7 @@ return new class extends Migration
     {
         DB::unprepared('CREATE TRIGGER masuk AFTER INSERT ON `transaksis` FOR EACH ROW
         BEGIN
-           UPDATE barangs SET barangs.stock = barangs.stock + NEW.masuk WHERE barangs.id = NEW.id_barang;
+           UPDATE barang_projects SET barang_projects.stock = barang_projects.stock + NEW.masuk WHERE barang_projects.id_barang = NEW.id_barang AND barang_projects.id_project = NEW.ke;
         END');
         DB::unprepared('CREATE TRIGGER keluar AFTER INSERT ON `transaksis` FOR EACH ROW
         BEGIN
