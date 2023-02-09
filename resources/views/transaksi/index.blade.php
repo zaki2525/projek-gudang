@@ -96,7 +96,7 @@
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Ke</label>
                                                 <select name="ke" id="ke" class="form-control project">
-                                                    <option value="">None</option>
+                                                    <option value="">Keluar Gudang</option>
                                                     @foreach ($pros as $bar)
                                                         <option value="{{ $bar->id }}">{{ $bar->nama }}</option>
                                                     @endforeach
