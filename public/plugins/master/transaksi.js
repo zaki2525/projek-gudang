@@ -169,6 +169,7 @@ $(function () {
                 type: "POST",
                 data: {
                     id_barang: data.id_barang,
+                    id_project: data.dari
                 },
                 dataType: 'json',
                 success: function (result) {
