@@ -375,23 +375,23 @@ class TransaksiController extends Controller
      */
     public function update(Request $request, Transaksi $transaksi)
     {
-        // cek barang         
-        if ($request->dari == null) {
-            // $barang = Barang::all()->where('id', $request->id_barang)->first();
-            // if ($transaksi->dari == null) {
-            // } else {
-            //     if ($request->keluar > ($barang->stock + $transaksi->keluar)) {
-            //         alert()->error('Error', 'Barang habis');
-            //         return redirect('/transaksi');
-            //     }
-            // }
-        } else {
-            $barang = BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->id_barang)->first();
-            if ($request->keluar > ($barang->stock + $transaksi->keluar)) {
-                alert()->error('Error', 'Barang habis');
-                return redirect('/transaksi');
-            }
-        }
+        // // cek barang         
+        // if ($request->dari == null) {
+        //     // $barang = Barang::all()->where('id', $request->id_barang)->first();
+        //     // if ($transaksi->dari == null) {
+        //     // } else {
+        //     //     if ($request->keluar > ($barang->stock + $transaksi->keluar)) {
+        //     //         alert()->error('Error', 'Barang habis');
+        //     //         return redirect('/transaksi');
+        //     //     }
+        //     // }
+        // } else {
+        //     $barang = BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->id_barang)->first();
+        //     if ($request->keluar > ($barang->stock + $transaksi->keluar)) {
+        //         alert()->error('Error', 'Barang habis');
+        //         return redirect('/transaksi');
+        //     }
+        // }
 
         // if ($request->masuk > 0) {
         //     $stok_transaksi = $barang->stock + $request->masuk;
@@ -493,7 +493,7 @@ class TransaksiController extends Controller
                 $transaksi->update($data_transaksi);
                 // update stock di table transaksi
                 $data_stock_transaksi = [
-                    'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->ke)->first())->stock
+                    'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
                 ];
                 $transaksi->update($data_stock_transaksi);
                 alert()->success('success', 'Transaction Barang berhasil di-update');
@@ -511,7 +511,7 @@ class TransaksiController extends Controller
                 $transaksi->update($data_transaksi);
                 // update stock di table transaksi
                 $data_stock_transaksi = [
-                    'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->ke)->first())->stock
+                    'stock' => (BarangProject::where('id_barang', $request->id_barang)->where('id_project', $request->dari)->first())->stock
                 ];
                 $transaksi->update($data_stock_transaksi);
                 alert()->success('success', 'Transaction Barang berhasil di-update');
