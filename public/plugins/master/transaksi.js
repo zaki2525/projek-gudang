@@ -74,8 +74,8 @@ $(function () {
             console.log(id_barang);
         });
 
-        $('#dari').on('change', function () {
-            // $("#dari").html('');
+        $('#dari').on('change', function () {  
+            console.log(this.value);
             $.ajax({
                 url: "/transaksi/fetch",
                 type: "POST",
@@ -157,7 +157,7 @@ $(function () {
                     //     isselected = '';
                     // }
                     $("#dari").append(
-                        '<option value="' + value.id_project + '"'
+                        '<option value="' + value.id + '"'
                         //  + isselected 
                         + '>' + value.nama + '</option>');
                 });
