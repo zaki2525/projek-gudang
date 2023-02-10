@@ -71,11 +71,11 @@ $(function () {
 
         $('#id_barang').on('change', function () {
             id_barang = document.getElementById('id_barang').value;
-            console.log(id_barang);
+            // console.log(id_barang);
         });
 
         $('#dari').on('change', function () {  
-            console.log(this.value);
+            // console.log(this.value);
             $.ajax({
                 url: "/transaksi/fetch",
                 type: "POST",
