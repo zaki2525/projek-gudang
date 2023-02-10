@@ -68,6 +68,11 @@ $(function () {
         $('#title').html("Create New Transaksi");
         $('#modalTambahData').modal('show');
 
+        $('#id_barang').on('change', function () {
+            id_barang = document.getElementById('id_barang').value;
+            // console.log(id_barang);
+        });
+
         $('#dari').on('change', function () {
             // $("#dari").html('');
             $.ajax({
@@ -79,11 +84,10 @@ $(function () {
                 dataType: 'json',
                 success: function (result) {
                     $('#id_barang').html('<option value="" selected>Select</option>');
-                    const selected = document.getElementById('dari').value;
-                   
+                    const selected = document.getElementById('dari').value;                    
                     if (selected == '') {
                         $.each(result.barang, function (key, value) {
-                            if($('#id_barang').oldValue == value.id){
+                            if(id_barang == value.id){
                                 isselected = 'selected';
                             } else {
                                 isselected = '';
@@ -95,14 +99,14 @@ $(function () {
                         });
                     } else {
                         $.each(result.barang, function (key, value) {
-                            if($('#id_barang').oldValue == value.id_barang){
+                            if(id_barang == value.id_barang){
                                 isselected = 'selected';
                             } else {
                                 isselected = '';
                             }
                             $("#id_barang").append(
                                 '<option name="id_barang" value="' + value
-                                    .id_barang + '">' + value.barang.nama +
+                                    .id_barang + '"' + isselected +'>' + value.barang.nama +
                                 '</option>');
                         });
                     }
@@ -254,7 +258,34 @@ $(function () {
             $('#modalTambahData').modal('show');
             $('#id').val(data.id);           
             // $('#tanggal').val(JSON.parse(data.created_at));
-            $('#tanggal').val(data.created_at);
+            function dateFormat(inputDate, format) {
+                //parse the input date
+                const date = new Date(inputDate);
+            
+                //extract the parts of the date
+                const day = date.getDate();
+                const month = date.getMonth() + 1;
+                const year = date.getFullYear();    
+            
+                //replace the month
+                format = format.replace("MM", month.toString().padStart(2,"0"));        
+            
+                //replace the year
+                if (format.indexOf("yyyy") > -1) {
+                    format = format.replace("yyyy", year.toString());
+                } else if (format.indexOf("yy") > -1) {
+                    format = format.replace("yy", year.toString().substr(2,2));
+                }
+            
+                //replace the day
+                format = format.replace("dd", day.toString().padStart(2,"0"));
+            
+                return format;
+            }           
+            // var dateStr = JSON.parse(data.created_at);
+            var date = new Date(data.created_at);            
+            // console.log(dateFormat(date, 'dd-MM-yyyy'))
+            $('#tanggal').val(dateFormat(date, 'yyyy-MM-dd'));
             $('#masuk').val(data.masuk);
             $('#keluar').val(data.keluar);
             $('#keterangan').val(data.keterangan);
