@@ -64,6 +64,7 @@ Route::group(['middleware' => 'auth'] , function() {
     Route::get('transaksi/history', 'TransaksiController@history');
     Route::post('transaksi/fetch', [TransaksiController::class, 'barang']);
     Route::post('transaksi/fetch/project', [TransaksiController::class, 'project']);
+    Route::post('transaksi/check_stock', [TransaksiController::class, 'check_stock']);
     Route::get('transaksi/data', [TransaksiController::class, 'data']);
     Route::resource('transaksi', TransaksiController::class);
     

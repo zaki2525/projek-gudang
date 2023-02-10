@@ -84,29 +84,29 @@ $(function () {
                 dataType: 'json',
                 success: function (result) {
                     $('#id_barang').html('<option value="" selected>Select</option>');
-                    const selected = document.getElementById('dari').value;                    
+                    const selected = document.getElementById('dari').value;
                     if (selected == '') {
                         $.each(result.barang, function (key, value) {
-                            if(id_barang == value.id){
+                            if (id_barang == value.id) {
                                 isselected = 'selected';
                             } else {
                                 isselected = '';
                             }
                             $("#id_barang").append(
                                 '<option name="id_barang" value="' + value
-                                    .id + '"' + isselected +'>' + value.nama +
+                                    .id + '"' + isselected + '>' + value.nama +
                                 '</option>');
                         });
                     } else {
                         $.each(result.barang, function (key, value) {
-                            if(id_barang == value.id_barang){
+                            if (id_barang == value.id_barang) {
                                 isselected = 'selected';
                             } else {
                                 isselected = '';
                             }
                             $("#id_barang").append(
                                 '<option name="id_barang" value="' + value
-                                    .id_barang + '"' + isselected +'>' + value.barang.nama +
+                                    .id_barang + '"' + isselected + '>' + value.barang.nama +
                                 '</option>');
                         });
                     }
@@ -192,7 +192,7 @@ $(function () {
                 url: "/transaksi/fetch/project",
                 type: "POST",
                 data: {
-                    
+
                 },
                 dataType: 'json',
                 success: function (result) {
@@ -250,41 +250,39 @@ $(function () {
                         }
                     }
                 });
-            });
-
-
+            });    
 
             $('#title').html("Edit");
             $('#btnCreate').val("Update");
             $('#modalTambahData').modal('show');
-            $('#id').val(data.id);           
+            $('#id').val(data.id);
             // $('#tanggal').val(JSON.parse(data.created_at));
             function dateFormat(inputDate, format) {
                 //parse the input date
                 const date = new Date(inputDate);
-            
+
                 //extract the parts of the date
                 const day = date.getDate();
                 const month = date.getMonth() + 1;
-                const year = date.getFullYear();    
-            
+                const year = date.getFullYear();
+
                 //replace the month
-                format = format.replace("MM", month.toString().padStart(2,"0"));        
-            
+                format = format.replace("MM", month.toString().padStart(2, "0"));
+
                 //replace the year
                 if (format.indexOf("yyyy") > -1) {
                     format = format.replace("yyyy", year.toString());
                 } else if (format.indexOf("yy") > -1) {
-                    format = format.replace("yy", year.toString().substr(2,2));
+                    format = format.replace("yy", year.toString().substr(2, 2));
                 }
-            
+
                 //replace the day
-                format = format.replace("dd", day.toString().padStart(2,"0"));
-            
+                format = format.replace("dd", day.toString().padStart(2, "0"));
+
                 return format;
-            }           
+            }
             // var dateStr = JSON.parse(data.created_at);
-            var date = new Date(data.created_at);            
+            var date = new Date(data.created_at);
             // console.log(dateFormat(date, 'dd-MM-yyyy'))
             $('#tanggal').val(dateFormat(date, 'yyyy-MM-dd'));
             $('#masuk').val(data.masuk);
@@ -315,43 +313,28 @@ $(function () {
                 text: 'Tanggal cant empty',
                 type: 'error'
             });
-        } 
-        else if (id_barang == ''){
+        }
+        else if (id_barang == '') {
             swal({
                 title: 'Information',
                 text: 'Material name cant empty',
                 type: 'error'
             });
         }
-        else if (masuk == ''){
+        else if (masuk == '') {
             swal({
                 title: 'Information',
                 text: 'Stock In cant empty',
                 type: 'error'
             });
         }
-        else if (keluar == ''){
+        else if (keluar == '') {
             swal({
                 title: 'Information',
                 text: 'Stock Out cant empty',
                 type: 'error'
             });
-        }
-        // else if (dari == 'pilih'){
-        //     swal({
-        //         title: 'Information',
-        //         text: 'Dari Project name cant empty',
-        //         type: 'error'
-        //     });
-        // }
-        // else if (ke == 'pilih'){
-        //     swal({
-        //         title: 'Information',
-        //         text: 'Ke Peroject name cant empty',
-        //         type: 'error'
-        //     });
-        // }
-        else if ($('#btnCreate').val() == 'Create') {
+        } else if ($('#btnCreate').val() == 'Create') {
             swal({
                 title: 'Are you sure?',
                 text: "Created this data?",
@@ -375,7 +358,7 @@ $(function () {
                             $('#addTransaksi').trigger("reset");
                             $('#modalTambahData').modal('hide');
                             table.draw();
-        
+
                         },
                         error: function (data) {
                             console.log('Error:', data);

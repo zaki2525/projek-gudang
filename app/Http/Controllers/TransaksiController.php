@@ -156,6 +156,11 @@ class TransaksiController extends Controller
         return response()->json($data);
     }
 
+    public function check_stock(Request $request)
+    {
+        return response()->json(BarangProject::where("id_project", $request->id_project)->where("id_barang", $request->id_barang)->get());
+    }
+
     public function data()
     {
 
