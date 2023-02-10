@@ -71,7 +71,7 @@ $(function () {
 
         $('#id_barang').on('change', function () {
             id_barang = document.getElementById('id_barang').value;
-            // console.log(id_barang);
+            console.log(id_barang);
         });
 
         $('#dari').on('change', function () {
@@ -114,6 +114,32 @@ $(function () {
                 }
             });
         });
+
+        // Select Option Barang 
+        $.ajax({
+            url: "/transaksi/fetch",
+            type: "POST",
+            data: {               
+            },
+            dataType: 'json',
+            success: function (result) {
+                $('#id_barang').html(
+                    '<option value="" selected>Select</option>');
+               
+                    $.each(result.barang, function (key, value) {
+                        if (id_barang == value.id) {
+                            isselected = 'selected';
+                        } else {
+                            isselected = '';
+                        }
+                        $("#id_barang").append(
+                            '<option name="id_barang" value="' + value
+                                .id + '"' + isselected + '>' + value.nama +
+                            '</option>');
+                    });
+            }
+        });
+        
 
         // Select Option 'dari'
         $.ajax({
