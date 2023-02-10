@@ -304,28 +304,38 @@ $(function () {
         $(this).html('Sending..');
 
         if ($('#btnCreate').val() == 'Create') {
-            $.ajax({
-                data: $('#addTransaksi').serialize(),
-                url: "/transaksi",
-                type: "POST",
-                dataType: 'json',
-                success: function (data) {
-                    swal({
-                        title: 'Information',
-                        text: "Data has been created",
-                        type: 'success',
-                        padding: '2em'
+            swal({
+                title: 'Are you sure?',
+                text: "Created this data?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Create',
+            }).then(function (result) {
+                if (result.value) {
+                    $.ajax({
+                        data: $('#addTransaksi').serialize(),
+                        url: "/transaksi",
+                        type: "POST",
+                        dataType: 'json',
+                        success: function (data) {
+                            swal({
+                                title: 'Information',
+                                text: "Data has been created",
+                                type: 'success',
+                                padding: '2em'
+                            });
+                            $('#addTransaksi').trigger("reset");
+                            $('#modalTambahData').modal('hide');
+                            table.draw();
+        
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                            $('#btnCreate').html('Save Changes');
+                        }
                     });
-                    $('#addTransaksi').trigger("reset");
-                    $('#modalTambahData').modal('hide');
-                    table.draw();
-
-                },
-                error: function (data) {
-                    console.log('Error:', data);
-                    $('#btnCreate').html('Save Changes');
                 }
-            });
+            })
         } else {
             swal({
                 title: 'Are you sure?',

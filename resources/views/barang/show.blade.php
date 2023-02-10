@@ -24,7 +24,7 @@
                                     <th>Unit</th>
                                 </tr>
                             </thead>
-                            <tbody>                                
+                            <tbody align="center">                                
                                 {{-- @foreach ($datas as $item)
                                     <tr align="center">
                                         <td>{{ $loop->iteration }}</td>

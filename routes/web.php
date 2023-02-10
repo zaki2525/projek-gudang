@@ -52,6 +52,7 @@ Route::group(['middleware' => 'auth'] , function() {
     Route::get('/dashboard', [HomeController::class, 'index']);
 
     // Barang
+    Route::get('barang/data-show/{id}', [BarangController::class, 'data_show']);
     Route::resource('barang', BarangController::class);
     // Route::prefix('barang')->group(function () {
     //     Route::get('/', [BarangController::class, 'index']);

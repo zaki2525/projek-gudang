@@ -19,7 +19,7 @@ $(function () {
     var table = $('.data-table1').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "/barang/fetch" + $('#id_barang').value,
+        ajax: "/barang/data-show/" + document.getElementById('id_barang').value,
         // ajax: "/barang",
         dom: '<"row"<"col-md-12"<"row"<"col-md-6"B><"col-md-6"f> > ><"col-md-12"rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>> >',
         buttons: {
@@ -44,9 +44,9 @@ $(function () {
         columns: [
             { data: 'DT_RowIndex', name: 'DT_RowIndex' },
             { data: 'project.nama', name: 'project.nama' },
-            { data: 'nama.unit', name: 'nama.unit' },
             { data: 'stock', name: 'stock' },
-            { data: 'action', name: 'action', orderable: false, searchable: false },
+            { data: 'barang.unit', name: 'barang.unit' },
+            // { data: 'action', name: 'action', orderable: false, searchable: false },
         ]
     });
 
