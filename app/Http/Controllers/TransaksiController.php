@@ -148,6 +148,8 @@ class TransaksiController extends Controller
     {
         if ($request->id_barang) {
             $data = BarangProject::with(['project'])->where('id_barang', $request->id_barang)->where('stock', '>', 0)->get();
+            $data1 = BarangProject::with(['project'])->where("id_project", $request->id_project)->where("id_barang", $request->id_barang)->get();
+            $data = $data->merge($data1);
         } else {
             $data = Project::get();
         }
