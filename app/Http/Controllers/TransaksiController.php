@@ -399,6 +399,20 @@ class TransaksiController extends Controller
         //         return redirect('/transaksi');
         //     }
         // }
+        // cek barang         
+        // if ($request->dari == null) {
+        //     // $barang = Barang::all()->where('id', $request->id_barang)->first();
+        //     // if ($request->keluar > $barang->stock) {
+        //     //     alert()->error('Error', 'Barang habis');
+        //     //     return redirect('/transaksi');
+        //     // }
+        // } else {
+        //     $barang = BarangProject::all()->where('id_project', $request->dari)->where('id_barang', $request->id_barang)->first();
+        //     if ($request->keluar > $barang->stock) {
+        //         alert()->error('Error', 'Barang habis');
+        //         return redirect('/transaksi');
+        //     }
+        // }
 
         // if ($request->masuk > 0) {
         //     $stok_transaksi = $barang->stock + $request->masuk;

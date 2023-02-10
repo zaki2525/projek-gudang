@@ -196,7 +196,7 @@ $(function () {
                 },
                 dataType: 'json',
                 success: function (result) {
-                    $('#ke').html('<option value="" selected>None</option>');
+                    $('#ke').html('<option value="" selected>Keluar Gudang</option>');
                     const selected = data.id_barang;
                     $.each(result, function (key, value) {
                         if (data.ke == value.id) {
@@ -252,7 +252,7 @@ $(function () {
                 });
             });    
 
-            $('#title').html("Edit");
+            $('#title').html("Edit Transaksi");
             $('#btnCreate').val("Update");
             $('#modalTambahData').modal('show');
             $('#id').val(data.id);
@@ -334,7 +334,26 @@ $(function () {
                 text: 'Stock Out cant empty',
                 type: 'error'
             });
-        } else if ($('#btnCreate').val() == 'Create') {
+        }
+        else if ($('#dari').val()) {
+            $.ajax({
+                data: { id_barang: $('#id_barang').val(), id_project: $('#dari').val()},
+                url: "/transaksi/check_stock",
+                type: "POST",
+                dataType: 'json',
+                success: function (data) {
+                    if($('#keluar').val() <= data.stock){
+                        swal({
+                            title: 'Information',
+                            text: "Stock tidak cukup",
+                            type: 'error',
+                            padding: '2em'
+                        });
+                    }
+                }
+            })
+        }
+        else if ($('#btnCreate').val() == 'Create') {
             swal({
                 title: 'Are you sure?',
                 text: "Created this data?",

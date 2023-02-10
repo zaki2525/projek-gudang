@@ -69,8 +69,8 @@
                 <tr>
                 <td>{{ $loop->iteration }}</td> 
                 <td>{{ $item->keluar }}</td> 
-                <td>{{ $item->barang->namaBarang->unit }}</td>
-                <td>{{ $item->barang->namaBarang->nama }} </td>
+                <td>{{ $item->barang->unit }}</td>
+                <td>{{ $item->barang->nama }} </td>
                 <td>{{ $item->remark }}</td>
                 </tr>                   
                 @endforeach     
