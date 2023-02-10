@@ -38,7 +38,7 @@ $(function () {
             },
             "stripeClasses": [],
             "lengthMenu": [7, 10, 20, 50, 100],
-            "pageLength": 7,
+            "pageLength": 10,
         
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
