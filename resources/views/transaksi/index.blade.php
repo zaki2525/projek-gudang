@@ -86,6 +86,7 @@
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Dari</label>
                                                 <select name="dari" id="dari" class="form-control project">
+                                                    {{-- <option value="pilih">Pilih</option> --}}
                                                     <option value="">None</option>
                                                     @foreach ($pros as $bar)
                                                         <option value="{{ $bar->id }}">{{ $bar->nama }}</option>
@@ -96,6 +97,7 @@
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Ke</label>
                                                 <select name="ke" id="ke" class="form-control project">
+                                                    {{-- <option value="pilih">Pilih</option> --}}
                                                     <option value="">Keluar Gudang</option>
                                                     @foreach ($pros as $bar)
                                                         <option value="{{ $bar->id }}">{{ $bar->nama }}</option>
@@ -127,6 +129,19 @@
                                                             // document.getElementById('ke').style.display = "none"   
                                                             $('#code_project_form').val('');
                                                         }
+                                                        // } else if (selecteddari == 'pilih' && selectedke == 'pilih') {
+                                                        //     document.getElementById('code_project').style.display = "none"
+                                                        //     // document.getElementById('ke').style.display = "none"   
+                                                        //     $('#code_project_form').val('');
+                                                        // } else if (selecteddari == 'pilih' && selectedke == '') {
+                                                        //     document.getElementById('code_project').style.display = "none"
+                                                        //     // document.getElementById('ke').style.display = "none"   
+                                                        //     $('#code_project_form').val('');
+                                                        // } else if (selecteddari == '' && selectedke == 'pilih') {
+                                                        //     document.getElementById('code_project').style.display = "none"
+                                                        //     // document.getElementById('ke').style.display = "none"   
+                                                        //     $('#code_project_form').val('');
+                                                        // }
                                                     });
                                                 </script>
 

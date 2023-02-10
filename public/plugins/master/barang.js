@@ -87,8 +87,23 @@ $(function () {
     $('#btnCreate').click(function (e) {
         e.preventDefault();
         $(this).html('Sending..');
-
-        if ($('#btnCreate').val() == 'Create') {
+        var nama = $('#nama').val();
+        var unit = $('#unit').val();
+        if (nama == '') {
+            swal({
+                title: 'Information',
+                text: 'Name Barang cant empty',
+                type: 'error'
+            });
+        } 
+        else if (unit == ''){
+            swal({
+                title: 'Information',
+                text: 'Unit cant empty',
+                type: 'error'
+            });
+        }
+        else if ($('#btnCreate').val() == 'Create') {
             $.ajax({
                 data: $('#addBarang').serialize(),
                 url: "/barang",

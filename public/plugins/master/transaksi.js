@@ -302,8 +302,55 @@ $(function () {
     $('#btnCreate').click(function (e) {
         e.preventDefault();
         $(this).html('Sending..');
-
-        if ($('#btnCreate').val() == 'Create') {
+        var tanggal = $('#tanggal').val();
+        var id_barang = $('#id_barang').val();
+        var masuk = $('#masuk').val();
+        var keluar = $('#keluar').val();
+        var dari = $('#dari').val();
+        var ke = $('#ke').val();
+        if (tanggal == '') {
+            swal({
+                title: 'Information',
+                text: 'Tanggal cant empty',
+                type: 'error'
+            });
+        } 
+        else if (id_barang == ''){
+            swal({
+                title: 'Information',
+                text: 'Material name cant empty',
+                type: 'error'
+            });
+        }
+        else if (masuk == ''){
+            swal({
+                title: 'Information',
+                text: 'Stock In cant empty',
+                type: 'error'
+            });
+        }
+        else if (keluar == ''){
+            swal({
+                title: 'Information',
+                text: 'Stock Out cant empty',
+                type: 'error'
+            });
+        }
+        // else if (dari == 'pilih'){
+        //     swal({
+        //         title: 'Information',
+        //         text: 'Dari Project name cant empty',
+        //         type: 'error'
+        //     });
+        // }
+        // else if (ke == 'pilih'){
+        //     swal({
+        //         title: 'Information',
+        //         text: 'Ke Peroject name cant empty',
+        //         type: 'error'
+        //     });
+        // }
+        else if ($('#btnCreate').val() == 'Create') {
             swal({
                 title: 'Are you sure?',
                 text: "Created this data?",

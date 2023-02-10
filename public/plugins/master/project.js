@@ -85,8 +85,15 @@ $(function () {
     $('#btnCreate').click(function (e) {
         e.preventDefault();
         $(this).html('Sending..');
-
-        if($('#btnCreate').val() == 'Create'){
+        var nama = $('#nama').val();
+        if (nama == '') {
+            swal({
+                title: 'Information',
+                text: 'Name Project cant empty',
+                type: 'error'
+            });
+        } 
+        else if ($('#btnCreate').val() == 'Create'){
             $.ajax({
                 data: $('#addUser').serialize(),
                 url: "project",
@@ -184,9 +191,3 @@ $(function () {
     });
        
   });
-
-  $(document).ready(function() {
-    setInterval(function() {
-
-    }, 200)
-});
