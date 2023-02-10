@@ -64,6 +64,7 @@ $(function () {
     $('#btnShowFormMaster').click(function () {
         $('#btnCreate').val("Create");
         $('#id').val('');
+        $('#id_barang').val('');
         $('#addTransaksi').trigger("reset");
         $('#title').html("Create New Transaksi");
         $('#modalTambahData').modal('show');
@@ -113,6 +114,30 @@ $(function () {
                 }
             });
         });
+
+        // Select Option 'dari'
+        $.ajax({
+            url: "/transaksi/fetch/project",
+            type: "POST",
+            data: {                
+            },
+            dataType: 'json',
+            success: function (result) {
+                $('#dari').html('<option value="" selected>None</option>');            
+                $.each(result, function (key, value) {
+                    // if (data.dari == value.id_project) {
+                    //     isselected = 'selected';
+                    // } else {
+                    //     isselected = '';
+                    // }
+                    $("#dari").append(
+                        '<option value="' + value.id_project + '"'
+                        //  + isselected 
+                        + '>' + value.nama + '</option>');
+                });
+            }
+        });
+
     });
 
     /*------------------------------------------
