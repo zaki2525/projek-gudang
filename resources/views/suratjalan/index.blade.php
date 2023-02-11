@@ -63,12 +63,13 @@
                                             <div class="mb-3">
                                                 <input type="hidden" name="id" id="id" value="{{$kop->id}}">
                                                 <label for="image" class="form-label">Kop Surat saat ini</label>
-                                                @if ($kop->foto)
-                                                    <img src="{{ asset('storage/' . $kop->foto) }}" class="img-preview img-fluid mb-3 col-sm-5">
-                                                @else                           
+                                                
+                                                    <img src="{{ asset('storage/' . $kop->foto) }}" class="img-fluid mb-3 col-sm-5">
+                                                
+                                                <label for="image1" class="form-label">Preview Kop Surat</label>
                                                     <img class="img-preview img-fluid mb-3 col-sm-5">
-                                                @endif
-                                                <input name="foto" class="form-control" value="{{ old('foto', $kop->foto) }}" type="file" id="foto" onchange="previewImages()">      
+                                                
+                                                <input name="foto" class="form-control" value="{{ old('foto', $kop->foto) }}" type="file" id="image" onchange="previewImage()">      
                                             </div>
                                             <div class="input-group">
                                                 <button class="btn btn-success rounded me-1" type="submit">Update</button>
