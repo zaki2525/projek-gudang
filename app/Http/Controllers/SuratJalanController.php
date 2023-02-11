@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use App\Models\SuratJalan;
 use App\Models\Barang;
 use App\Models\NamaBarang;
 use App\Models\Project;
 use App\Models\BarangProject;
 use App\Models\SuratJalanItem;
+use App\Models\Kop;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use PDF;
@@ -31,11 +33,11 @@ class SuratJalanController extends Controller
             'scrollspy_offset' => 100,
             'alt_menu' => 0,
         ];
-
         return view('suratjalan.index', [
             'data' => SuratJalan::where('created_at', '>=', Carbon::today())->latest()->get(),
             'barangs' => Barang::all(),
             'projects' => Project::all(),
+            'kops' =>  Kop::all(),
         ])->with($data);
     }
 
@@ -54,6 +56,7 @@ class SuratJalanController extends Controller
             'data' => SuratJalan::latest()->get(),
             'barangs' => Barang::all(),
             'projects' => Project::all(),
+            'kops' => Kop::all(),
         ])->with($data);
     }
 
@@ -72,6 +75,7 @@ class SuratJalanController extends Controller
             'su' => SuratJalan::latest()->get(),
             'barngs' => Barang::all(),
             'pros' => Project::all(),
+            'kop' =>Kop::all(),
         ])->with($data);
     }
 
@@ -169,6 +173,7 @@ class SuratJalanController extends Controller
             'surat_jalan_items' => SuratJalanItem::where('id_surat_jalan', $suratjalan->id)->get(),
             'barngs' => Barang::all(),
             'pros' => Project::all(),
+            'kops'=> Kop::all(),
         ])->with($data);
     }
 
@@ -190,9 +195,30 @@ class SuratJalanController extends Controller
      * @param  \App\Models\SuratJalan  $suratJalan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SuratJalan $suratJalan)
+    public function update(Request $request,Kop $kop)
     {
-        //
+        // $kop = Kop::all();
+        // if($request->foto != null){
+            $rules = [
+                'id' => 'required',
+                'foto' => 'image|file'
+            ] ;
+
+            // return $request;
+            
+            $validateData = $request->validate($rules);
+
+            if ($request->file('foto')) {
+                //hapus gambar yang lama
+                !is_null($kop->foto) && Storage::delete($kop->foto);
+                $validateData['foto'] = $request->file('foto')->store('kop');
+            }
+    
+            Kop::where("id", $request->id)->update( $validateData );
+    
+            alert()->success('success','Kop Surat berhasil di update');
+            return redirect("/suratjalan");
+        
     }
 
     /**

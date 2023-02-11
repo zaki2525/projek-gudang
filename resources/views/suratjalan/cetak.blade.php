@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="{{ asset('assets2/bootstrap/css/bootstrap.min.css') }}">
 </head>
 
-<body><img src="{{ asset('assets2/img/clipboard-image.png') }}">
+<body>
+    @foreach($kops as $kop)
+    <img src="{{ asset("storage/". $kop->foto) }}">
+    @endforeach
     <div class="row" style="width: 913px;">
         <div class="col">
             <div class="table-responsive" style="border-style: solid;height: 185.8px;width: 400px;border-radius: 35px;margin: 30px;">
@@ -69,8 +72,8 @@
                 <tr>
                 <td>{{ $loop->iteration }}</td> 
                 <td>{{ $item->keluar }}</td> 
-                <td>{{ $item->barang->namaBarang->unit }}</td>
-                <td>{{ $item->barang->namaBarang->nama }} </td>
+                <td>{{ $item->barang->unit }}</td>
+                <td>{{ $item->barang->nama }} </td>
                 <td>{{ $item->remark }}</td>
                 </tr>                   
                 @endforeach     

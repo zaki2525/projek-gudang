@@ -68,6 +68,10 @@ class DatabaseSeeder extends Seeder
             'nama' => 'Sentra',
         ]);
 
+        Kop::create([
+            'foto' => 'kop/surat.jpg'
+        ]);
+
 
         // Transaksi::create([
         //     'id_barang' => '1',
