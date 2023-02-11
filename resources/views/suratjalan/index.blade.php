@@ -61,7 +61,7 @@
                                             @method('put')
                                             @csrf
                                             <div class="mb-3">
-                                                <input type="text" name="id" id="id" value="{{$kop->id}}">
+                                                <input type="hidden" name="id" id="id" value="{{$kop->id}}">
                                                 <label for="image" class="form-label">Kop Surat saat ini</label>
                                                 @if ($kop->foto)
                                                     <img src="{{ asset('storage/' . $kop->foto) }}" class="img-preview img-fluid mb-3 col-sm-5">

@@ -10,7 +10,11 @@
 
 <body>
     @foreach($kops as $kop)
-    <img src="{{ asset("storage/". $kop->foto) }}">
+        @if(!$kop->foto)
+        <img src="{{ asset('storage/kop/default.png') }}">
+        @else
+        <img src="{{ asset("storage/". $kop->foto) }}">
+        @endif
     @endforeach
     <div class="row" style="width: 913px;">
         <div class="col">
