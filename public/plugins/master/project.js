@@ -47,7 +47,7 @@ $(function () {
         ]
     });
 
-    var table = $('.data-tableuser').DataTable({
+    var table1 = $('.data-tableuser').DataTable({
         processing: true,
         serverSide: true,
         ajax: "project",
@@ -140,6 +140,7 @@ $(function () {
                     $('#addUser').trigger("reset");
                     $('#modalTambahData').modal('hide');
                     table.draw();
+                    table1.draw();
                  
                 },
                 error: function (data) {
@@ -171,6 +172,7 @@ $(function () {
                             $('#addUser').trigger("reset");
                             $('#modalTambahData').modal('hide');
                             table.draw();
+                            table1.draw();
                          
                         },
                         error: function (data) {

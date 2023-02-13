@@ -49,7 +49,7 @@ $(function () {
         ]
     });
 
-    var table = $('.data-tableuser').DataTable({
+    var table1 = $('.data-tableuser').DataTable({
         processing: true,
         serverSide: true,
         ajax: "barang",
@@ -152,6 +152,7 @@ $(function () {
                     $('#addBarang').trigger("reset");
                     $('#modalTambahData').modal('hide');
                     table.draw();
+                    table1.draw();
 
                 },
                 error: function (data) {
@@ -183,6 +184,7 @@ $(function () {
                             $('#addBarang').trigger("reset");
                             $('#modalTambahData').modal('hide');
                             table.draw();
+                            table1.draw();
 
                         },
                         error: function (data) {
@@ -224,6 +226,7 @@ $(function () {
                             padding: '2em'
                         });
                         table.draw();
+                        table1.draw();
                     },
                     error: function (data) {
                         console.log('Error:', data);
