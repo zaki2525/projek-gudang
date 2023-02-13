@@ -50,6 +50,35 @@ class TransaksiController extends Controller
                 })
                 ->make(true);
         }
+
+        if ($request->ajax()) {
+
+            $datas = Transaksi::where('created_at', '>=', Carbon::today())->latest('updated_at')->with(['barang', 'dariproject', 'keproject'])->get();
+
+            return Datatables::of($datas)
+                ->addIndexColumn()
+                // ->addColumn('action', function ($row) {
+
+                //     $btn = '<button type="button" class="edit btn btn-dark btn-sm editTransaksi" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit">
+                //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                //         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                //         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                //         class="feather feather-edit">
+                //         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                //         </path>
+                //         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                //         </path>
+                //     </svg>
+                //     </button>';
+                //     return $btn;
+                // })
+                // ->rawColumns(['action'])
+                ->editColumn('created_at', function ($datas) {
+                    $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $datas->created_at)->format('d-m-Y');
+                    return $formatedDate;
+                })
+                ->make(true);
+        }
         // $category_name = '';
         $data = [
             'history' => false,
@@ -92,6 +121,35 @@ class TransaksiController extends Controller
                     return $btn;
                 })
                 ->rawColumns(['action'])
+                ->editColumn('created_at', function ($datas) {
+                    $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $datas->created_at)->format('d-m-Y');
+                    return $formatedDate;
+                })
+                ->make(true);
+        }
+
+        if ($request->ajax()) {
+
+            $datas = Transaksi::where('created_at', '>=', Carbon::today())->latest('updated_at')->with(['barang', 'dariproject', 'keproject'])->get();
+
+            return Datatables::of($datas)
+                ->addIndexColumn()
+                // ->addColumn('action', function ($row) {
+
+                //     $btn = '<button type="button" class="edit btn btn-dark btn-sm editTransaksi" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit">
+                //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                //         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                //         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                //         class="feather feather-edit">
+                //         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                //         </path>
+                //         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                //         </path>
+                //     </svg>
+                //     </button>';
+                //     return $btn;
+                // })
+                // ->rawColumns(['action'])
                 ->editColumn('created_at', function ($datas) {
                     $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $datas->created_at)->format('d-m-Y');
                     return $formatedDate;

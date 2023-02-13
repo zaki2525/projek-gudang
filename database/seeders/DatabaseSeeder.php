@@ -10,6 +10,7 @@ use App\Models\Transaksi;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\Kop;
 
 class DatabaseSeeder extends Seeder
 {
@@ -66,6 +67,10 @@ class DatabaseSeeder extends Seeder
 
         Project::create([
             'nama' => 'Sentra',
+        ]);
+
+        Kop::create([
+            'foto' => 'kop/surat.jpg'
         ]);
 
 

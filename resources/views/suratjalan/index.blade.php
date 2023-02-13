@@ -20,6 +20,13 @@
                                     <!-- <i class='bx bx-plus-medical'></i> -->
                                     Tambah Surat
                                 </button>
+                                @foreach($kops as $kop)
+                                <button type="button" class="btn btn-primary mb-1" data-toggle="modal"
+                                    data-target="#modalTambahKop{{ $kop->id }}">
+                                    <!-- <i class='bx bx-plus-medical'></i> -->
+                                    Kop Surat
+                                </button>
+                                @endforeach
                             @endif
 
                             <a href="{{ route('suratjalan.history') }}">
@@ -37,6 +44,43 @@
                             </a>
                         @endif
 
+                        @foreach($kops as $kop)
+                        <!-- MODAL TAMBAH KOP -->
+                        <div class="modal fade" id="modalTambahKop{{ $kop->id }}" tabindex="-1" aria-labelledby="modalTambahKop"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="title">Kop Surat</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/suratjalan/{{ $kop->id }}" method="post" enctype="multipart/form-data">
+                                            @method('put')
+                                            @csrf
+                                            <div class="mb-3">
+                                                <input type="hidden" name="id" id="id" value="{{$kop->id}}">
+                                                <label for="image" class="form-label">Kop Surat saat ini</label>
+                                                
+                                                    <img src="{{ asset('storage/' . $kop->foto) }}" class="img-fluid mb-3 col-sm-5">
+                                                
+                                                <label for="image1" class="form-label">Preview Kop Surat</label>
+                                                    <img class="img-preview img-fluid mb-3 col-sm-5">
+                                                
+                                                <input name="foto" class="form-control" value="{{ old('foto', $kop->foto) }}" type="file" id="image" onchange="previewImage()">      
+                                            </div>
+                                            <div class="input-group">
+                                                <button class="btn btn-success rounded me-1" type="submit">Update</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END TAMBAH KOP -->
+                        @endforeach
                         <!-- MODAL TAMBAH DATA -->
                         <div class="modal fade" id="modalTambahData" tabindex="-1" aria-labelledby="modalTambahBarang"
                             aria-hidden="true">

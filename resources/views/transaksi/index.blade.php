@@ -167,7 +167,7 @@
                         </div>
                         <!-- END TAMBAH DATA -->
                     </div>
-
+                    @if(auth()->user()->role == 'admin')
                     <div class="table-responsive mb-4 mt-4">
                         <table class="table table-hover non-hover data-table" style="width:100%">
                             <thead>
@@ -183,14 +183,34 @@
                                     <th>Ke</th>
                                     <th>Keterangan</th>
                                     <th>Remarks</th>
-                                    @if (auth()->user()->role == 'admin')
-                                        <th>Action</th>
-                                    @endif
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             
                         </table>
                     </div>
+                    @else
+                    <div class="table-responsive mb-4 mt-4">
+                        <table class="table table-hover non-hover data-tableuser" style="width:100%">
+                            <thead>
+                                <tr align="center">
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>Material Name</th>
+                                    <th>Unit</th>
+                                    <th>In</th>
+                                    <th>Out</th>
+                                    <th>Stock</th>
+                                    <th>Dari</th>
+                                    <th>Ke</th>
+                                    <th>Keterangan</th>
+                                    <th>Remarks</th>
+                                </tr>
+                            </thead>
+                            
+                        </table>
+                    </div>
+                    @endif
                 </div>
             </div>
 
