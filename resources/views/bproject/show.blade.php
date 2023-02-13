@@ -21,6 +21,7 @@
                                     <th>Nama Barang</th>
                                     <th>Stock</th>
                                     <th>Unit</th>
+                                    <th>Remark</th>
                                 </tr>
                             </thead>                            
                             <tbody>
@@ -30,6 +31,7 @@
                                 <td>{{$item->barang->nama}}</td>
                                 <td>{{$item->stock}}</td>
                                 <td>{{$item->barang->unit}}</td>
+                                <td>{{$item->remark}}</td>
                                </tr>
                                @endforeach 
                             </tbody>

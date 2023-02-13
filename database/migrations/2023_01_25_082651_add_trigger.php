@@ -22,13 +22,17 @@ return new class extends Migration
         END');
         DB::unprepared('CREATE TRIGGER keluar AFTER INSERT ON `transaksis` FOR EACH ROW
         BEGIN
-        IF NEW.dari THEN 
-            UPDATE barang_projects SET barang_projects.stock = barang_projects.stock - NEW.keluar WHERE barang_projects.id_barang = NEW.id_barang AND barang_projects.id_project = NEW.dari;                                            
-        END IF;
+        IF NEW.dari = NEW.ke THEN
+        UPDATE barang_projects SET barang_projects.stock = barang_projects.stock - NEW.keluar WHERE barang_projects.id_barang = NEW.id_barang AND barang_projects.id_project = NEW.dari;
+        ELSE 
+            IF NEW.dari THEN 
+                UPDATE barang_projects SET barang_projects.stock = barang_projects.stock - NEW.keluar WHERE barang_projects.id_barang = NEW.id_barang AND barang_projects.id_project = NEW.dari;                                            
+            END IF;
 
-        IF NEW.ke THEN
-            UPDATE barang_projects SET barang_projects.stock = barang_projects.stock + NEW.keluar WHERE barang_projects.id_barang = NEW.id_barang AND barang_projects.id_project = NEW.ke;
-        END IF;
+            IF NEW.ke THEN
+                UPDATE barang_projects SET barang_projects.stock = barang_projects.stock + NEW.keluar WHERE barang_projects.id_barang = NEW.id_barang AND barang_projects.id_project = NEW.ke;
+            END IF;
+        END IF;        
         END');
         DB::unprepared('CREATE TRIGGER masuk_update AFTER UPDATE ON `transaksis` FOR EACH ROW
         BEGIN
@@ -39,21 +43,29 @@ return new class extends Migration
         END');
         DB::unprepared('CREATE TRIGGER keluar_update AFTER UPDATE ON `transaksis` FOR EACH ROW
         BEGIN
-        IF OLD.dari THEN 
-            UPDATE barang_projects SET barang_projects.stock = barang_projects.stock + OLD.keluar WHERE barang_projects.id_barang = OLD.id_barang AND barang_projects.id_project = OLD.dari;                                            
-        END IF;
+        IF OLD.dari = OLD.ke THEN
+            UPDATE barang_projects SET barang_projects.stock = barang_projects.stock + OLD.keluar WHERE barang_projects.id_barang = OLD.id_barang AND barang_projects.id_project = OLD.dari;
+        ELSE 
+            IF OLD.dari THEN 
+                UPDATE barang_projects SET barang_projects.stock = barang_projects.stock + OLD.keluar WHERE barang_projects.id_barang = OLD.id_barang AND barang_projects.id_project = OLD.dari;                                            
+            END IF;
 
-        IF NEW.dari THEN 
-            UPDATE barang_projects SET barang_projects.stock = barang_projects.stock - NEW.keluar WHERE barang_projects.id_barang = NEW.id_barang AND barang_projects.id_project = NEW.dari;                                            
-        END IF;
+            IF OLD.ke THEN
+                UPDATE barang_projects SET barang_projects.stock = barang_projects.stock - OLD.keluar WHERE barang_projects.id_barang = OLD.id_barang AND barang_projects.id_project = OLD.ke;
+            END IF;
+        END IF; 
 
-        IF OLD.ke THEN
-            UPDATE barang_projects SET barang_projects.stock = barang_projects.stock - OLD.keluar WHERE barang_projects.id_barang = OLD.id_barang AND barang_projects.id_project = OLD.ke;
-        END IF;
+        IF NEW.dari = NEW.ke THEN
+        UPDATE barang_projects SET barang_projects.stock = barang_projects.stock - NEW.keluar WHERE barang_projects.id_barang = NEW.id_barang AND barang_projects.id_project = NEW.dari;
+        ELSE 
+            IF NEW.dari THEN 
+                UPDATE barang_projects SET barang_projects.stock = barang_projects.stock - NEW.keluar WHERE barang_projects.id_barang = NEW.id_barang AND barang_projects.id_project = NEW.dari;                                            
+            END IF;
 
-        IF NEW.ke THEN
-            UPDATE barang_projects SET barang_projects.stock = barang_projects.stock + NEW.keluar WHERE barang_projects.id_barang = NEW.id_barang AND barang_projects.id_project = NEW.ke;
-        END IF;        
+            IF NEW.ke THEN
+                UPDATE barang_projects SET barang_projects.stock = barang_projects.stock + NEW.keluar WHERE barang_projects.id_barang = NEW.id_barang AND barang_projects.id_project = NEW.ke;
+            END IF;
+        END IF; 
         END');       
     }
 

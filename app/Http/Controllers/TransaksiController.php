@@ -292,6 +292,7 @@ class TransaksiController extends Controller
                         'id_project' => $request->ke,
                         'id_barang' => $request->id_barang,
                         'stock'     => 0,
+                        'remark' => $request->remark                        
                     ];
 
                     BarangProject::create($data_barang_project_ke);
@@ -310,6 +311,7 @@ class TransaksiController extends Controller
                     'id_project' => $request->dari,
                     'id_barang' => $request->id_barang,
                     'stock'     => 0,
+                    'remark' => $request->remark
                 ];
 
                 BarangProject::create($data_barang_project_dari);
@@ -329,6 +331,7 @@ class TransaksiController extends Controller
                         'id_project' => $request->ke,
                         'id_barang' => $request->id_barang,
                         'stock'     => 0,
+                        'remark' => $request->remark                        
                     ];
 
                     BarangProject::create($data_barang_project_ke);
@@ -358,6 +361,7 @@ class TransaksiController extends Controller
                     'id_project' => $request->dari,
                     'id_barang' => $request->id_barang,
                     'stock'     => 0,
+                    'remark' => $request->remark
                 ];
                 BarangProject::create($data_barang_project_dari);
 
@@ -386,6 +390,7 @@ class TransaksiController extends Controller
                     'id_project' => $request->ke,
                     'id_barang' => $request->id_barang,
                     'stock'     => 0,
+                    'remark' => $request->remark
                 ];
 
                 BarangProject::create($data_barang_project_ke);
@@ -511,6 +516,7 @@ class TransaksiController extends Controller
                         'id_project' => $request->ke,
                         'id_barang' => $request->id_barang,
                         'stock'     => 0,
+                        'remark' => $request->remark                     
                     ];
 
                     BarangProject::create($data_barang_project_ke);
@@ -531,6 +537,7 @@ class TransaksiController extends Controller
                     'id_project' => $request->dari,
                     'id_barang' => $request->id_barang,
                     'stock'     => 0,
+                    'remark' => $request->remark
                 ];
 
                 BarangProject::create($data_barang_project_dari);
@@ -552,6 +559,7 @@ class TransaksiController extends Controller
                         'id_project' => $request->ke,
                         'id_barang' => $request->id_barang,
                         'stock'     => 0,
+                        'remark' => $request->remark                        
                     ];
 
                     BarangProject::create($data_barang_project_ke);
@@ -584,6 +592,7 @@ class TransaksiController extends Controller
                     'id_project' => $request->dari,
                     'id_barang' => $request->id_barang,
                     'stock'     => 0,
+                    'remark' => $request->remark
                 ];
                 BarangProject::create($data_barang_project_dari);
 
@@ -615,6 +624,7 @@ class TransaksiController extends Controller
                     'id_project' => $request->ke,
                     'id_barang' => $request->id_barang,
                     'stock'     => 0,
+                    'remark' => $request->remark
                 ];
 
                 BarangProject::create($data_barang_project_ke);
