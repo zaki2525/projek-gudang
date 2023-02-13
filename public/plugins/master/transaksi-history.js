@@ -52,7 +52,7 @@ $(function () {
             { data: 'keproject.nama', name: 'keproject.nama' },
             { data: 'keterangan', name: 'keterangan' },
             { data: 'remark', name: 'remark' },
-            { data: 'action', name: 'action', orderable: false, searchable: false },
+            // { data: 'action', name: 'action', orderable: false, searchable: false },
         ]
     });
 
