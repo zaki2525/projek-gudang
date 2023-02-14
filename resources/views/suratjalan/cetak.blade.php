@@ -60,7 +60,7 @@
             </div>
         </div>
     </div>
-    <div class="table-responsive" style="margin: 30px;width: 855px;text-align: center;border-style: solid;height: 700px;font-size: 18px;">
+    <div class="table-responsive" style="margin: 30px;width: 855px;text-align: left;border-style: solid;height: 700px;font-size: 18px;">
         <table class="table">
             <thead style="border-style: solid;">
                 <tr style="border-style: solid;color: var(--bs-black);">
