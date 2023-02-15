@@ -254,6 +254,7 @@
     @break
 
     @case('suratJalan')
+    <script src="{{asset('plugins/master/suratjalan.js')}}"></script>
     <script>
         // preview image
         function previewImage() {

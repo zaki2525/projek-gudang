@@ -16,7 +16,7 @@
                             @if (auth()->user()->role == 'admin')
                                 <!-- Tambah Data -->
                                 <button type="button" class="btn btn-primary mb-1" data-toggle="modal"
-                                    data-target="#modalTambahData">
+                                    data-target="#modalTambahData" id="btnShowFormMaster">
                                     <!-- <i class='bx bx-plus-medical'></i> -->
                                     Tambah Surat
                                 </button>
@@ -93,20 +93,18 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="POST" action="{{ route('suratjalan.store') }}" id="addTransaksi">
-                                            @csrf
+                                        <form id="addSuratJalan">                                          
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput4">Delivery To</label>
-                                                <input value="{{ old('delivery') }}" required name="delivery" type="text"
-                                                    required class="form-control" id="delivery">
+                                                <input type="hidden" name="id" id="id">
+                                                <input value="{{ old('delivery') }}"  name="delivery" type="text"
+                                                     class="form-control" id="delivery">
                                             </div>
-
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput4">To</label>
-                                                <input value="{{ old('kepada') }}" required name="kepada" type="text"
-                                                    required class="form-control" id="kepada">
+                                                <input value="{{ old('kepada') }}"  name="kepada" type="text"
+                                                     class="form-control" id="kepada">
                                             </div>
-
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Projek Name</label>
                                                 <select name="id_project" id="id_project" class="form-control basic">
@@ -116,7 +114,6 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-
                                             <div class="form-floating mb-3 barang-container">
                                                 <div class="row">
                                                     <div class="col">
@@ -126,7 +123,6 @@
 
                                                     </div>
                                                 </div>
-
                                                 <div class="row">
                                                     <div class="col">
                                                         <select name="id_barang[]" class="form-control id_barang basic"
@@ -147,40 +143,13 @@
                                                     <div class="col input-group">
                                                         <input value="" name="remark[]" type="text"
                                                             class="form-control" id="remark" placeholder="remark">
-                                                        <button type="" class="btn btn-primary btn-sm btn-add-barang"
+                                                        <button type="button" class="btn btn-primary btn-sm btn-add-barang"
                                                             style="border-top-left-radius:0;border-bottom-left-radius:0">Add
                                                         </button>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                                            {{-- <script>
-                                                $(document).ready(function() {
-                                                    $('#id_project').on('change', function() {
-                                                        $("#id_barang").html('');
-                                                        $.ajax({
-                                                            url: "{{ url('suratjalan/fetch') }}",
-                                                            type: "POST",
-                                                            data: {
-                                                                id_project: this.value,
-                                                                _token: '{{ csrf_token() }}'
-                                                            },
-                                                            dataType: 'json',
-                                                            success: function(result) {
-                                                                $('.id_barang').html('<option value="" selected>Select</option>');
-                                                                $.each(result.barang, function(key, value) {
-                                                                    $(".id_barang").append(
-                                                                        '<option name="id_barang" value="' + value
-                                                                        .id_barang + '">' + value.barang.nama_barang.nama +
-                                                                        '</option>');
-                                                                });
-                                                            }
-                                                        });
-                                                    });
-
-                                                });
-                                            </script> --}}
-
+                                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>                                    
                                             <script>
                                                 $('.btn-add-barang').click(function() {
                                                     // $("#id_barang").html('');
@@ -253,18 +222,18 @@
 
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput4">No SJ</label>
-                                                <input value="{{ old('no_sj') }}" required name="no_sj" type="text"
-                                                    required class="form-control" id="no_sj">
+                                                <input value="{{ old('no_sj') }}" name="no_sj" type="text"
+                                                     class="form-control" id="no_sj">
                                             </div>
 
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput4">No Mobil</label>
-                                                <input value="{{ old('no_mobil') }}" required name="no_mobil"
-                                                    type="text" required class="form-control" id="no_mobil">
+                                                <input value="{{ old('no_mobil') }}" name="no_mobil"
+                                                    type="text"  class="form-control" id="no_mobil">
                                             </div>
 
                                             <div class="input-group">
-                                                <button class="btn btn-primary">Create</button>
+                                                <input type="button" class="btn btn-primary tambah" id="btnCreate" value="Create">
                                             </div>
                                         </form>
                                     </div>
@@ -275,7 +244,7 @@
                     </div>
 
                     <div class="table-responsive mb-4 mt-4">
-                        <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
+                        <table id="html5-extension" class="table table-hover non-hover datatable" style="width:100%">
                             <thead>
                                 <tr align="center">
                                     <th>No</th>
@@ -289,7 +258,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($data as $item)
+                                {{-- @foreach ($data as $item)
                                     <tr align="center">
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->delivery }}</td>
@@ -306,7 +275,7 @@
                                                 </button>
                                             </a>
                                             <!-- EDIT DATA -->
-                                            <button type="button" class="btn btn-dark btn-sm" data-toggle="modal"
+                                            <button type="button" class="btn btn-dark btn-sm editSuratJalan" data-toggle="modal"
                                                 data-target="#modalEditData{{ $item->id }}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -417,26 +386,26 @@
                                                             </script>
                                                             <div class="form-floating mb-3">
                                                                 <label for="floatingInput4">Stock In</label>
-                                                                <input value="{{ old('masuk', $item->masuk) }}" required
-                                                                    name="masuk" type="number" required
+                                                                <input value="{{ old('masuk', $item->masuk) }}" 
+                                                                    name="masuk" type="number" 
                                                                     class="form-control" id="masuk">
                                                             </div>
                                                             <div class="form-floating mb-3">
                                                                 <label for="floatingInput5">Stock Out</label>
-                                                                <input value="{{ old('keluar', $item->keluar) }}" required
-                                                                    name="keluar" type="number" required
+                                                                <input value="{{ old('keluar', $item->keluar) }}" 
+                                                                    name="keluar" type="number" 
                                                                     class="form-control" id="keluar">
                                                             </div>
                                                             <div class="form-floating mb-3">
                                                                 <label for="floatingInput5">Keterangan</label>
                                                                 <input value="{{ old('keterangan', $item->keterangan) }}"
-                                                                    required name="keterangan" type="text" required
+                                                                     name="keterangan" type="text" 
                                                                     class="form-control" id="keterangan">
                                                             </div>
                                                             <div class="form-floating mb-3">
                                                                 <label for="floatingInput5">Remarks</label>
-                                                                <input value="{{ old('remark', $item->remark) }}" required
-                                                                    name="remark" type="text" required
+                                                                <input value="{{ old('remark', $item->remark) }}" 
+                                                                    name="remark" type="text" 
                                                                     class="form-control" id="remark">
                                                             </div>
 
@@ -448,8 +417,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- END TAMBAH DATA --> --}}
-                                @endforeach
+                                    <!-- END TAMBAH DATA -->
+                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>
