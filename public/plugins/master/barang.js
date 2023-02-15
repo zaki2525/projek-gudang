@@ -156,6 +156,15 @@ $(function () {
 
                 },
                 error: function (data) {
+                    if(data.status == 422){
+                        // var errors = JSON.parse(data.responseText);
+                        swal({
+                            title: 'Information',
+                            text: 'The nama barang has already been taken.',
+                            type: 'error',
+                            padding: '2em'
+                        });
+                    }
                     console.log('Error:', data);
                     $('#btnCreate').html('Save Changes');
                 }
@@ -188,6 +197,15 @@ $(function () {
 
                         },
                         error: function (data) {
+                            if(data.status == 422){
+                                // var errors = JSON.parse(data.responseText);
+                                swal({
+                                    title: 'Information',
+                                    text: 'The nama barang has already been taken.',
+                                    type: 'error',
+                                    padding: '2em'
+                                });
+                            }
                             console.log('Error:', data);
                             $('#btnCreate').html('Save Changes');
                         }

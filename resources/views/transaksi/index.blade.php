@@ -58,7 +58,7 @@
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Material Name</label>
-                                                <select name="id_barang" id="id_barang" class="form-control ">
+                                                <select name="id_barang" id="id_barang" class="form-control basic">
                                                     <option value="">Select</option>
                                                     @foreach ($barngs as $bar)
                                                         <option value="{{ $bar->id }}">{{ $bar->nama }}
@@ -85,7 +85,7 @@
 
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Dari</label>
-                                                <select name="dari" id="dari" class="form-control project">
+                                                <select name="dari" id="dari" class="form-control project basic">
                                                     {{-- <option value="pilih">Pilih</option> --}}
                                                     <option value="">None</option>
                                                     @foreach ($pros as $bar)
@@ -96,7 +96,7 @@
 
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Ke</label>
-                                                <select name="ke" id="ke" class="form-control project">
+                                                <select name="ke" id="ke" class="form-control project basic">
                                                     {{-- <option value="pilih">Pilih</option> --}}
                                                     <option value="">Keluar Gudang</option>
                                                     @foreach ($pros as $bar)

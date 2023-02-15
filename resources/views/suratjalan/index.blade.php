@@ -107,7 +107,7 @@
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Projek Name</label>
-                                                <select name="id_project" id="id_project" class="form-control">
+                                                <select name="id_project" id="id_project" class="form-control basic">
                                                     <option value="">Default</option>
                                                     @foreach ($projects as $project)
                                                         <option value="{{ $project->id }}">{{ $project->nama }}</option>
@@ -125,7 +125,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <select name="id_barang[]" class="form-control id_barang"
+                                                        <select name="id_barang[]" class="form-control id_barang basic"
                                                             id="id_barang">
                                                             <option>
                                                                 Select
@@ -180,7 +180,7 @@
                                                 function barang() {
                                                     return `<div class="row barang mt-2">
                                                         <div class="col">
-                                                        <select name="id_barang[]" class="form-control id_barang"
+                                                        <select name="id_barang[]" class="form-control id_barang basic"
                                                             id="id_barang">
                                                             <option>
                                                                 Select
