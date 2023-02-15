@@ -18,6 +18,7 @@
                             <thead>
                                 <tr align="center">
                                     <th>No</th>
+                                    <th>Code Project</th>
                                     <th>Nama Barang</th>
                                     <th>Stock</th>
                                     <th>Unit</th>
@@ -28,6 +29,7 @@
                                @foreach($items as $item)
                                <tr align="center">
                                 <td>{{$loop->iteration}}</td>
+                                <td>{{$item->code_project}}</td>
                                 <td>{{$item->barang->nama}}</td>
                                 <td>{{$item->stock}}</td>
                                 <td>{{$item->barang->unit}}</td>
