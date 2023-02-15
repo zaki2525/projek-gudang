@@ -97,7 +97,7 @@ $(function () {
         $('#btnCreate').val("Create");
         $('#id').val('');
         $('#addSuratJalan').trigger("reset");
-        $('#title').html("Create New Project");
+        $('#title').html("Create New Surat Jalan");
         $('#modalTambahData').modal('show');
     });
 
@@ -109,7 +109,7 @@ $(function () {
     $('body').on('click', '.editSuratJalan', function () {
         var id = $(this).data('id');
         $.get("/suratjalan/" + id + '/edit', function (data) {
-            $('#title').html("Edit");
+            $('#title').html("Edit Surat Jalan");
             $('#btnCreate').val("Update");
             $('#modalTambahData').modal('show');
             $('#id').val(data.id);
