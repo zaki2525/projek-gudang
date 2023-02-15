@@ -103,12 +103,18 @@ $(function () {
     $('#btnShowFormMaster').click(function () {
         $('#btnCreate').val("Create");
         $('#id').val('');
+        $('#id_barang').val('');
         $('#addTransaksi').trigger("reset");
         $('#title').html("Create New Transaksi");
         $('#modalTambahData').modal('show');
 
-        $('#dari').on('change', function () {
-            // $("#dari").html('');
+        $('#id_barang').on('change', function () {
+            id_barang = document.getElementById('id_barang').value;
+            // console.log(id_barang);
+        });
+
+        $('#dari').on('change', function () {  
+            // console.log(this.value);
             $.ajax({
                 url: "/transaksi/fetch",
                 type: "POST",
@@ -121,22 +127,82 @@ $(function () {
                     const selected = document.getElementById('dari').value;
                     if (selected == '') {
                         $.each(result.barang, function (key, value) {
+                            if (id_barang == value.id) {
+                                isselected = 'selected';
+                            } else {
+                                isselected = '';
+                            }
                             $("#id_barang").append(
                                 '<option name="id_barang" value="' + value
-                                    .id + '">' + value.nama +
+                                    .id + '"' + isselected + '>' + value.nama +
                                 '</option>');
                         });
                     } else {
                         $.each(result.barang, function (key, value) {
+                            if (id_barang == value.id_barang) {
+                                isselected = 'selected';
+                            } else {
+                                isselected = '';
+                            }
                             $("#id_barang").append(
                                 '<option name="id_barang" value="' + value
-                                    .id_barang + '">' + value.barang.nama +
+                                    .id_barang + '"' + isselected + '>' + value.barang.nama +
                                 '</option>');
                         });
                     }
                 }
             });
         });
+
+        // Select Option Barang 
+        $.ajax({
+            url: "/transaksi/fetch",
+            type: "POST",
+            data: {               
+            },
+            dataType: 'json',
+            success: function (result) {
+                $('#id_barang').html(
+                    '<option value="" selected>Select</option>');
+               
+                    $.each(result.barang, function (key, value) {
+                        if (id_barang == value.id) {
+                            isselected = 'selected';
+                        } else {
+                            isselected = '';
+                        }
+                        $("#id_barang").append(
+                            '<option name="id_barang" value="' + value
+                                .id + '"' + isselected + '>' + value.nama +
+                            '</option>');
+                    });
+            }
+        });
+        
+
+        // Select Option 'dari'
+        $.ajax({
+            url: "/transaksi/fetch/project",
+            type: "POST",
+            data: {                
+            },
+            dataType: 'json',
+            success: function (result) {
+                $('#dari').html('<option value="" selected>None</option>');            
+                $.each(result, function (key, value) {
+                    // if (data.dari == value.id_project) {
+                    //     isselected = 'selected';
+                    // } else {
+                    //     isselected = '';
+                    // }
+                    $("#dari").append(
+                        '<option value="' + value.id + '"'
+                        //  + isselected 
+                        + '>' + value.nama + '</option>');
+                });
+            }
+        });
+
     });
 
     /*------------------------------------------
@@ -193,6 +259,7 @@ $(function () {
                 type: "POST",
                 data: {
                     id_barang: data.id_barang,
+                    id_project: data.dari
                 },
                 dataType: 'json',
                 success: function (result) {
@@ -273,16 +340,41 @@ $(function () {
                         }
                     }
                 });
-            });
-
-
+            });    
 
             $('#title').html("Edit");
             $('#btnCreate').val("Update");
             $('#modalTambahData').modal('show');
             $('#id').val(data.id);
             // $('#tanggal').val(JSON.parse(data.created_at));
-            $('#tanggal').val(data.created_at);
+            function dateFormat(inputDate, format) {
+                //parse the input date
+                const date = new Date(inputDate);
+
+                //extract the parts of the date
+                const day = date.getDate();
+                const month = date.getMonth() + 1;
+                const year = date.getFullYear();
+
+                //replace the month
+                format = format.replace("MM", month.toString().padStart(2, "0"));
+
+                //replace the year
+                if (format.indexOf("yyyy") > -1) {
+                    format = format.replace("yyyy", year.toString());
+                } else if (format.indexOf("yy") > -1) {
+                    format = format.replace("yy", year.toString().substr(2, 2));
+                }
+
+                //replace the day
+                format = format.replace("dd", day.toString().padStart(2, "0"));
+
+                return format;
+            }
+            // var dateStr = JSON.parse(data.created_at);
+            var date = new Date(data.created_at);
+            // console.log(dateFormat(date, 'dd-MM-yyyy'))
+            $('#tanggal').val(dateFormat(date, 'yyyy-MM-dd'));
             $('#masuk').val(data.masuk);
             $('#keluar').val(data.keluar);
             $('#keterangan').val(data.keterangan);
@@ -299,30 +391,73 @@ $(function () {
     $('#btnCreate').click(function (e) {
         e.preventDefault();
         $(this).html('Sending..');
-
-        if ($('#btnCreate').val() == 'Create') {
-            $.ajax({
-                data: $('#addTransaksi').serialize(),
-                url: "/transaksi",
-                type: "POST",
-                dataType: 'json',
-                success: function (data) {
-                    swal({
-                        title: 'Information',
-                        text: "Data has been created",
-                        type: 'success',
-                        padding: '2em'
-                    });
-                    $('#addTransaksi').trigger("reset");
-                    $('#modalTambahData').modal('hide');
-                    table.draw();
-
-                },
-                error: function (data) {
-                    console.log('Error:', data);
-                    $('#btnCreate').html('Save Changes');
-                }
+        var tanggal = $('#tanggal').val();
+        var id_barang = $('#id_barang').val();
+        var masuk = $('#masuk').val();
+        var keluar = $('#keluar').val();
+        var dari = $('#dari').val();
+        var ke = $('#ke').val();
+        if (tanggal == '') {
+            swal({
+                title: 'Information',
+                text: 'Tanggal cant empty',
+                type: 'error'
             });
+        }
+        else if (id_barang == '') {
+            swal({
+                title: 'Information',
+                text: 'Material name cant empty',
+                type: 'error'
+            });
+        }
+        else if (masuk == '') {
+            swal({
+                title: 'Information',
+                text: 'Stock In cant empty',
+                type: 'error'
+            });
+        }
+        else if (keluar == '') {
+            swal({
+                title: 'Information',
+                text: 'Stock Out cant empty',
+                type: 'error'
+            });
+        } else if ($('#btnCreate').val() == 'Create') {
+            swal({
+                title: 'Are you sure?',
+                text: "Created this data?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Create',
+            }).then(function (result) {
+                if (result.value) {
+                    $.ajax({
+                        data: $('#addTransaksi').serialize(),
+                        url: "/transaksi",
+                        type: "POST",
+                        dataType: 'json',
+                        success: function (data) {
+                            swal({
+                                title: 'Information',
+                                text: "Data has been created",
+                                type: 'success',
+                                padding: '2em'
+                            });
+                            $('#addTransaksi').trigger("reset");
+                            $('#modalTambahData').modal('hide');
+                            table.draw();
+                            table1.draw();
+
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                            $('#btnCreate').html('Save Changes');
+                        }
+                    });
+                }
+            })
         } else {
             swal({
                 title: 'Are you sure?',
@@ -347,6 +482,7 @@ $(function () {
                             $('#addTransaksi').trigger("reset");
                             $('#modalTambahData').modal('hide');
                             table.draw();
+                            table1.draw();
 
                         },
                         error: function (data) {
@@ -388,6 +524,7 @@ $(function () {
                             padding: '2em'
                         });
                         table.draw();
+                        table1.draw();
                     },
                     error: function (data) {
                         console.log('Error:', data);
