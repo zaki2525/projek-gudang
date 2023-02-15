@@ -105,13 +105,13 @@
                                                 </select>
                                             </div>
 
-                                            <div class="form-floating mb-3 menu" id="code_project" style='display:none'>
+                                            <div class="form-floating mb-3 menu" id="code_project" style='display:block'>
                                                 <label for="floatingInput5">Code Projek</label>
                                                 <input value="{{ old('code_project') }}" name="code_project" type="text"
                                                     class="form-control" id="code_project_form">
                                             </div>
 
-                                            <div class="code-container">
+                                            {{-- <div class="code-container">
                                                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
                                                     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
                                                 <script>
@@ -145,7 +145,7 @@
                                                     });
                                                 </script>
 
-                                            </div>
+                                            </div> --}}
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput5">Keterangan</label>
                                                 <input id="keterangan" value="{{ old('keterangan') }}" name="keterangan" type="text"
@@ -186,7 +186,9 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            
+                            <tbody align="center">
+
+                            </tbody>
                         </table>
                     </div>
                     @else
@@ -207,7 +209,9 @@
                                     <th>Remarks</th>
                                 </tr>
                             </thead>
-                            
+                            <tbody align="center">
+
+                            </tbody>
                         </table>
                     </div>
                     @endif
