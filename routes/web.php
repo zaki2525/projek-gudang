@@ -77,6 +77,10 @@ Route::group(['middleware' => 'auth'] , function() {
     Route::resource('bproject', BprojectController::class);
 
     // Surat Jalan
+    Route::post('suratjalan/fetch/project', [SuratJalanController::class, 'project']);
+    Route::get('suratjalan/{id}/barang', [SuratJalanController::class, 'suratjalanitem']);
+    Route::get('suratjalan/barang', [SuratJalanController::class, 'barang']);
+    Route::put('suratjalan_surat/{suratjalan}', [SuratJalanController::class, 'update_surat']);
     Route::get('suratjalan/history', 'SuratJalanController@history');
     Route::get('suratjalan/cetak', 'SuratJalanController@cetak');
     Route::resource('suratjalan', SuratJalanController::class);

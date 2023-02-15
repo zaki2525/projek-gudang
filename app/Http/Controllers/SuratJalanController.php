@@ -13,7 +13,7 @@ use App\Models\Kop;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use PDF;
-
+use Yajra\DataTables\DataTables;
 
 class SuratJalanController extends Controller
 {
@@ -22,8 +22,40 @@ class SuratJalanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
+            $datas = SuratJalan::where('created_at', '>=', Carbon::today())->with(['project'])->latest()->get();
+
+            return DataTables::of($datas)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $btn = '<a href="/suratjalan/' . $row->id . '">
+                    <button type="button" class="btn btn-primary mb-1">
+                        <!-- <i class="bx bx-plus-medical"></i> -->
+                        Cetak
+                    </button>
+                    </a>';
+                    $btn = $btn . '<button type="button" class="edit btn btn-dark btn-sm editSuratJalan" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-edit">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                        </path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                        </path>
+                    </svg>
+                    </button>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->editColumn('created_at', function ($datas) {
+                    $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $datas->created_at)->format('d-m-Y');
+                    return $formatedDate;
+                })
+                ->make(true);
+        }
         // $category_name = '';
         $data = [
             'history' => false,
@@ -75,13 +107,19 @@ class SuratJalanController extends Controller
             'su' => SuratJalan::latest()->get(),
             'barngs' => Barang::all(),
             'pros' => Project::all(),
-            'kop' =>Kop::all(),
+            'kop' => Kop::all(),
         ])->with($data);
     }
 
-    public function barang(Request $request)
+    public function suratjalanitem($id)
     {
-        $data['barang'] = Barang::with(['namaBarang'])->get();
+        $data = SuratJalanItem::where('id_surat_jalan', $id)->with(['barang'])->get();
+        return response()->json($data);
+    }
+
+    public function barang()
+    {
+        $data = Barang::all();
         return response()->json($data);
     }
 
@@ -90,6 +128,12 @@ class SuratJalanController extends Controller
         $barang = new BarangProject();
         $data['barang'] = BarangProject::with(['barang', 'barang.namaBarang'])->where("id_project", 1)->get();
         // $data = $barang->get();
+        return response()->json($data);
+    }
+
+    public function project(Request $request)
+    {
+        $data = Project::get();
         return response()->json($data);
     }
 
@@ -143,11 +187,13 @@ class SuratJalanController extends Controller
                 ];
                 SuratJalanItem::create($data_surat_jalan_items);
             }
-            alert()->success('success', 'Surat Jalan berhasil di tambahkan');
-            return redirect('/suratjalan');
+            // alert()->success('success', 'Surat Jalan berhasil di tambahkan');
+            // return redirect('/suratjalan');
+            return response()->json(['success' => "Surat jalan has been created."]);
         } else {
-            alert()->error('Error', 'Surat Jalan gagal di tambahkan');
-            return redirect('/suratjalan');
+            // alert()->error('Error', 'Surat Jalan gagal di tambahkan');
+            // return redirect('/suratjalan');
+            return response()->json(['warning' => "Surat Jalan can't be created."]);
         }
     }
 
@@ -173,7 +219,7 @@ class SuratJalanController extends Controller
             'surat_jalan_items' => SuratJalanItem::where('id_surat_jalan', $suratjalan->id)->get(),
             'barngs' => Barang::all(),
             'pros' => Project::all(),
-            'kops'=> Kop::all(),
+            'kops' => Kop::all(),
         ])->with($data);
     }
 
@@ -183,9 +229,9 @@ class SuratJalanController extends Controller
      * @param  \App\Models\SuratJalan  $suratJalan
      * @return \Illuminate\Http\Response
      */
-    public function edit(SuratJalan $suratJalan)
+    public function edit(SuratJalan $suratjalan)
     {
-        //
+        return response()->json($suratjalan);
     }
 
     /**
@@ -195,31 +241,58 @@ class SuratJalanController extends Controller
      * @param  \App\Models\SuratJalan  $suratJalan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Kop $kop)
+    public function update(Request $request, Kop $kop)
     {
         // $kop = Kop::all();
         // if($request->foto != null){
-            $rules = [
-                'id' => 'required',
-                'foto' => 'image|file'
-            ] ;
+        $rules = [
+            'id' => 'required',
+            'foto' => 'image|file'
+        ];
 
-            // return $request;
-            
-            $validateData = $request->validate($rules);
+        // return $request;
 
-            if ($request->file('foto')) {
-                //hapus gambar yang lama
-                !is_null($kop->foto) && Storage::delete($kop->foto);
-                $validateData['foto'] = $request->file('foto')->store('kop');
-            }
-    
-            Kop::where("id", $request->id)->update( $validateData );
-    
-            alert()->success('success','Kop Surat berhasil di update');
-            return redirect("/suratjalan");
-        
+        $validateData = $request->validate($rules);
+
+        if ($request->file('foto')) {
+            //hapus gambar yang lama
+            !is_null($kop->foto) && Storage::delete($kop->foto);
+            $validateData['foto'] = $request->file('foto')->store('kop');
+        }
+
+        Kop::where("id", $request->id)->update($validateData);
+
+        alert()->success('success', 'Kop Surat berhasil di update');
+        return redirect("/suratjalan");
     }
+
+    public function update_surat (Request $request, SuratJalan $suratjalan)
+    {
+        $data_surat_jalan = $request->validate([
+            'id_project' => ['required'],
+            'delivery' => ['required'],
+            'kepada' => ['required'],
+            'no_sj' => ['required'],
+            'no_mobil' => ['required'],
+        ]);      
+        SuratJalanItem::where('id_surat_jalan', $suratjalan->id)->delete();
+        if ($suratjalan->update($data_surat_jalan)) {
+            foreach ($request->id_barang as $key => $id_barang) {
+                $data_surat_jalan_items = [
+                    'id_surat_jalan' => $suratjalan->id,
+                    'id_barang' => $id_barang,
+                    'id_project' => $request->id_project,
+                    'keluar' => $request->keluar[$key],
+                    'remark' => $request->remark[$key],
+                ];
+                SuratJalanItem::create($data_surat_jalan_items);
+            }            
+            return response()->json(['success' => "Surat jalan has been updated."]);
+        } else {      
+            return response()->json(['warning' => "Surat Jalan can't be updated."]);
+        }
+    }
+
 
     /**
      * Remove the specified resource from storage.
