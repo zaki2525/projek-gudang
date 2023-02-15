@@ -123,7 +123,7 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'nama' => 'required',
+            'nama' => 'required|unique:barangs',
             'unit' => 'required',
         ]);
 
@@ -201,7 +201,7 @@ class BarangController extends Controller
     public function update(Request $request, Barang $barang)
     {
         $data = $request->validate([
-            'nama' => 'required',
+            'nama' => 'required|unique:barangs',
             'unit' => 'required',
         ]);
 

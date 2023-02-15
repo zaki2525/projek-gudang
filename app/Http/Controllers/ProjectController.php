@@ -149,7 +149,7 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $data = $request->validate([
-            'nama' => 'required'   
+            'nama' => 'required|unique:projects'   
         ]);
 
         if(Project::where('id', $project->id)->update($data)){
