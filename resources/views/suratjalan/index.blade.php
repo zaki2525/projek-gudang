@@ -120,25 +120,25 @@
                                                         <label for="floatingInput6">Barang</label>
                                                     </div>
                                                     <div class="col d-flex justify-content-end ">
-
+                            
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <select name="id_barang[]" class="form-control id_barang basic"
-                                                            id="id_barang">
+                                                        <select name="id_barang[]" class="form-control id_barang"
+                                                            id="">
                                                             <option>
                                                                 Select
-                                                            </option>
+                                                            </option>  
                                                             @foreach ($barangs as $item)
                                                                 <option value="{{ $item->id }}">
                                                                     {{ $item->nama }}</option>
-                                                            @endforeach
+                                                            @endforeach                                                                                       
                                                         </select>
                                                     </div>
                                                     <div class="col-3">
                                                         <input type="number" name="keluar[]" class="form-control"
-                                                            placeholder="Qty" value="1">
+                                                            placeholder="Qty" value="">
                                                     </div>
                                                     <div class="col input-group">
                                                         <input value="" name="remark[]" type="text"

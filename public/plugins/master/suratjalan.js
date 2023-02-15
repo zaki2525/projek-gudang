@@ -147,7 +147,7 @@ $(function () {
                     if(index == 0){
                         button = `<button type="button" class="btn btn-primary btn-sm btn-add-barang"
                         style="border-top-left-radius:0;border-bottom-left-radius:0">Add
-                        </button>`;
+                    </button>`;
                     } else {
                         button = `<button type="button" class="btn btn-sm btn-danger btn-delete-barang" style="border-top-left-radius:0;border-bottom-left-radius:0"                                                            >
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
