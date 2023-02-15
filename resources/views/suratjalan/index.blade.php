@@ -51,7 +51,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="title">Kop Surat</h5>
+                                        <h5 class="modal-title" id="titlekop">Kop Surat</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -61,7 +61,7 @@
                                             @method('put')
                                             @csrf
                                             <div class="mb-3">
-                                                <input type="hidden" name="id" id="id" value="{{$kop->id}}">
+                                                <input type="hidden" name="id" value="{{$kop->id}}">
                                                 <label for="image" class="form-label">Kop Surat saat ini</label>
                                                 
                                                     <img src="{{ asset('storage/' . $kop->foto) }}" class="img-fluid mb-3 col-sm-5">
@@ -96,7 +96,7 @@
                                         <form id="addSuratJalan">                                          
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput4">Delivery To</label>
-                                                <input type="hidden" name="id" id="id">
+                                                <input type="text" hidden name="id" id="id">
                                                 <input value="{{ old('delivery') }}"  name="delivery" type="text"
                                                      class="form-control" id="delivery">
                                             </div>
@@ -200,7 +200,7 @@
                                                         <input value="" 
                                                             name="remark[]" type="text"
                                                             class="form-control" id="remark" placeholder="remark">
-                                                            <button class="btn btn-sm btn-danger btn-delete-barang" style="border-top-left-radius:0;border-bottom-left-radius:0"                                                            >
+                                                        <button class="btn btn-sm btn-danger btn-delete-barang" style="border-top-left-radius:0;border-bottom-left-radius:0"                                                            >
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -244,7 +244,7 @@
                     </div>
 
                     <div class="table-responsive mb-4 mt-4">
-                        <table id="html5-extension" class="table table-hover non-hover datatable" style="width:100%">
+                        <table class="table table-hover non-hover data-table" style="width:100%">
                             <thead>
                                 <tr align="center">
                                     <th>No</th>
