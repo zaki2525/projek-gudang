@@ -125,7 +125,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <select name="id_barang[]" class="form-control id_barang"
+                                                        <select name="id_barang[]" class="form-control id_barang basic"
                                                             id="">
                                                             <option>
                                                                 Select
@@ -138,7 +138,7 @@
                                                     </div>
                                                     <div class="col-3">
                                                         <input type="number" name="keluar[]" class="form-control"
-                                                            placeholder="Qty" value="">
+                                                            placeholder="Qty" value="0">
                                                     </div>
                                                     <div class="col input-group">
                                                         <input value="" name="remark[]" type="text"
@@ -171,10 +171,32 @@
                                                     //     }
                                                     // });
                                                     $('.barang-container').append(barang())
+                                                    $('.basic').each(function() {
+                                                            $(this).select2({
+                                                                // theme: "bootstrap-5",
+                                                                dropdownParent: $(this).parent(), // fix select2 search input focus bug
+                                                            })
+                                                        })
+                                                        $(document).on('select2:close', '.basic', function(e) {
+                                                            var evt = "scroll.select2"
+                                                            $(e.target).parents().off(evt)
+                                                            $(window).off(evt)
+                                                        })
                                                 })
 
                                                 $(document).on('click', '.btn-delete-barang', function() {
                                                     $(this).closest('.barang').remove()
+                                                    $('.basic').each(function() {
+                                                            $(this).select2({
+                                                                // theme: "bootstrap-5",
+                                                                dropdownParent: $(this).parent(), // fix select2 search input focus bug
+                                                            })
+                                                        })
+                                                        $(document).on('select2:close', '.basic', function(e) {
+                                                            var evt = "scroll.select2"
+                                                            $(e.target).parents().off(evt)
+                                                            $(window).off(evt)
+                                                        })
                                                 })
 
                                                 function barang() {
