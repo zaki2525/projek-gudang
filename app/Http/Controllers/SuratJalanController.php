@@ -73,12 +73,44 @@ class SuratJalanController extends Controller
         ])->with($data);
     }
 
-    public function history()
+    public function history(Request $request)
     {
+        if ($request->ajax()) {
+            $datas = SuratJalan::with(['project'])->latest()->get();
+
+            return DataTables::of($datas)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $btn = '<a href="/suratjalan/' . $row->id . '">
+                    <button type="button" class="btn btn-primary mb-1">
+                        <!-- <i class="bx bx-plus-medical"></i> -->
+                        Cetak
+                    </button>
+                    </a>';
+                    $btn = $btn . '<button type="button" class="edit btn btn-dark btn-sm editSuratJalan" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-edit">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                        </path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                        </path>
+                    </svg>
+                    </button>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->editColumn('created_at', function ($datas) {
+                    $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $datas->created_at)->format('d-m-Y');
+                    return $formatedDate;
+                })
+                ->make(true);
+        }
         $data = [
             'history' => true,
             'category_name' => 'suratJalan',
-            'page_name' => 'suratJalan',
+            'page_name' => 'suratJalanHistory',
             'has_scrollspy' => 1,
             'scrollspy_offset' => 100,
             'alt_menu' => 0,
