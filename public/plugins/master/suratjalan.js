@@ -141,10 +141,17 @@ $(function () {
             });
 
             // Select Barang
-            $.get("/suratjalan/"+ data.id +"/barang", function (data) {
-                $('.barang-container').html('');
-                $.each(data, function(index, valuesurat){   
-                    if(index == 0){
+            $.get("/suratjalan/" + data.id + "/barang", function (data) {
+                $('.barang-container').html(`<div class="row">
+                <div class="col">
+                    <label for="floatingInput6">Barang</label>
+                </div>
+                <div class="col d-flex justify-content-end ">
+
+                </div>
+            </div>`);
+                $.each(data, function (index, valuesurat) {
+                    if (index == 0) {
                         button = `<button type="button" class="btn btn-primary btn-sm btn-add-barang"
                         style="border-top-left-radius:0;border-bottom-left-radius:0">Add
                     </button>`;
@@ -164,19 +171,12 @@ $(function () {
                             y2="17"></line>
                         </svg>
                     </button>`;
-                    }               
-                        $('.barang-container').append(`<div class="row">
-                        <div class="col">
-                            <label for="floatingInput6">Barang</label>
-                        </div>
-                        <div class="col d-flex justify-content-end ">
-
-                        </div>
-                    </div>
-                    <div class="row">
+                    }
+                    $('.barang-container').append(`
+                    <div class="row mt-2">
                         <div class="col">
                             <select name="id_barang[]" class="form-control id_barang"
-                                id="id_barang`+ index +`">
+                                id="id_barang`+ index + `">
                                 <option>
                                     Select
                                 </option>                                                                                         
@@ -184,30 +184,30 @@ $(function () {
                         </div>
                         <div class="col-3">
                             <input type="number" name="keluar[]" class="form-control"
-                                placeholder="Qty" value="`+ valuesurat.keluar +`">
+                                placeholder="Qty" value="`+ valuesurat.keluar + `">
                         </div>
                         <div class="col input-group">
-                            <input value="`+ valuesurat.remark +`" name="remark[]" type="text"
+                            <input value="`+ valuesurat.remark + `" name="remark[]" type="text"
                                 class="form-control" id="remark" placeholder="remark">
-                            `+ button +`
+                            `+ button + `
                         </div>
-                    </div>`);     
-                    
+                    </div>`);
+
                     $.ajax({
                         url: "/suratjalan/barang",
                         type: "GET",
                         data: {
-        
+
                         },
                         dataType: 'json',
                         success: function (result) {
                             $('#id_barang' + index).html('<option value="" selected>Select</option>');
-                            $.each(result, function (key, value) {   
-                                if(valuesurat.id_barang == value.id){
+                            $.each(result, function (key, value) {
+                                if (valuesurat.id_barang == value.id) {
                                     isselected = 'selected';
                                 } else {
                                     isselected = '';
-                                }                    
+                                }
                                 $('#id_barang' + index).append('<option value="' + value.id + '"' + isselected + '>' + value.nama + '</option>');
                             });
                         }
@@ -220,8 +220,8 @@ $(function () {
                 //     });
                 // });
 
-                
-            });        
+
+            });
         })
     });
 
