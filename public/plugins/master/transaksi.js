@@ -391,7 +391,7 @@ $(function () {
     --------------------------------------------*/
     $('#btnCreate').click(function (e) {
         e.preventDefault();
-        $(this).html('Sending..');
+        // $(this).val('Sending..');
         var tanggal = $('#tanggal').val();
         var id_barang = $('#id_barang').val();
         var masuk = $('#masuk').val();
@@ -513,75 +513,75 @@ $(function () {
                 }
             })
         }
-        // else if ($('#btnCreate').val() == 'Create') {
-        //     swal({
-        //         title: 'Are you sure?',
-        //         text: "Created this data?",
-        //         type: 'warning',
-        //         showCancelButton: true,
-        //         confirmButtonText: 'Create',
-        //     }).then(function (result) {
-        //         if (result.value) {
-        //             $.ajax({
-        //                 data: $('#addTransaksi').serialize(),
-        //                 url: "/transaksi",
-        //                 type: "POST",
-        //                 dataType: 'json',
-        //                 success: function (data) {
-        //                     swal({
-        //                         title: 'Information',
-        //                         text: "Data has been created",
-        //                         type: 'success',
-        //                         padding: '2em'
-        //                     });
-        //                     $('#addTransaksi').trigger("reset");
-        //                     $('#modalTambahData').modal('hide');
-        //                     table.draw();
-        //                     table1.draw();
+        else if ($('#btnCreate').val() == 'Create') {
+            swal({
+                title: 'Are you sure?',
+                text: "Created this data?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Create',
+            }).then(function (result) {
+                if (result.value) {
+                    $.ajax({
+                        data: $('#addTransaksi').serialize(),
+                        url: "/transaksi",
+                        type: "POST",
+                        dataType: 'json',
+                        success: function (data) {
+                            swal({
+                                title: 'Information',
+                                text: "Data has been created",
+                                type: 'success',
+                                padding: '2em'
+                            });
+                            $('#addTransaksi').trigger("reset");
+                            $('#modalTambahData').modal('hide');
+                            table.draw();
+                            table1.draw();
 
-        //                 },
-        //                 error: function (data) {
-        //                     console.log('Error:', data);
-        //                     $('#btnCreate').html('Save Changes');
-        //                 }
-        //             });
-        //         }
-        //     })
-        // } else {
-        //     swal({
-        //         title: 'Are you sure?',
-        //         text: "Update this data?",
-        //         type: 'warning',
-        //         showCancelButton: true,
-        //         confirmButtonText: 'Update',
-        //     }).then(function (result) {
-        //         if (result.value) {
-        //             $.ajax({
-        //                 data: $('#addTransaksi').serialize(),
-        //                 url: "/transaksi/" + $("#id").val(),
-        //                 type: "PUT",
-        //                 dataType: 'json',
-        //                 success: function (data) {
-        //                     swal({
-        //                         title: 'Information',
-        //                         text: "Data has been updated",
-        //                         type: 'success',
-        //                         padding: '2em'
-        //                     });
-        //                     $('#addTransaksi').trigger("reset");
-        //                     $('#modalTambahData').modal('hide');
-        //                     table.draw();
-        //                     table1.draw();
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                            $('#btnCreate').html('Save Changes');
+                        }
+                    });
+                }
+            })
+        } else {
+            swal({
+                title: 'Are you sure?',
+                text: "Update this data?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Update',
+            }).then(function (result) {
+                if (result.value) {
+                    $.ajax({
+                        data: $('#addTransaksi').serialize(),
+                        url: "/transaksi/" + $("#id").val(),
+                        type: "PUT",
+                        dataType: 'json',
+                        success: function (data) {
+                            swal({
+                                title: 'Information',
+                                text: "Data has been updated",
+                                type: 'success',
+                                padding: '2em'
+                            });
+                            $('#addTransaksi').trigger("reset");
+                            $('#modalTambahData').modal('hide');
+                            table.draw();
+                            table1.draw();
 
-        //                 },
-        //                 error: function (data) {
-        //                     console.log('Error:', data);
-        //                     $('#btnCreate').html('Save Changes');
-        //                 }
-        //             });
-        //         }
-        //     });
-        // }
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                            $('#btnCreate').html('Save Changes');
+                        }
+                    });
+                }
+            });
+        }
 
     });
 
