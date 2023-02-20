@@ -105,6 +105,8 @@ $(function () {
         $('#btnCreate').val("Create");
         $('#id').val('');
         $('#id_barang').val('');
+        $('#dari').val('');
+        $('#ke').val('');
         $('#addTransaksi').trigger("reset");
         $('#title').html("Create New Transaksi");
         $('#modalTambahData').modal('show');
