@@ -72,7 +72,7 @@ table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:a
 }
 .table > thead > tr > th {
   color: #1b55e2;
-  font-weight: 700;
+  font-weight: 750;
   font-size: 13px;
   border: none;
   letter-spacing: 1px;
@@ -80,7 +80,8 @@ table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:a
 }
 .table > tbody > tr > td {
   border: none;
-  color: #888ea8;
+  font-weight: 650;
+  color: #000000;
   font-size: 13px;
   letter-spacing: 1px;
 }
