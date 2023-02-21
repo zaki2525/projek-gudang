@@ -106,7 +106,7 @@ $(function () {
             $('#title').html("Edit");
             $('#btnCreate').val("Update");
             $('#modalTambahData').modal('show');
-            $('#id').val(data.id);
+            $('#id').val(data._id);
             $('#nama').val(data.nama);
             $('#unit').val(data.unit);
         })

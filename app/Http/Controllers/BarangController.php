@@ -200,6 +200,7 @@ class BarangController extends Controller
      */
     public function update(Request $request, Barang $barang)
     {
+        // return $request->all();
         $data = $request->validate([
             'nama' => 'required|unique:barangs',
             'unit' => 'required',
