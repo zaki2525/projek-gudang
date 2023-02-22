@@ -41,37 +41,37 @@ class DatabaseSeeder extends Seeder
             'role' => 'user',
         ]);
 
-        Barang::create([
-            'nama' => 'Switch Hub HIKVISION 4 Port            ',
-            'unit' => 'unit'
-        ]);
+        // Barang::create([
+        //     'nama' => 'Switch Hub HIKVISION 4 Port            ',
+        //     'unit' => 'unit'
+        // ]);
 
-        Barang::create([
-            'nama' => 'Kamera PTZ HIKVISION Speed Dome            ',
-            'unit' => 'unit',
-        ]);
+        // Barang::create([
+        //     'nama' => 'Kamera PTZ HIKVISION Speed Dome            ',
+        //     'unit' => 'unit',
+        // ]);
 
-        Barang::create([
-            'nama' => 'Mini Display Port Adapter            ',
-            'unit' => 'pcs',
-        ]);    
+        // Barang::create([
+        //     'nama' => 'Mini Display Port Adapter            ',
+        //     'unit' => 'pcs',
+        // ]);    
 
-        Project::create([
-            'nama' => 'Sentralisasi Minning
-            ',
-        ]);
+        // Project::create([
+        //     'nama' => 'Sentralisasi Minning
+        //     ',
+        // ]);
 
-        Project::create([
-            'nama' => 'Dawuan',
-        ]);
+        // Project::create([
+        //     'nama' => 'Dawuan',
+        // ]);
 
-        Project::create([
-            'nama' => 'Sentra',
-        ]);
+        // Project::create([
+        //     'nama' => 'Sentra',
+        // ]);
 
-        Kop::create([
-            'foto' => 'kop/surat.jpg'
-        ]);
+        // Kop::create([
+        //     'foto' => 'kop/surat.jpg'
+        // ]);
 
 
         // Transaksi::create([
