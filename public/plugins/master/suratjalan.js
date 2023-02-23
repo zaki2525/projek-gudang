@@ -47,7 +47,7 @@ $(function () {
             { data: 'project.nama', name: 'project.nama' },
             { data: 'no_sj', name: 'no_sj' },
             { data: 'created_at', name: 'created_at' },
-            { data: 'no_sj', name: 'no_sj' },
+            { data: 'no_mobil', name: 'no_mobil' },
             { data: 'action', name: 'action', orderable: false, searchable: false },
         ]
     });
@@ -83,7 +83,7 @@ $(function () {
             { data: 'id_project', name: 'id_project' },
             { data: 'no_sj', name: 'no_sj' },
             { data: 'created_at', name: 'created_at' },
-            { data: 'no_sj', name: 'no_sj' },
+            { data: 'no_mobil', name: 'no_mobil' },
             // {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
