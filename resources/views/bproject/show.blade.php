@@ -20,6 +20,7 @@
                                     <th>No</th>
                                     <th>Code Project</th>
                                     <th>Nama Barang</th>
+                                    <th>In</th>
                                     <th>Stock</th>
                                     <th>Unit</th>
                                     <th>Remark</th>
