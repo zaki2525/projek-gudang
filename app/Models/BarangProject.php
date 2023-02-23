@@ -21,6 +21,14 @@ class BarangProject extends Model
     {
         return $this->belongsTo(Barang::class, 'id_barang');
     }
+    
+    public function totalBarang()
+    {
+      
+        $total = Transaksi::where('ke', $this->id_project)->where('id_barang', $this->id_barang)->sum('masuk');
+        
+        return $total;
+    }
 }
 
 

@@ -32,6 +32,7 @@
                                             <td style="color:red">{{ $loop->iteration }}</td>
                                             <td style="color:red">{{ $item->code_project }}</td>
                                             <td style="color:red">{{ $item->barang->nama }}</td>
+                                            <td style="color:red">{{ $item->totalBarang() }}</td>
                                             <td style="color:red">{{ $item->stock }}</td>
                                             <td style="color:red">{{ $item->barang->unit }}</td>
                                             <td style="color:red">{{ $item->remark }}</td>
@@ -39,6 +40,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->code_project }}</td>
                                             <td>{{ $item->barang->nama }}</td>
+                                            <td>{{ $item->totalBarang() }}</td>
                                             <td>{{ $item->stock }}</td>
                                             <td>{{ $item->barang->unit }}</td>
                                             <td>{{ $item->remark }}</td>
