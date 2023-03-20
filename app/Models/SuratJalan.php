@@ -14,12 +14,12 @@ class SuratJalan extends Model
     
     public function barang()
     {
-        return $this->belongsTo(Barang::class, 'id_barang');
+        return $this->belongsTo(Barang::class, 'id_barang')->withDefault(['unit' => '']);
     }
 
 
     public function project()
     {
-        return $this->belongsTo(Project::class, 'id_project')->withDefault('nama', 'null');
+        return $this->belongsTo(Project::class, 'id_project')->withDefault(['nama' => 'null']);
     }
 }

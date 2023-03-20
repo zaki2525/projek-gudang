@@ -142,110 +142,22 @@ $(function () {
 
             // Select Barang
             $.get("/suratjalan/" + data.id + "/barang", function (data) {
-                $('.barang-container').html(`<div class="row">
-                <div class="col">
-                    <label for="floatingInput6">Barang</label>
-                </div>
-                <div class="col d-flex justify-content-end ">
+                // $('.barang-container').html(`<div class="row">
+                // <div class="col">
+                //     <label for="floatingInput6">Barang</label>
+                // </div>
+                // <div class="col d-flex justify-content-end ">
 
-                </div>
-            </div>`);
+                // </div>
+                // </div>`);
                 $.each(data, function (index, valuesurat) {
                     if (index == 0) {
-                        button = `<button type="button" class="btn btn-primary btn-sm btn-add-barang"
+                        button = `<button type="button"
+                        class="btn btn-primary btn-sm btn-add-barang"
                         style="border-top-left-radius:0;border-bottom-left-radius:0">Add
-                    </button>`;
+                        </button>`;
                     } else {
-                        button = `<button type="button" class="btn btn-sm btn-danger btn-delete-barang" style="border-top-left-radius:0;border-bottom-left-radius:0"                                                            >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-trash-2">
-                        <polyline points="3 6 5 6 21 6"></polyline>
-                        <path
-                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                        </path>
-                        <line x1="10" y1="11" x2="10"
-                            y2="17"></line>
-                        <line x1="14" y1="11" x2="14"
-                            y2="17"></line>
-                        </svg>
-                    </button>`;
-                    }
-                    if(!valuesurat.remark){
-                        valuesurat.remark = '';
-                    }
-                    $('.barang-container').append(`
-                    <div class="row mt-2">
-                        <div class="col">
-                            <select name="id_barang[]" class="form-control id_barang"
-                                id="id_barang`+ index + `">
-                                <option>
-                                    Select
-                                </option>                                                                                         
-                            </select>
-                        </div>
-                        <div class="col-3">
-                            <input type="number" name="keluar[]" class="form-control"
-                                placeholder="Qty" value="`+ valuesurat.keluar + `">
-                        </div>
-                        <div class="col input-group">
-                            <input value="`+ valuesurat.remark + `" name="remark[]" type="text"
-                                class="form-control" id="remark" placeholder="remark">
-                            `+ button + `
-                        </div>
-                    </div>`);
-
-                    $.ajax({
-                        url: "/suratjalan/barang",
-                        type: "GET",
-                        data: {
-
-                        },
-                        dataType: 'json',
-                        success: function (result) {
-                            $('#id_barang' + index).html('<option value="" selected>Select</option>');
-                            $.each(result, function (key, value) {
-                                if (valuesurat.id_barang == value.id) {
-                                    isselected = 'selected';
-                                } else {
-                                    isselected = '';
-                                }
-                                $('#id_barang' + index).append('<option value="' + value.id + '"' + isselected + '>' + value.nama + '</option>');
-                            });
-                        }
-                    });
-                });
-                // $.get("/suratjalan/barang", function (data) {
-                //     $('#id_barang0').html('<option value="" selected>Select</option>');
-                //     $.each(data, function(value){                       
-                //         $('#id_barang0').append('<option value="' + value.id + '"' + isselected + '>' + value.nama + '</option>');
-                //     });
-                // });
-                function barang() {
-                    return `<div class="row barang mt-2">
-                        <div class="col">
-                        <select name="id_barang[]" class="form-control id_barang basic"
-                            id="id_barang">
-                            <option>
-                                Select
-                            </option>  
-                            @foreach ($barangs as $item)
-                                <option value="{{ $item->id }}">
-                                    {{ $item->nama }}</option>
-                            @endforeach
-                        
-                        </select>
-                    </div>
-                    <div class="col-3">
-                        <input type="number" name="keluar[]" class="form-control"
-                            placeholder="Qty" value="1">
-                    </div>
-                    <div class="col input-group">
-                        <input value="" 
-                            name="remark[]" type="text"
-                            class="form-control" id="remark" placeholder="remark">
-                        <button class="btn btn-sm btn-danger btn-delete-barang" style="border-top-left-radius:0;border-bottom-left-radius:0"                                                            >
+                        button = `<button class="btn btn-sm btn-danger btn-delete-barang" style="border-top-left-radius:0;border-bottom-left-radius:0"                                                            >
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -259,11 +171,61 @@ $(function () {
                             <line x1="14" y1="11" x2="14"
                                 y2="17"></line>
                             </svg>
-                        </button>   
-                    </div>                                                    
-                    </div>`
-                }
+                        </button> `;
+                    }
+                    if (!valuesurat.remark) {
+                        valuesurat.remark = '';
+                    }
+                    $('.barang-container').append(`
+                        <div class="row barang mt-2">
+                        <div class="col">
+                        <select name="id_barang[]" class="form-control "
+                        id="id_barang` + index + `">
+                        <option>
+                        Select
+                        </option>                                                                                         
+                        </select>
+                        </div>
+                        <div class="col-3">
+                        <input type="number" name="keluar[]" class="form-control"
+                        placeholder="Qty" value="` + valuesurat.keluar + `">
+                        </div>
+                        <div class="col input-group">
+                        <input value="` + valuesurat.remark + `" name="remark[]" type="text"
+                        class="form-control" id="remark" placeholder="remark">
+                        ` + button + `
+                        </div>
+                        </div>                    
+                        `);
 
+                    $.ajax({
+                        url: "/suratjalan/barang",
+                        type: "GET",
+                        data: {
+
+                        },
+                        dataType: 'json',
+                        success: function (result) {
+                            $('#id_barang' + index).html(
+                                '<option value="" selected>Select</option>'
+                            );
+                            $.each(result, function (key, value) {
+                                if (valuesurat.id_barang == value
+                                    .id) {
+                                    isselected = 'selected';
+                                } else {
+                                    isselected = '';
+                                }
+                                $('#id_barang' + index).append(
+                                    '<option value="' + value
+                                        .id + '"' +
+                                    isselected + '>' + value
+                                        .nama +
+                                    '</option>');
+                            });
+                        }
+                    });
+                });
             });
         })
     });

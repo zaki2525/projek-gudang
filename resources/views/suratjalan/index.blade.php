@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('content')
@@ -20,12 +19,12 @@
                                     <!-- <i class='bx bx-plus-medical'></i> -->
                                     Tambah Surat
                                 </button>
-                                @foreach($kops as $kop)
-                                <button type="button" class="btn btn-primary mb-1" data-toggle="modal"
-                                    data-target="#modalTambahKop{{ $kop->id }}">
-                                    <!-- <i class='bx bx-plus-medical'></i> -->
-                                    Kop Surat
-                                </button>
+                                @foreach ($kops as $kop)
+                                    <button type="button" class="btn btn-primary mb-1" data-toggle="modal"
+                                        data-target="#modalTambahKop{{ $kop->id }}">
+                                        <!-- <i class='bx bx-plus-medical'></i> -->
+                                        Kop Surat
+                                    </button>
                                 @endforeach
                             @endif
 
@@ -44,42 +43,47 @@
                             </a>
                         @endif
 
-                        @foreach($kops as $kop)
-                        <!-- MODAL TAMBAH KOP -->
-                        <div class="modal fade" id="modalTambahKop{{ $kop->id }}" tabindex="-1" aria-labelledby="modalTambahKop"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="titlekop">Kop Surat</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="/suratjalan/{{ $kop->id }}" method="post" enctype="multipart/form-data">
-                                            @method('put')
-                                            @csrf
-                                            <div class="mb-3">
-                                                <input type="hidden" name="id" value="{{$kop->id}}">
-                                                <label for="image" class="form-label">Kop Surat saat ini</label>
-                                                
-                                                    <img src="{{ asset('storage/' . $kop->foto) }}" class="img-fluid mb-3 col-sm-5">
-                                                
-                                                <label for="image1" class="form-label">Preview Kop Surat</label>
+                        @foreach ($kops as $kop)
+                            <!-- MODAL TAMBAH KOP -->
+                            <div class="modal fade" id="modalTambahKop{{ $kop->id }}" tabindex="-1"
+                                aria-labelledby="modalTambahKop" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="titlekop">Kop Surat</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/suratjalan/{{ $kop->id }}" method="post"
+                                                enctype="multipart/form-data">
+                                                @method('put')
+                                                @csrf
+                                                <div class="mb-3">
+                                                    <input type="hidden" name="id" value="{{ $kop->id }}">
+                                                    <label for="image" class="form-label">Kop Surat saat ini</label>
+
+                                                    <img src="{{ asset('storage/' . $kop->foto) }}"
+                                                        class="img-fluid mb-3 col-sm-5">
+
+                                                    <label for="image1" class="form-label">Preview Kop Surat</label>
                                                     <img class="img-preview img-fluid mb-3 col-sm-5">
-                                                
-                                                <input name="foto" class="form-control" value="{{ old('foto', $kop->foto) }}" type="file" id="image" onchange="previewImage()">      
-                                            </div>
-                                            <div class="input-group">
-                                                <button class="btn btn-success rounded me-1" type="submit">Update</button>
-                                            </div>
-                                        </form>
+
+                                                    <input name="foto" class="form-control"
+                                                        value="{{ old('foto', $kop->foto) }}" type="file" id="image"
+                                                        onchange="previewImage()">
+                                                </div>
+                                                <div class="input-group">
+                                                    <button class="btn btn-success rounded me-1"
+                                                        type="submit">Update</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- END TAMBAH KOP -->
+                            <!-- END TAMBAH KOP -->
                         @endforeach
                         <!-- MODAL TAMBAH DATA -->
                         <div class="modal fade" id="modalTambahData" tabindex="-1" aria-labelledby="modalTambahBarang"
@@ -93,17 +97,17 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="addSuratJalan">                                          
+                                        <form id="addSuratJalan">
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput4">Delivery To</label>
                                                 <input type="text" hidden name="id" id="id">
-                                                <input value="{{ old('delivery') }}"  name="delivery" type="text"
-                                                     class="form-control" id="delivery">
+                                                <input value="{{ old('delivery') }}" name="delivery" type="text"
+                                                    class="form-control" id="delivery">
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput4">To</label>
-                                                <input value="{{ old('kepada') }}"  name="kepada" type="text"
-                                                     class="form-control" id="kepada">
+                                                <input value="{{ old('kepada') }}" name="kepada" type="text"
+                                                    class="form-control" id="kepada">
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput6">Projek Name</label>
@@ -120,20 +124,20 @@
                                                         <label for="floatingInput6">Barang</label>
                                                     </div>
                                                     <div class="col d-flex justify-content-end ">
-                            
+
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <select name="id_barang[]" class="form-control id_barang basic"
+                                                        <select name="id_barang[]" class="form-control id_barang"
                                                             id="">
-                                                            <option>
+                                                            <option value="0">
                                                                 Select
-                                                            </option>  
+                                                            </option>
                                                             @foreach ($barangs as $item)
                                                                 <option value="{{ $item->id }}">
                                                                     {{ $item->nama }}</option>
-                                                            @endforeach                                                                                       
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                     <div class="col-3">
@@ -143,66 +147,49 @@
                                                     <div class="col input-group">
                                                         <input value="" name="remark[]" type="text"
                                                             class="form-control" id="remark" placeholder="remark">
-                                                        <button type="button" class="btn btn-primary btn-sm btn-add-barang"
+                                                        <button type="button"
+                                                            class="btn btn-primary btn-sm btn-add-barang"
                                                             style="border-top-left-radius:0;border-bottom-left-radius:0">Add
                                                         </button>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>                                    
-                                            <script>
-                                                $('.btn-add-barang').click(function() {
-                                                    // $("#id_barang").html('');
-                                                    // $.ajax({
-                                                    //     url: "{{ url('suratjalan/fetch') }}",
-                                                    //     type: "POST",
-                                                    //     data: {                                                          
-                                                    //         _token: '{{ csrf_token() }}'
-                                                    //     },
-                                                    //     dataType: 'json',
-                                                    //     success: function(result) {
-                                                    //         $('.id_barang').html('<option value="" selected>Select</option>');
-                                                    //         $.each(result.barang, function(key, value) {
-                                                    //             $(".id_barang").append(
-                                                    //                 '<option name="id_barang" value="' + value
-                                                    //                 .id + '">' + value.nama_barang.nama +
-                                                    //                 '</option>');
-                                                    //         });
-                                                    //     }
-                                                    // });
+                                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                                            <script>                                                
+                                                $('.btn-add-barang').click(function() {                                                    
                                                     $('.barang-container').append(barang())
                                                     $('.basic').each(function() {
-                                                            $(this).select2({
-                                                                // theme: "bootstrap-5",
-                                                                dropdownParent: $(this).parent(), // fix select2 search input focus bug
-                                                            })
+                                                        $('.basic').select2({
+                                                            // theme: "bootstrap-5",
+                                                            dropdownParent: $('.basic').parent(), // fix select2 search input focus bug
                                                         })
-                                                        $(document).on('select2:close', '.basic', function(e) {
-                                                            var evt = "scroll.select2"
-                                                            $(e.target).parents().off(evt)
-                                                            $(window).off(evt)
-                                                        })
+                                                    })
+                                                    $(document).on('select2:close', '.basic', function(e) {
+                                                        var evt = "scroll.select2"
+                                                        $(e.target).parents().off(evt)
+                                                        $(window).off(evt)
+                                                    })
                                                 })
 
                                                 $(document).on('click', '.btn-delete-barang', function() {
                                                     $(this).closest('.barang').remove()
                                                     $('.basic').each(function() {
-                                                            $(this).select2({
-                                                                // theme: "bootstrap-5",
-                                                                dropdownParent: $(this).parent(), // fix select2 search input focus bug
-                                                            })
+                                                        $('.basic').select2({
+                                                            // theme: "bootstrap-5",
+                                                            dropdownParent: $('.basic').parent(), // fix select2 search input focus bug
                                                         })
-                                                        $(document).on('select2:close', '.basic', function(e) {
-                                                            var evt = "scroll.select2"
-                                                            $(e.target).parents().off(evt)
-                                                            $(window).off(evt)
-                                                        })
+                                                    })
+                                                    $(document).on('select2:close', '.basic', function(e) {
+                                                        var evt = "scroll.select2"
+                                                        $(e.target).parents().off(evt)
+                                                        $(window).off(evt)
+                                                    })
                                                 })
 
                                                 function barang() {
                                                     return `<div class="row barang mt-2">
                                                         <div class="col">
-                                                        <select name="id_barang[]" class="form-control id_barang basic"
+                                                        <select name="id_barang[]" class="form-control id_barang"
                                                             id="id_barang">
                                                             <option>
                                                                 Select
@@ -245,17 +232,18 @@
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput4">No SJ</label>
                                                 <input value="{{ old('no_sj') }}" name="no_sj" type="text"
-                                                     class="form-control" id="no_sj">
+                                                    class="form-control" id="no_sj">
                                             </div>
 
                                             <div class="form-floating mb-3">
                                                 <label for="floatingInput4">No Mobil</label>
-                                                <input value="{{ old('no_mobil') }}" name="no_mobil"
-                                                    type="text"  class="form-control" id="no_mobil">
+                                                <input value="{{ old('no_mobil') }}" name="no_mobil" type="text"
+                                                    class="form-control" id="no_mobil">
                                             </div>
 
                                             <div class="input-group">
-                                                <input type="button" class="btn btn-primary tambah" id="btnCreate" value="Create">
+                                                <input type="button" class="btn btn-primary tambah" id="btnCreate"
+                                                    value="Create">
                                             </div>
                                         </form>
                                     </div>
@@ -330,10 +318,10 @@
                                                         </svg>
                                                     </button>
                                                 </form> --}}
-                                            <!-- END HAPUS DATA -->
-                                        </td>
-                                    </tr>
-                                    {{-- <!-- MODAL EDIT DATA -->
+                                <!-- END HAPUS DATA -->
+                                </td>
+                                </tr>
+                                {{-- <!-- MODAL EDIT DATA -->
                                     <div class="modal fade" id="modalEditData{{ $item->id }}" tabindex="-1"
                                         aria-labelledby="modalEditData" aria-hidden="true">
                                         <div class="modal-dialog">

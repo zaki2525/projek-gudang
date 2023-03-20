@@ -145,7 +145,7 @@ class SuratJalanController extends Controller
 
     public function suratjalanitem($id)
     {
-        $data = SuratJalanItem::where('id_surat_jalan', $id)->with(['barang'])->get();
+        $data = SuratJalanItem::where('id_surat_jalan', $id)->where('keluar', '>', '0')->with(['barang'])->get();
         return response()->json($data);
     }
 
@@ -248,7 +248,7 @@ class SuratJalanController extends Controller
 
         return view('suratjalan.cetak', [
             'surat_jalan' => $suratjalan,
-            'surat_jalan_items' => SuratJalanItem::where('id_surat_jalan', $suratjalan->id)->get(),
+            'surat_jalan_items' => SuratJalanItem::where('id_surat_jalan', $suratjalan->id)->where('keluar', '>', '0')->get(),
             'barngs' => Barang::all(),
             'pros' => Project::all(),
             'kops' => Kop::all(),

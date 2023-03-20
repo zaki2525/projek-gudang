@@ -11,6 +11,6 @@ class SuratJalanItem extends Model
     protected $guarded = ['id'];
 
     public function barang(){
-        return $this->belongsTo(Barang::class, 'id_barang');
+        return $this->belongsTo(Barang::class, 'id_barang')->withDefault(['unit' => '', 'nama' => '']);
     }
 }
