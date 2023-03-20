@@ -155,8 +155,8 @@
                                                 </div>
                                             </div>
                                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                                            <script>                                                
-                                                $('.btn-add-barang').click(function() {                                                    
+                                            <script>                                                                                                
+                                                $(document).on('click', '.btn-add-barang', function() {                                                 
                                                     $('.barang-container').append(barang())
                                                     $('.basic').each(function() {
                                                         $('.basic').select2({

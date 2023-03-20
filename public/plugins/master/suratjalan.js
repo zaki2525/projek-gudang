@@ -142,14 +142,14 @@ $(function () {
 
             // Select Barang
             $.get("/suratjalan/" + data.id + "/barang", function (data) {
-                // $('.barang-container').html(`<div class="row">
-                // <div class="col">
-                //     <label for="floatingInput6">Barang</label>
-                // </div>
-                // <div class="col d-flex justify-content-end ">
+                $('.barang-container').html(`<div class="row">
+                <div class="col">
+                    <label for="floatingInput6">Barang</label>
+                </div>
+                <div class="col d-flex justify-content-end ">
 
-                // </div>
-                // </div>`);
+                </div>
+                </div>`);
                 $.each(data, function (index, valuesurat) {
                     if (index == 0) {
                         button = `<button type="button"
