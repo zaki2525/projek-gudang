@@ -129,8 +129,8 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <select name="id_barang[]" class="form-control id_barang"
-                                                            id="">
+                                                        <select name="id_barang[]" class="form-control basic id_barang"
+                                                            id="id_barang0">
                                                             <option value="0">
                                                                 Select
                                                             </option>
@@ -155,31 +155,34 @@
                                                 </div>
                                             </div>
                                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                                            <script>                                                                                                
-                                                $(document).on('click', '.btn-add-barang', function() {                                                 
+                                            <script>
+                                                i = 0
+                                                $(document).on('click', '.btn-add-barang', function() {
+                                                    i = i + 1
                                                     $('.barang-container').append(barang())
-                                                    $('.basic').each(function() {
-                                                        $('.basic').select2({
+                                                    $('#id_barang'+ i +'').each(function() {
+                                                        $('#id_barang'+ i +'').select2({
                                                             // theme: "bootstrap-5",
-                                                            dropdownParent: $('.basic').parent(), // fix select2 search input focus bug
+                                                            dropdownParent: $('#id_barang'+ i +'').parent(), // fix select2 search input focus bug
                                                         })
                                                     })
-                                                    $(document).on('select2:close', '.basic', function(e) {
+                                                    $(document).on('select2:close', '#id_barang'+ i +'', function(e) {
                                                         var evt = "scroll.select2"
                                                         $(e.target).parents().off(evt)
                                                         $(window).off(evt)
                                                     })
+
                                                 })
 
                                                 $(document).on('click', '.btn-delete-barang', function() {
                                                     $(this).closest('.barang').remove()
-                                                    $('.basic').each(function() {
-                                                        $('.basic').select2({
+                                                    $('#id_barang'+ i +'').each(function() {
+                                                        $('#id_barang'+ i +'').select2({
                                                             // theme: "bootstrap-5",
-                                                            dropdownParent: $('.basic').parent(), // fix select2 search input focus bug
+                                                            dropdownParent: $('#id_barang'+ i +'').parent(), // fix select2 search input focus bug
                                                         })
-                                                    })
-                                                    $(document).on('select2:close', '.basic', function(e) {
+                                                    })                                                    
+                                                    $(document).on('select2:close', '#id_barang'+ i +'', function(e) {
                                                         var evt = "scroll.select2"
                                                         $(e.target).parents().off(evt)
                                                         $(window).off(evt)
@@ -189,8 +192,8 @@
                                                 function barang() {
                                                     return `<div class="row barang mt-2">
                                                         <div class="col">
-                                                        <select name="id_barang[]" class="form-control id_barang"
-                                                            id="id_barang">
+                                                        <select name="id_barang[]" class="form-control basic id_barang"
+                                                            id="id_barang` + i + `">
                                                             <option>
                                                                 Select
                                                             </option>  
@@ -209,7 +212,7 @@
                                                         <input value="" 
                                                             name="remark[]" type="text"
                                                             class="form-control" id="remark" placeholder="remark">
-                                                        <button class="btn btn-sm btn-danger btn-delete-barang" style="border-top-left-radius:0;border-bottom-left-radius:0"                                                            >
+                                                        <button type="button" class="btn btn-sm btn-danger btn-delete-barang" style="border-top-left-radius:0;border-bottom-left-radius:0"                                                            >
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

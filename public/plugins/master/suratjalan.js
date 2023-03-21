@@ -157,7 +157,7 @@ $(function () {
                         style="border-top-left-radius:0;border-bottom-left-radius:0">Add
                         </button>`;
                     } else {
-                        button = `<button class="btn btn-sm btn-danger btn-delete-barang" style="border-top-left-radius:0;border-bottom-left-radius:0"                                                            >
+                        button = `<button type="button" class="btn btn-sm btn-danger btn-delete-barang" style="border-top-left-radius:0;border-bottom-left-radius:0"                                                            >
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -179,8 +179,8 @@ $(function () {
                     $('.barang-container').append(`
                         <div class="row barang mt-2">
                         <div class="col">
-                        <select name="id_barang[]" class="form-control "
-                        id="id_barang` + index + `">
+                        <select name="id_barang[]" class="form-control basic"
+                        id="id_barang_edit` + index + `">
                         <option>
                         Select
                         </option>                                                                                         
@@ -206,7 +206,7 @@ $(function () {
                         },
                         dataType: 'json',
                         success: function (result) {
-                            $('#id_barang' + index).html(
+                            $('#id_barang_edit' + index).html(
                                 '<option value="" selected>Select</option>'
                             );
                             $.each(result, function (key, value) {
@@ -216,15 +216,26 @@ $(function () {
                                 } else {
                                     isselected = '';
                                 }
-                                $('#id_barang' + index).append(
+                                $('#id_barang_edit' + index).append(
                                     '<option value="' + value
                                         .id + '"' +
                                     isselected + '>' + value
                                         .nama +
                                     '</option>');
-                            });
+                                });                                
                         }
                     });
+                    $('#id_barang_edit' + index).each(function() {
+                        $('#id_barang_edit' + index).select2({
+                            // theme: "bootstrap-5",
+                            dropdownParent: $('#id_barang_edit' + index).parent(), // fix select2 search input focus bug
+                        })
+                    })
+                    $(document).on('select2:close', '#id_barang_edit' + index, function(e) {
+                        var evt = "scroll.select2"
+                        $(e.target).parents().off(evt)
+                        $(window).off(evt)
+                    })
                 });
             });
         })
