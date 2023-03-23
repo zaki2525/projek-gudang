@@ -142,14 +142,14 @@
                                                     </div>
                                                     <div class="col-3">
                                                         <input type="number" name="keluar[]" class="form-control"
-                                                            placeholder="Qty" value="0">
+                                                            placeholder="Qty" value="1">
                                                     </div>
-                                                    <div class="col input-group">
+                                                    <div class="col input-group">                                                        
                                                         <input value="" name="remark[]" type="text"
                                                             class="form-control" id="remark" placeholder="remark">
                                                         <button type="button"
                                                             class="btn btn-primary btn-sm btn-add-barang"
-                                                            style="border-top-left-radius:0;border-bottom-left-radius:0">Add
+                                                            style="border-top-left-radius:0;border-bottom-left-radius:0;height:45px">Add
                                                         </button>
                                                     </div>
                                                 </div>
@@ -161,8 +161,7 @@
                                                     i = i + 1
                                                     $('.barang-container').append(barang())
                                                     $('#id_barang'+ i +'').each(function() {
-                                                        $('#id_barang'+ i +'').select2({
-                                                            // theme: "bootstrap-5",
+                                                        $('#id_barang'+ i +'').select2({                                                            
                                                             dropdownParent: $('#id_barang'+ i +'').parent(), // fix select2 search input focus bug
                                                         })
                                                     })
@@ -177,8 +176,7 @@
                                                 $(document).on('click', '.btn-delete-barang', function() {
                                                     $(this).closest('.barang').remove()
                                                     $('#id_barang'+ i +'').each(function() {
-                                                        $('#id_barang'+ i +'').select2({
-                                                            // theme: "bootstrap-5",
+                                                        $('#id_barang'+ i +'').select2({                                                            
                                                             dropdownParent: $('#id_barang'+ i +'').parent(), // fix select2 search input focus bug
                                                         })
                                                     })                                                    
@@ -190,7 +188,7 @@
                                                 })
 
                                                 function barang() {
-                                                    return `<div class="row barang mt-2">
+                                                    return `<div class="row barang">
                                                         <div class="col">
                                                         <select name="id_barang[]" class="form-control basic id_barang"
                                                             id="id_barang` + i + `">
@@ -212,7 +210,7 @@
                                                         <input value="" 
                                                             name="remark[]" type="text"
                                                             class="form-control" id="remark" placeholder="remark">
-                                                        <button type="button" class="btn btn-sm btn-danger btn-delete-barang" style="border-top-left-radius:0;border-bottom-left-radius:0"                                                            >
+                                                        <button type="button" class="btn btn-sm btn-danger btn-delete-barang" style="border-top-left-radius:0;border-bottom-left-radius:0;height:45px"                                                            >
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

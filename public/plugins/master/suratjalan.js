@@ -154,10 +154,10 @@ $(function () {
                     if (index == 0) {
                         button = `<button type="button"
                         class="btn btn-primary btn-sm btn-add-barang"
-                        style="border-top-left-radius:0;border-bottom-left-radius:0">Add
+                        style="border-top-left-radius:0;border-bottom-left-radius:0;height:45px">Add
                         </button>`;
                     } else {
-                        button = `<button type="button" class="btn btn-sm btn-danger btn-delete-barang" style="border-top-left-radius:0;border-bottom-left-radius:0"                                                            >
+                        button = `<button type="button" class="btn btn-sm btn-danger btn-delete-barang" style="border-top-left-radius:0;border-bottom-left-radius:0;height:45px"                                                            >
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -177,7 +177,7 @@ $(function () {
                         valuesurat.remark = '';
                     }
                     $('.barang-container').append(`
-                        <div class="row barang mt-2">
+                        <div class="row barang">
                         <div class="col">
                         <select name="id_barang[]" class="form-control basic"
                         id="id_barang_edit` + index + `">
